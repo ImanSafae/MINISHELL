@@ -567,3 +567,5 @@ propriétaire-groupe-autre
 |unsigned long|4294967295||
 |long long|9223372036854775807|-9223372036854775808|
 |unsigned long long|18446744073709551615||
+
+README REDIGE PAR https://github.com/iciamyplant/Minishell
