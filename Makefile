@@ -1,4 +1,4 @@
-NAME		=	push_swap
+NAME		=	minishell
 CC			=	gcc -g
 RED			=	\033[0;31m
 CYAN		=	\033[0;36m
@@ -10,14 +10,24 @@ INC			=	-I ./libft
 LIB			=	-L ./libft -lft
 SRCS_DIR	=	src
 OBJS_DIR	=	objs
-SRCS			= builtins/env.c builtins/export.c \
+SRCS			= builtins/env.c builtins/export.c utils.c test.c \
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
+
+# IF NEEDED at 42 on MacOS10 Install :
+#  rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
+#  brew install readline
+HEADER     = -I./src -I /Users/$(USER)/.brew/opt/readline/include
+LDFLAGS    = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
+# @HOME on MacOS12 Monterey
+#HEADER      =   -I${INC_DIR} -I/usr/local/opt/readline/include
+#LDFLAGS     =   -L${SRC_DIR} -L/usr/local/opt/readline/lib
+
 
 all:	$(NAME)
 
 $(NAME):	$(LFT) $(OBJS)
-			$(CC) $(FLAGS) -o  $@ $^ $(LIB)
+			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS)
 
 $(LFT):
 			@echo
@@ -29,7 +39,7 @@ $(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 			@echo
 			@echo "$(RED)[**] Compiling $< [**]"
 			@echo "$(COLOR_OFF)"
-			$(CC) $(FLAGS) $(INC) -o $@ -c $<
+			$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $<
 
 clean:
 			@make -s $@ -C libft
