@@ -12,6 +12,7 @@
 # define RED    "\001\e[0;31m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define RESET  "\001\e[0m\002"
+
 typedef struct s_env
 {
 	/* data */
