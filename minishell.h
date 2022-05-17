@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
+/*   Updated: 2022/05/17 16:27:42 by anggonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -21,7 +33,6 @@ typedef struct s_env
 // ENV
 char	**create_env(char **envp);
 int		envlen(char **envp);
-int		ft_strlenn(char **str);
 void	rl_replace_line(const char *text, int clear_undo);
 // LEXER
 
