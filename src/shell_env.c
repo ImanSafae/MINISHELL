@@ -10,17 +10,19 @@ int	envlen(char **envp)
 	return (i);
 }
 
-char	**create_env(char **envp)
+t_list	**create_env(char **envp)
 {
-	char	**env;
+	t_list	**env;
+	t_list	*tmp;
 	int		i;
 
+	tmp = (*env);
+	env = malloc(sizeof(t_list) * envlen(envp));
 	i = 0;
-	env = malloc(sizeof(char *) * envlen(envp));
-	while (envp[i])
+	while (i < envlen(envp))
 	{
-		env[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		env[i] = envp[i];
+		tmp->content = envp[i];
+		tmp = tmp->next;
 		i++;
 	}
 	return (env);
