@@ -1,26 +1,56 @@
-FILES = 
+NAME		=	minishell
+CC			=	gcc -g
+RED			=	\033[0;31m
+CYAN		=	\033[0;36m
+COLOR_OFF	=	\033[0m\0
+YELLOW		=	\033[0;33m
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
+LFT			=	libft/libft.a
+INC			=	-I ./libft
+LIB			=	-L ./libft -lft
+SRCS_DIR	=	src
+OBJS_DIR	=	objs
+SRCS			= builtins/env.c builtins/export.c utils.c test.c \
 
-OBJS = ${FILES:.c=.o}
+OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-NAME = minishell-obama
+# IF NEEDED at 42 on MacOS10 Install :
+#  rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update
+#  brew install readline
+HEADER     = -I./src -I /Users/$(USER)/.brew/opt/readline/include
+LDFLAGS    = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
+# @HOME on MacOS12 Monterey
+#HEADER      =   -I${INC_DIR} -I/usr/local/opt/readline/include
+#LDFLAGS     =   -L${SRC_DIR} -L/usr/local/opt/readline/lib
 
-FLAGS = -Wall -Wextra -Werror
 
-%.o:	%.c
-	gcc -c ${FLAGS} -o $@ $<
+all:	$(NAME)
 
-all:	${NAME}
+$(NAME):	$(LFT) $(OBJS)
+			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS)
 
-${NAME}:${OBJS}
-	${MAKE} -C ./LIBFT bonus
-	gcc ${FLAGS} -o ${NAME} ${OBJS} LIBFT/libft.a
+$(LFT):
+			@echo
+			@make -s -C libft
+			@echo "$(CYAN)[**] LIBFT READY !"
 
-clean: 
-	rm *f ${OBJS}
+$(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+			@mkdir -p $(@D)
+			@echo
+			@echo "$(RED)[**] Compiling $< [**]"
+			@echo "$(COLOR_OFF)"
+			$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $<
 
-fclean:	clean
-	rm -f ${NAME}
+clean:
+			@make -s $@ -C libft
+			@rm -rf $(OBJS_DIR)
+			@echo "$(YELLOW)Objects Files has been removed."
 
-re:	fclean all
+fclean:		clean
+			@make -s $@ -C libft
+			@rm -rf $(NAME)
+			@echo "$(YELLOW)Binary file has been removed."
 
-.phony: all clean fclean re
+re:			fclean all
+
+.PHONY:		all clean fclean r
