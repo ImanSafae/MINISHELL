@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/17 16:27:42 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:48:47 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,8 @@
 # define YELLOW "\001\e[0;33m\002"
 # define RESET  "\001\e[0m\002"
 
-typedef struct s_env
-{
-	/* data */
-}				t_env;
-
 // ENV
-char	**create_env(char **envp);
+t_list	**create_env(char **envp);
 int		envlen(char **envp);
 void	rl_replace_line(const char *text, int clear_undo);
 // LEXER
