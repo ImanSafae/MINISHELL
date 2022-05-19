@@ -3,41 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 00:23:39 by anggonza          #+#    #+#             */
-/*   Updated: 2021/11/02 16:03:03 by anggonza         ###   ########.fr       */
+/*   Created: 2021/10/18 11:06:47 by itaouil           #+#    #+#             */
+/*   Updated: 2021/10/18 12:00:04 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
-
+static int	ft_strcmp(const char *s1, const char *s2)
 {
-	long int	i;
-	long int	num;
-	long int	neg;
+	int	i;
 
-	neg = 1;
-	num = 0;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\r'
-		|| str[i] == '\v' || str[i] == '\b' || str[i] == '\f')
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+static int	int_max_or_min(const char *str)
+{
+	if (ft_strcmp(str, "-2147483648") == 0)
+		return (INT_MIN);
+	else if (ft_strcmp(str, "2147483647") == 0)
+		return (INT_MAX);
+	else
+		return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	res;
+	int	sign;
+
+	i = 0;
+	res = 0;
+	sign = 1;
+	if ((ft_strcmp(str, "-2147483648") == 0) \
+			|| (ft_strcmp(str, "2147483647") == 0))
+		return (int_max_or_min(str));
+	while (str[i] && ((str[i] > 8 && str[i] < 14) || str[i] == ' '))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			neg = -1;
+			sign = -1;
 		i++;
 	}
-	while (str[i])
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-			num = (str[i] - 48) + (num * 10);
-		else
-			return ((int)num * neg);
+		res = res * 10;
+		res = res + (str[i] - 48);
 		i++;
 	}
-	return ((int)num * neg);
+	return (res * sign);
 }

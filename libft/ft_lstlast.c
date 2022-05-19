@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 10:46:43 by anggonza          #+#    #+#             */
-/*   Updated: 2021/11/02 13:57:02 by anggonza         ###   ########.fr       */
+/*   Created: 2021/10/18 11:09:56 by itaouil           #+#    #+#             */
+/*   Updated: 2021/10/19 21:44:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	t_list	*pointer;
+
 	if (!lst)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (!lst->next)
+	{
+		return (lst);
+	}
+	pointer = lst->next;
+	while (pointer->next != NULL)
+	{
+		pointer = pointer->next;
+	}
+	return (pointer);
 }

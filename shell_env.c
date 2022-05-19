@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell_env.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
+/*   Updated: 2022/05/19 19:45:05 by itaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	envlen(char **envp)
@@ -16,7 +28,6 @@ t_list	*create_env(char **envp)
 	t_list	*tmp;
 	int		i;
 
-	env = malloc(sizeof(t_list) * (envlen(envp) + 1));
 	i = 1;
 	env = ft_lstnew(envp[0]);
 	tmp = env;

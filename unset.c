@@ -1,37 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
+/*   Updated: 2022/05/19 19:44:57 by itaouil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	found_variable(char *env, char *var)
+static void	delete_element(void *element)
 {
-	int	len;
+	element = NULL;
+}
 
-	len = ft_strlen(var);
-	if (!ft_strncmp(env, var, len) && !ft_strncmp(env[len], '=', 1))
+static int	found_variable(t_list *element, char *variable)
+{
+	char	*_element;
+	int		len;
+
+	_element = (char *)(element->content);
+	len = ft_strlen(variable);
+	if (!ft_strncmp(_element, variable, len)
+		&& !ft_strncmp(&_element[len], "=", 1))
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
-void	remove_from_env(char ***env, int i)
+static void	remove_from_env(t_list **env, char *var)
 {
+	t_list	*tmp;
 
-}
-
-void	ft_unset(char *variable, char **env)
-{
-	int	variable_len;
-	int	i;
-
-	variable_len = ft_strlen(variable);
-	i = 0;
-	if (!variable)
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-	while (env[i])
+	tmp = (*env);
+	if (found_variable(tmp, var))
 	{
-		if (found_variable(env[i], variable) == 1)
+		(*env) = (*env)->next;
+		ft_lstdelone(tmp, &delete_element);
+		return ;
+	}
+	while (tmp->next)
+	{
+		if (found_variable(tmp->next, var))
 		{
-			remove_from_env(&env, i);
+			ft_lstdelone(tmp->next, &delete_element);
+			tmp->next = tmp->next->next;
 			return ;
 		}
-		i++;
+		else
+			tmp = tmp->next;
+	}
+}
+
+void	ft_unset(char	*variable, t_list **env)
+{
+	t_list	*tmp;
+
+	tmp = (*env);
+	while (tmp)
+	{
+		if (found_variable(tmp, variable))
+		{
+			remove_from_env(env, variable);
+			return ;
+		}
+		tmp = tmp->next;
 	}
 }

@@ -35,9 +35,13 @@ void	rl_replace_line(const char *text, int clear_undo);
 // PARSER
 
 // BUILTINS
+void	ft_unset(char	*variable, t_list **env);
 
 // EXECUTION
 
 // UTILS
+
+// TESTS (à supprimer à la fin)
+void	print_env(t_list **env);
 
 #endif

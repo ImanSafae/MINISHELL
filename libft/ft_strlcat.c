@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/06 18:51:32 by anggonza          #+#    #+#             */
-/*   Updated: 2021/11/02 16:08:33 by anggonza         ###   ########.fr       */
+/*   Created: 2021/10/18 11:13:26 by itaouil           #+#    #+#             */
+/*   Updated: 2021/10/19 17:14:14 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,35 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	n;
-	size_t	m;
-	size_t	p;
+	size_t	dst_len;
+	size_t	to_append;
+	size_t	i;
+	size_t	j;
 
-	m = 0;
-	n = ft_strlen((const char *)dst);
-	p = ft_strlen(src);
-	if (size == 0)
-		return (p);
-	while ((src[m] != '\0') && ((n + m) < (size - 1)))
+	dst_len = ft_strlen(dst);
+	to_append = size - dst_len - 1;
+	i = 0;
+	j = 0;
+	if ((size == 0) || (size <= dst_len))
+		return (size + ft_strlen(src));
+	while (dst[i])
+		i++;
+	while ((j < to_append) && src[j])
 	{
-		dst[n + m] = src[m];
-		m++;
+		dst[i] = src[j];
+		i++;
+		j++;
 	}
-	dst[n + m] = '\0';
-	if (size > n)
-		return (n + p);
-	return (size + p);
+	dst[i] = 0;
+	return ((size_t)(dst_len + ft_strlen(src)));
 }
+
+/* int main()
+{
+	char dest[30];
+	memset(dest, 0, 30);
+	char *src = (char *)"AAAAAAAAA";
+	memset(dest, 'C', 5);
+	ft_strlcat(dest, src, -1);
+	printf("%s", dest);
+} */

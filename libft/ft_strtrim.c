@@ -3,56 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/21 14:49:50 by anggonza          #+#    #+#             */
-/*   Updated: 2021/11/02 16:42:47 by anggonza         ###   ########.fr       */
+/*   Created: 2021/10/18 11:21:11 by itaouil           #+#    #+#             */
+/*   Updated: 2021/10/19 21:31:57 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_strndup(char *s, int i, int n)
+static int	char_in_set(char const c, char const *set)
 {
-	char	*str;
-	int		j;
-	int		size;
+	int	index;
 
-	if (!s)
-		return (NULL);
-	size = (ft_strlen(s) + 2) - (i - ((n + i) - ft_strlen(s)));
-	str = malloc(size);
-	s = (s + i);
-	j = 0;
-	if (!str)
-		return (NULL);
-	while (j < size - 1)
+	index = 0;
+	while (set[index])
 	{
-		str[j] = s[j];
-		j++;
+		if (set[index] == c)
+			return (1);
+		index++;
 	}
-	str[j] = 0;
-	return (str);
+	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s, char const *set)
 {
-	char	*str;
-	int		i;
-	int		j;
+	int		tab[2];
+	int		start;
+	char	*res;
 
-	if (!s1 || !set)
-		return (ft_strdup(""));
-	i = 0;
-	j = ft_strlen((const char *)s1) - 1;
-	while (ft_strchr(set, s1[i]) != NULL)
-		i++;
-	while (ft_strchr(set, s1[j]) != NULL)
-		j--;
-	if (ft_strlen(s1) <= (size_t)i)
-		return (ft_strdup(""));
-	str = ft_strndup((char *)s1, i, j - i);
-	if (!str)
+	tab[0] = 0;
+	tab[1] = 0;
+	if (!s || !set)
 		return (NULL);
-	return (str);
+	while (s[tab[0]] && (char_in_set(s[tab[0]], set) == 1))
+		tab[0]++;
+	if (!s[tab[0]])
+		return (ft_strdup(""));
+	start = tab[0];
+	tab[0] = (ft_strlen(s) - 1);
+	while (s[tab[0]] && char_in_set(s[tab[0]], set))
+		tab[0]--;
+	res = malloc(sizeof(char) * (tab[0] - start + 2));
+	if (!res)
+		return (NULL);
+	while (start <= tab[0])
+		res[tab[1]++] = s[start++];
+	res[tab[1]] = '\0';
+	return (res);
 }

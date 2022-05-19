@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 11:09:50 by itaouil           #+#    #+#             */
-/*   Updated: 2021/10/18 11:09:51 by itaouil          ###   ########.fr       */
+/*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
+/*   Updated: 2022/05/19 19:45:09 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	print_env(t_list **env)
 {
-	t_list	*pointer;
+	t_list	*tmp;
 
-	pointer = lst;
-	while (pointer != NULL)
+	tmp = (*env);
+	while (tmp)
 	{
-		f(pointer->content);
-		pointer = pointer->next;
+		printf("%s\n", (char *)tmp->content);
+		tmp = tmp->next;
 	}
 }
