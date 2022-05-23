@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/18 13:48:47 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:26:27 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # define RED    "\001\e[0;31m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define RESET  "\001\e[0m\002"
+
+typedef struct s_env
+{
+	char	*variable;
+	char	*value;
+}				t_env;
+
 
 // ENV
 t_list	*create_env(char **envp);

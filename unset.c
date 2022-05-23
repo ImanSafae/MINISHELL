@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/19 19:44:57 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:52:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_unset(char	*variable, t_list **env)
 	t_list	*tmp;
 
 	tmp = (*env);
+	if (!variable)
+		return ;
 	while (tmp)
 	{
 		if (found_variable(tmp, variable))
