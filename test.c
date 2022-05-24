@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/19 19:45:09 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/24 20:40:11 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_env(t_list **env)
 	tmp = (*env);
 	while (tmp)
 	{
-		printf("%s\n", (char *)tmp->content);
+		printf("%s=%s\n", (((t_env *)(tmp->content))->variable), (((t_env *)(tmp->content))->value));
 		tmp = tmp->next;
 	}
 }
