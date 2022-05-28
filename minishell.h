@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/28 19:13:50 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/28 20:56:22 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ void	delete_element(void *element);
 
 // BUILTINS
 void	ft_unset(char	*variable, t_list **env);
-void	ft_export(t_list **env, char *var, char **envp);
-void	print_env_in_ascii_order(char **envp);
+void	ft_export(t_list **env, char *var);
+void	print_env_in_ascii_order(t_list *env);
+void	ft_env(t_list **env);
 
 // EXECUTION
 
 // UTILS
 void	delete_element_from_list(t_list **previous, t_list **to_delete);
+t_list	*duplicate_list(t_list *list);
 
 // TESTS (à supprimer à la fin)
 void	print_env(t_list *env);

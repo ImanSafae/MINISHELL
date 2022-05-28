@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/28 19:13:06 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/28 21:03:13 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_export(t_list **env, char *var, char **envp)
+void	ft_export(t_list **env, char *var)
 {
 	if (!var)
-		print_env_in_ascii_order(envp);
+		print_env_in_ascii_order(*env);
 }

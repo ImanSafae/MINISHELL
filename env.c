@@ -6,22 +6,26 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:18 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/19 19:45:19 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/28 20:27:25 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **env)
+void	ft_env(t_list **env)
 {
-	int	i;
-	int	env_length;
+	t_list	*tmp;
 
-	i = 0;
-	env_length = envlen(env);
-	while (i < env_length)
+	tmp = (*env);
+	while (tmp)
 	{
-		ft_putstr_fd(env[i], 1);
-		i++;
+		if (((t_env *)tmp->content)->value)
+		{
+			ft_putstr_fd(((t_env *)tmp->content)->variable, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd(((t_env *)tmp->content)->value, 1);
+			ft_putchar_fd('\n', 1);
+		}
+		tmp = tmp->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_no_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/28 19:13:16 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/28 21:03:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ static t_env	*first_var_in_ascii(t_list **env)
 	return (line);
 }
 
-static t_list	*recreate_sorted_env(char **envp)
+static t_list	*recreate_sorted_env(t_list *env)
 {
 	t_list	*duplicated_env;
 	t_list	*sorted_env;
 
-	duplicated_env = create_env(envp);
+	duplicated_env = duplicate_list(env);
 	sorted_env = ft_lstnew(first_var_in_ascii(&duplicated_env));
 	while (duplicated_env)
 	{
@@ -91,12 +91,12 @@ static t_list	*recreate_sorted_env(char **envp)
 	return (sorted_env);
 }
 
-void	print_env_in_ascii_order(char **envp)
+void	print_env_in_ascii_order(t_list *env)
 {
 	t_list	*sorted_env;
 	t_list	*tmp;
 
-	sorted_env = recreate_sorted_env(envp);
+	sorted_env = recreate_sorted_env(env);
 	tmp = sorted_env;
 	while (tmp)
 	{
