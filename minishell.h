@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/27 19:52:44 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/28 19:13:50 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,11 @@ typedef struct s_env
 	char	*value;
 }				t_env;
 
-
 // ENV
 t_list	*create_env(char **envp);
 int		envlen(char **envp);
 void	rl_replace_line(const char *text, int clear_undo);
 void	delete_element(void *element);
-void	print_env_in_ascii_order(t_list *env);
-t_list	*recreate_sorted_env(char **envp);
-
 
 // LEXER
 
@@ -47,13 +43,15 @@ t_list	*recreate_sorted_env(char **envp);
 
 // BUILTINS
 void	ft_unset(char	*variable, t_list **env);
+void	ft_export(t_list **env, char *var, char **envp);
+void	print_env_in_ascii_order(char **envp);
 
 // EXECUTION
 
 // UTILS
+void	delete_element_from_list(t_list **previous, t_list **to_delete);
 
 // TESTS (à supprimer à la fin)
 void	print_env(t_list *env);
-t_env	*first_var_in_ascii(t_list **env);
 
 #endif

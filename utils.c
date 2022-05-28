@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itaouil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/28 19:15:03 by itaouil          ###   ########.fr       */
+/*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
+/*   Updated: 2022/05/28 19:13:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	delete_element_from_list(t_list **previous, t_list **to_delete)
 {
-	t_list	*env;
-	t_env	*first;
-	t_list	*sorted;
-
-	env = create_env(envp);
-	ft_export(&env, NULL, envp);
+	(*previous)->next = (*to_delete)->next;
+	ft_lstdelone((*to_delete), delete_element);
 }
