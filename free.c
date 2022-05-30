@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 16:03:50 by anggonza         ###   ########.fr       */
+/*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
+/*   Updated: 2022/05/30 15:24:42 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_element_from_list(t_list **previous, t_list **to_delete)
+void	free_list(t_list **list)
 {
-	(*previous)->next = (*to_delete)->next;
-	//ft_lstdelone((*to_delete), delete_element);
+	ft_lstclear(list, &delete_element);
 }
 
-t_list	*duplicate_list(t_list *list)
-{
-	int		size;
-	t_list	*dup;
-	t_list	*tmp;
+// void	ft_free_list(t_list **liste)
+// {
+// 	t_list	*temp;
 
-	size = ft_lstsize(list);
-	dup = NULL;
-	tmp = list;
-	while (tmp)
-	{
-		ft_lstadd_back(&dup, ft_lstnew(tmp->content));
-		tmp = tmp->next;
-	}
-	return (dup);
-}
+// 	while(*liste)
+// 	{
+// 		temp = *liste;
+// 		*liste = (*liste)->next;
+// 		free(temp);
+// 	}
+// 	liste = NULL;
+// }
