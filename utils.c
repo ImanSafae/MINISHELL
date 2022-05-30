@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/28 21:00:13 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:03:50 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	delete_element_from_list(t_list **previous, t_list **to_delete)
 {
 	(*previous)->next = (*to_delete)->next;
-	ft_lstdelone((*to_delete), delete_element);
+	//ft_lstdelone((*to_delete), delete_element);
 }
 
 t_list	*duplicate_list(t_list *list)
@@ -29,7 +29,6 @@ t_list	*duplicate_list(t_list *list)
 	tmp = list;
 	while (tmp)
 	{
-		printf("test\n");
 		ft_lstadd_back(&dup, ft_lstnew(tmp->content));
 		tmp = tmp->next;
 	}

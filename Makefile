@@ -8,10 +8,9 @@ FLAGS		=	-Wall -Wextra -Werror -g
 LFT			=	libft/libft.a
 INC			=	-I ./libft
 LIB			=	-L ./libft -lft
-SRCS_DIR	=	src
+SRCS_DIR	=	./
 OBJS_DIR	=	objs
-SRCS			= builtins/env.c builtins/export.c utils.c test.c \
-
+SRCS			= env.c export_no_args.c export.c lexer.c main.c shell_env.c test.c unset.c utils.c
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # IF NEEDED at 42 on MacOS10 Install :

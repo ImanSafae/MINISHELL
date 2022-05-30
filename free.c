@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 16:04:01 by anggonza         ###   ########.fr       */
+/*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
+/*   Updated: 2022/05/30 15:24:42 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	free_list(t_list **list)
 {
-	t_list	*env;
-	(void)argc;
-	(void)argv;
-
-	env = create_env(envp);
-	ft_export(&env, NULL, NULL);
-	// ft_env(&env);
-	// free_list(&env);
-	//ft_free_list(&env);
-	//print_env(env);
-	//system("leaks a.out");
+	ft_lstclear(list, &delete_element);
 }
+
+// void	ft_free_list(t_list **liste)
+// {
+// 	t_list	*temp;
+
+// 	while(*liste)
+// 	{
+// 		temp = *liste;
+// 		*liste = (*liste)->next;
+// 		free(temp);
+// 	}
+// 	liste = NULL;
+// }

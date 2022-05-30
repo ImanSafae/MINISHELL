@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/24 16:36:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:01:51 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_env	*add_var_to_env(char *line)
 
 	element = malloc(sizeof(t_env));
 	env_line = ft_split(line, '=');
-	element->variable = env_line[0];
-	element->value = env_line[1];
+	element->variable = ft_strdup(env_line[0]);
+	element->value = ft_strdup(env_line[1]);
 	free(env_line);
 	return (element);
 }
@@ -48,7 +48,6 @@ t_list	*create_env(char **envp)
 
 	i = 1;
 	env = ft_lstnew(add_var_to_env(envp[0]));
-	tmp = env;
 	while (i < envlen(envp))
 	{
 		ft_lstadd_back(&env, ft_lstnew(add_var_to_env(envp[i])));
