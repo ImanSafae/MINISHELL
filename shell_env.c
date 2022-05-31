@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 16:01:51 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:56:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_env	*add_var_to_env(char *line)
 	env_line = ft_split(line, '=');
 	element->variable = ft_strdup(env_line[0]);
 	element->value = ft_strdup(env_line[1]);
-	free(env_line);
+	free_tab(env_line);
 	return (element);
 }
 

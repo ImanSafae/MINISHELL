@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/30 15:00:17 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:36:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_unset(char	*variable, t_list **env);
 void	ft_export(t_list **env, char *var, char *value);
 void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
-void	ft_free_list(t_list **liste);
+//void	ft_free_list(t_list **liste);
+t_env	*new_env_entry(char *var, char *value);
 
 // EXECUTION
 
@@ -57,6 +58,8 @@ t_list	*duplicate_list(t_list *list);
 // FREE
 void	free_list(t_list **list);
 void	free_element(void *element);
+void	free_tab(char **tab);
+void	empty_env_element(void *element);
 
 // TESTS (à supprimer à la fin)
 void	print_env(t_list *env);

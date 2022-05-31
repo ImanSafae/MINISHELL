@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_no_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 16:02:54 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:26:21 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	delete_first_from_env(t_list **env, t_env **line, t_list **tmp)
 	if (ft_lstsize(*env) == 1)
 	{
 		(*line) = (t_env *)(ft_lstnew((*line))->content);
-		ft_lstclear(env, delete_element);
+		free_list(env);
+		//ft_lstclear(env, delete_element);
 	}
 	else if ((*line) == (*env)->content)
 	{
@@ -88,7 +89,7 @@ static t_list	*recreate_sorted_env(t_list *env)
 		ft_lstadd_back(&sorted_env,
 			ft_lstnew(first_var_in_ascii(&duplicated_env)));
 	}
-	ft_lstclear(&duplicated_env, &delete_element);
+	free_list(&duplicated_env);
 	return (sorted_env);
 }
 
@@ -105,5 +106,5 @@ void	print_env_in_ascii_order(t_list *env)
 		printf("\"%s\"\n", ((t_env *)(tmp->content))->value);
 		tmp = tmp->next;
 	}
-	free_list(&sorted_env);
+	//free_list(&sorted_env);
 }
