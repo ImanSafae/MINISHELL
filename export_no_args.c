@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 18:26:21 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/05/31 18:09:38 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	delete_first_from_env(t_list **env, t_env **line, t_list **tmp)
 {
 	if (ft_lstsize(*env) == 1)
 	{
+		(*line) = new_env_entry((*line)->variable, (*line)->value);
 		(*line) = (t_env *)(ft_lstnew((*line))->content);
 		free_list(env);
 		//ft_lstclear(env, delete_element);
