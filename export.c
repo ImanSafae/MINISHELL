@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 18:36:42 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/05 17:39:29 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 t_env	*new_env_entry(char *var, char *value)
 {
-	t_env	new_entry;
+	t_env	*new_entry;
 
-	new_entry.variable = var;
-	new_entry.value = value;
-	return (&new_entry);
+	new_entry = malloc(sizeof(t_env));
+	new_entry->variable = ft_strdup(var);
+	if (value)
+		new_entry->value = ft_strdup(value);
+	else
+		new_entry->value = NULL;
+	return (new_entry);
 	// ft_lstadd_back(env, ft_lstnew(&new_entry));
 }
 
@@ -30,4 +34,5 @@ void	ft_export(t_list **env, char *var, char *value)
 	{
 		ft_lstadd_back(env, ft_lstnew(new_env_entry(var, value)));
 	}
+	
 }

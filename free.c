@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/05/30 17:55:30 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/05 17:59:23 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	empty_env_element(void *element)
 
 	_element = (t_env *)element;
 	free(_element->variable);
-	free(_element->value);
+	if (_element->value)
+		free(_element->value);
 	free(_element);
 }
 

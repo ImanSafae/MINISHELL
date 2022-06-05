@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 18:04:14 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/05 18:40:04 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	env = create_env(envp);
+	//ft_export(&env, "VARTEST", NULL);
 	ft_export(&env, NULL, NULL);
-	// ft_env(&env);
+	//ft_env(&env);
 	free_list(&env);
 	system("leaks a.out");
 }
