@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/05 20:14:53 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:03:14 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	found_variable(t_list *element, char *variable)
 	char	*_element;
 	int		len;
 
-	//_element = (char *)(element->content);
 	_element = ((t_env *)(element->content))->variable;
 	len = ft_strlen(variable);
 	if (!ft_strncmp(_element, variable, len)
@@ -50,7 +49,7 @@ static void	remove_from_env(t_list **env, char *var)
 	}
 }
 
-void	ft_unset(char	*variable, t_list **env)
+void	ft_unset(char *variable, t_list **env)
 {
 	t_list	*tmp;
 

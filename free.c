@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/05 17:59:23 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:05:29 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_free_list(t_list **liste)
 {
 	t_list	*temp;
 
-	while(*liste)
+	while (*liste)
 	{
 		temp = *liste;
 		*liste = (*liste)->next;

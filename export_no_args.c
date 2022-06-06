@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/06 14:58:44 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:06:03 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	print_env(t_list *env)
 	}
 }
 
-void recreate_sorted_env(t_list *env)
+void	print_env_in_ascii_order(t_list *env)
 {
 	t_list	*duplicated_env;
 	t_list	*sorted_env;
@@ -106,24 +106,4 @@ void recreate_sorted_env(t_list *env)
 	print_env(sorted_env);
 	free_list(&duplicated_env);
 	free_list(&sorted_env);
-	//return (sorted_env);
-}
-
-void	print_env_in_ascii_order(t_list *env)
-{
-	//t_list	*sorted_env;
-	//t_list	*tmp;
-
-	recreate_sorted_env(env);
-	//tmp = sorted_env;
-	// while (tmp)
-	// {
-	// 	printf("declare -x %s", ((t_env *)(tmp->content))->variable);
-	// 	if (((t_env *)(tmp->content))->value)
-	// 		printf("=\"%s\"\n", ((t_env *)(tmp->content))->value);
-	// 	else
-	// 		printf("\n");
-	// 	tmp = tmp->next;
-	// }
-	// free_list(&sorted_env);
 }

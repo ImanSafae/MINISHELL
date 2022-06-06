@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/05 19:27:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:05:26 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*duplicate_line(t_env *line)
 	duplicate->variable = ft_strdup(line->variable);
 	if (line->value)
 		duplicate->value = ft_strdup(line->value);
-	return(duplicate);
+	return (duplicate);
 }
 
 t_list	*duplicate_list(t_list *list)
