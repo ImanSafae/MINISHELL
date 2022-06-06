@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/06 14:21:36 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:32:37 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_env
 	char	*value;
 }				t_env;
 
+typedef struct s_token
+{
+	char	c;
+	int		type;
+}				t_token;
 // ENV
 t_list	*create_env(char **envp);
 int		envlen(char **envp);
