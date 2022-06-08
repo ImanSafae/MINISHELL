@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/06 14:57:18 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/08 18:32:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*env;
 	(void)argc;
 	(void)argv;
-
+	char	*str;
+	
 	env = create_env(envp);
 	//ft_export(&env, "VARTEST", NULL);
-	ft_export(&env, NULL, NULL);
+	//ft_export(&env, NULL, NULL);
 	//ft_env(&env);
+	while (1)
+	{
+		str = readline("minishell obama is listening>");
+	}
+	free(str);
 	free_list(&env);
-	system("leaks a.out");
+	system("leaks minishell");
 }

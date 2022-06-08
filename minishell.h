@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/06 14:21:36 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/08 18:36:40 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,28 @@ typedef struct s_env
 	char	*value;
 }				t_env;
 
+typedef struct s_token
+{
+	char	c;
+	int		type;
+}				t_token;
+
+
+// ERRORS: FUNCTIONS
+# define EXIT 0
+
+// ERRORS: ERROR CODES
+# define NUM 0
+# define TOO_MANY_ARGS 1
+
 // ENV
 t_list	*create_env(char **envp);
 int		envlen(char **envp);
 void	rl_replace_line(const char *text, int clear_undo);
 void	delete_element(void *element);
+
+// ERROR
+void	send_error(int function, int error, char *arg);
 
 // LEXER
 
@@ -48,6 +65,7 @@ void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 //void	ft_free_list(t_list **liste);
 t_env	*new_env_entry(char *var, char *value);
+void	ft_pwd();
 
 // EXECUTION
 
