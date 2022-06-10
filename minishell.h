@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/08 18:36:40 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/10 20:55:09 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,31 @@ typedef struct s_env
 	char	*value;
 }				t_env;
 
+typedef struct s_lexer
+{
+	char	*data;
+	int		token;
+}				t_lexer;
+
 typedef struct s_token
 {
 	char	c;
 	int		type;
 }				t_token;
+
+// TOKENS
+# define TOKEN_DQUOTE 0
+# define TOKEN_SQUOTE 1
+# define TOKEN_PIPE 2
+# define TOKEN_DOLLAR 3
+# define TOKEN_INFILE 4
+# define TOKEN_OUTFILE 5
+# define TOKEN_SPACE 6
+# define TOKEN_HEREDOC 7
+# define TOKEN_APPEND 8
+# define TOKEN_TEXT 9
+# define TOKEN_WILDCARD 10
+# define TOKEN_FLAG 11
 
 
 // ERRORS: FUNCTIONS
@@ -55,6 +75,8 @@ void	delete_element(void *element);
 void	send_error(int function, int error, char *arg);
 
 // LEXER
+
+
 
 // PARSER
 

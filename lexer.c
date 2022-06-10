@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:18:18 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/08 18:32:59 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/10 18:38:54 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	get_size(t_list *chars)
 	}
 	return (size_tab);
 }
-
 
 // PAS ENCORE FINI
 char	**tokenisation(t_list *chars)

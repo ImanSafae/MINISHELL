@@ -10,7 +10,7 @@ INC			=	-I ./libft
 LIB			=	-L ./libft -lft
 SRCS_DIR	=	./
 OBJS_DIR	=	objs
-SRCS			= env.c exit.c export_no_args.c export.c free.c main.c pwd.c shell_env.c test.c unset.c utils.c
+SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c free.c main.c builtins/pwd.c shell_env.c test.c builtins/unset.c utils.c
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # IF NEEDED at 42 on MacOS10 Install :

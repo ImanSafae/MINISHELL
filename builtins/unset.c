@@ -6,11 +6,11 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/06 15:03:14 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/10 19:23:25 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	found_variable(t_list *element, char *variable)
 {
@@ -52,8 +52,10 @@ static void	remove_from_env(t_list **env, char *var)
 void	ft_unset(char *variable, t_list **env)
 {
 	t_list	*tmp;
+	int		found;
 
 	tmp = (*env);
+	found = 0;
 	if (!variable)
 		return ;
 	while (tmp)
@@ -61,6 +63,7 @@ void	ft_unset(char *variable, t_list **env)
 		if (found_variable(tmp, variable))
 		{
 			remove_from_env(env, variable);
+			found = 1;
 			return ;
 		}
 		tmp = tmp->next;

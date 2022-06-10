@@ -6,11 +6,11 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:18 by itaouil           #+#    #+#             */
-/*   Updated: 2022/05/30 17:56:43 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/10 18:24:25 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_env(t_list **env)
 {

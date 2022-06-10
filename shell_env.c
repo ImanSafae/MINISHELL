@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/08 16:18:53 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/10 18:35:01 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_env	*add_var_to_env(char *line)
 t_list	*create_env(char **envp)
 {
 	t_list	*env;
-	//t_list	*tmp;
 	int		i;
 
 	i = 1;
