@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/10 20:55:09 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/13 20:26:04 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,17 @@ typedef struct s_token
 # define TOKEN_TEXT 9
 # define TOKEN_WILDCARD 10
 # define TOKEN_FLAG 11
+# define TOKEN_QUOTED_TEXT 12
 
 
 // ERRORS: FUNCTIONS
-# define EXIT 0
+# define PARSING 0
+# define EXIT 1
 
 // ERRORS: ERROR CODES
 # define NUM 0
 # define TOO_MANY_ARGS 1
+# define OPEN_QUOTE 2
 
 // ENV
 t_list	*create_env(char **envp);
@@ -75,7 +78,8 @@ void	delete_element(void *element);
 void	send_error(int function, int error, char *arg);
 
 // LEXER
-
+t_list	*new_entry_with_token(int token, char *str);
+void	ft_lexer(char *arg, t_list *env);
 
 
 // PARSER
@@ -95,6 +99,7 @@ void	ft_pwd();
 void	delete_element_from_list(t_list **previous, t_list **to_delete);
 t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_line(t_env *line);
+char	*ft_strndup(char *str, int begin, int end);
 
 // FREE
 void	free_list(t_list **list);
@@ -104,5 +109,6 @@ void	empty_env_element(void *element);
 
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
+void	print_lexer_list(t_list *lexer_list);
 
 #endif

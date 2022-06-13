@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/06 15:05:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/13 20:17:33 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ t_list	*duplicate_list(t_list *list)
 		tmp = tmp->next;
 	}
 	return (dup);
+}
+
+char	*ft_strndup(char *str, int begin, int end)
+{
+	char	*ret;
+	int		i;
+
+	ret = malloc(sizeof(char) * (end - begin + 2));
+	i = 0;
+	while (ret[i])
+	{
+		ret[i] = str[begin];
+		i++;
+		begin++;
+	}
+	return (ret);
 }

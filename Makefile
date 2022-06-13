@@ -4,13 +4,13 @@ RED			=	\033[0;31m
 CYAN		=	\033[0;36m
 COLOR_OFF	=	\033[0m\0
 YELLOW		=	\033[0;33m
-FLAGS		=	-Wall -Wextra -Werror -g
+FLAGS		=	-Wall -Wextra -g
 LFT			=	libft/libft.a
 INC			=	-I ./libft
 LIB			=	-L ./libft -lft
 SRCS_DIR	=	./
 OBJS_DIR	=	objs
-SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c free.c main.c builtins/pwd.c shell_env.c test.c builtins/unset.c utils.c
+SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c error.c free.c lexer_list.c lexer_test.c main.c shell_env.c test.c utils.c 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # IF NEEDED at 42 on MacOS10 Install :
@@ -26,7 +26,7 @@ LDFLAGS    = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 all:	$(NAME)
 
 $(NAME):	$(LFT) $(OBJS)
-			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS)
+			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS) -fsanitize=address
 
 $(LFT):
 			@echo
