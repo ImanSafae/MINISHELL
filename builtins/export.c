@@ -6,11 +6,33 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/10 18:24:45 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:28:02 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
+static int	check_if_variable_exists(t_list *env, char *var, char *value)
+{
+	int		len;
+	t_env	*tmp;
+
+	len = ft_strlen(var);
+	tmp = NULL;
+	while (env)
+	{
+		tmp = ((t_env *)(env->content));
+		if (!ft_strncmp(var, tmp->variable, len) && ft_strlen(tmp->variable) == len)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(value);
+			return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
 
 t_env	*new_env_entry(char *var, char *value)
 {
@@ -31,6 +53,7 @@ void	ft_export(t_list **env, char *var, char *value)
 		print_env_in_ascii_order(*env);
 	else // car où on export avec arguments ; value peut être égale à NULL ce qui est géré dans l'autre fonction
 	{
-		ft_lstadd_back(env, ft_lstnew(new_env_entry(var, value)));
+		if (!check_if_variable_exists(*env, var, value))
+			ft_lstadd_back(env, ft_lstnew(new_env_entry(var, value)));
 	}
 }

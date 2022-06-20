@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/13 20:17:33 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:55:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ char	*ft_strndup(char *str, int begin, int end)
 		begin++;
 	}
 	return (ret);
+}
+
+int	ft_isnotspecial(char c)
+{
+	if (c == '\'' || c == '\"' || c == '>' || c == '<' || c == '$' || c == '|')
+		return (0);
+	return (1);
 }

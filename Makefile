@@ -26,7 +26,7 @@ LDFLAGS    = -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 all:	$(NAME)
 
 $(NAME):	$(LFT) $(OBJS)
-			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS) -fsanitize=address
+			$(CC) $(FLAGS) -o  $@ $^ $(LIB) $(LDFLAGS)
 
 $(LFT):
 			@echo
