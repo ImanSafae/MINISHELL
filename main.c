@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/21 19:58:52 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:10:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
+	char	*str;
+
 	(void)argc;
 	(void)argv;
-	char	*str;
-	
 	env = create_env(envp);
 	// ft_export(&env, "VARTEST", "lol");
 	// ft_export(&env, NULL, NULL);
@@ -26,10 +26,9 @@ int	main(int argc, char **argv, char **envp)
 	// ft_env(&env);
 	while (1)
 	{
-	str = readline("minishell obama is listening>");
-	ft_lexer(str, &env);
+		str = readline("minishell obama is listening > ");
+		ft_lexer(str, &env);
 	}
-	
 	free(str);
 	free_list(&env);
 	// system("leaks minishell");

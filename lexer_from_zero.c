@@ -29,18 +29,23 @@ static char	*retrieve_quoted_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
-	(*i)++;
 	tmp = NULL;
+	tmp2 = NULL;
+	(*i)++;
 	if (line[*i])
 		ret = ft_chardup(line[*i]);
+	(*i)++;
 	while (line[*i] && line[*i] != '\"')
 	{
-		tmp = ft_strdup(line);
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, tmp2);
 		(*i)++;
 		free(tmp);
+		free(tmp2);
 	}
 	if (!line[*i])
 		send_error(PARSING, OPEN_QUOTE, line);
@@ -51,18 +56,22 @@ static char	*retrieve_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
 	ret = ft_chardup(line[*i]);
 	// printf("ret = %s\n", ret);
 	tmp = NULL;
+	tmp2 = NULL;
 	(*i)++;
 	while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i]))
 	{
 		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, tmp2);
 		(*i)++;
 		free(tmp);
+		free(tmp2);
 	}
 	return (ret);
 }
@@ -92,13 +101,13 @@ static char	*retrieve_flag(char *line, int *i)
 	char	*ret;
 	char	*tmp;
 
-	ret = ft_chardup(line[*i]); // /!\ PB AVEC LE STRDUP : ca copie toute la char*
+	ret = ft_chardup(line[*i]);
 	tmp = NULL;
 	(*i)++;
 	while (line[*i] && !ft_isspace(line[*i]))
 	{
 		if (!ft_isnotspecial(line[*i]))
-			break;
+			break ;
 		tmp = ft_strdup(ret);
 		free(ret);
 		ret = ft_strjoin(tmp, &line[*i]);
