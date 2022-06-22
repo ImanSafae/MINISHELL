@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/20 13:28:02 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:58:19 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	check_if_variable_exists(t_list *env, char *var, char *value)
 {
-	int		len;
+	size_t	len;
 	t_env	*tmp;
 
 	len = ft_strlen(var);

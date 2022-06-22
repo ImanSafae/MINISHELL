@@ -38,7 +38,7 @@ static char	*retrieve_quoted_text(char *line, int *i)
 	{
 		tmp = ft_strdup(line);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
 		(*i)++;
 		free(tmp);
 	}
@@ -60,7 +60,7 @@ static char	*retrieve_text(char *line, int *i)
 	{
 		tmp = ft_strdup(ret);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
 		(*i)++;
 		free(tmp);
 	}
@@ -80,7 +80,7 @@ static char	*retrieve_variable(char *line, int *i)
 	{
 		tmp = ft_strdup(ret);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
 		free(tmp);
 		(*i)++;
 	}
@@ -101,7 +101,7 @@ static char	*retrieve_flag(char *line, int *i)
 			break;
 		tmp = ft_strdup(ret);
 		free(ret);
-		ret = ft_strjoin(tmp, &line[*i]);
+		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
 		free(tmp);
 		(*i)++;
 	}
