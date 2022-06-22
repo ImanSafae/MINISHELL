@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/20 13:55:45 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:35:06 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ typedef struct s_env
 
 typedef struct s_lexer
 {
-	char	*data;
+	char	*text;
 	int		token;
 }				t_lexer;
 
-typedef struct s_token
-{
-	char	c;
-	int		type;
-}				t_token;
+// typedef struct s_token
+// {
+// 	char	c;
+// 	int		type;
+// }				t_token;
 
 // TOKENS
 # define TOKEN_DQUOTE 0
@@ -79,7 +79,8 @@ void	send_error(int function, int error, char *arg);
 
 // LEXER
 t_list	*new_entry_with_token(int token, char *str);
-void	ft_lexer(char *arg, t_list *env);
+void	ft_lexer(char *line, t_list **env);
+void	update_lexer_list(t_list **list, char *text, int token);
 
 
 // PARSER
@@ -100,6 +101,8 @@ t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);
 int		ft_isnotspecial(char c);
+int		ft_isspace(char c);
+char	*ft_chardup(char c);
 
 // FREE
 void	free_list(t_list **list);
@@ -109,6 +112,6 @@ void	empty_env_element(void *element);
 
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
-void	print_lexer_list(t_list *lexer_list);
+void	print_lexer_list(t_list *list);
 
 #endif

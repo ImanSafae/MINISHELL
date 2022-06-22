@@ -6,7 +6,7 @@ static t_lexer	*new_token(int token, char *str)
 
 	new_entry = malloc(sizeof(t_lexer));
 	new_entry->token = token;
-	new_entry->data = str;
+	new_entry->text = str;
 	return (new_entry);
 }
 
@@ -20,11 +20,25 @@ t_list	*new_entry_with_token(int token, char *str)
 	return (new_entry);
 }
 
-void	print_lexer_list(t_list *lexer_list)
+// void	print_lexer_list(t_list *lexer_list)
+// {
+// 	while (lexer_list)
+// 	{
+// 		printf("%s\n", ((t_lexer *)(lexer_list->content))->text);
+// 		lexer_list = lexer_list->next;
+// 	}
+// }
+
+
+
+
+void	update_lexer_list(t_list **list, char *text, int token)
 {
-	while (lexer_list)
-	{
-		printf("%s\n", ((t_lexer *)(lexer_list->content))->data);
-		lexer_list = lexer_list->next;
-	}
+	t_lexer	*new_entry;
+
+	new_entry = malloc(sizeof(t_lexer));
+
+	new_entry->token = token;
+	new_entry->text = text;
+	ft_lstadd_back(list, ft_lstnew(new_entry));
 }

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/20 13:55:34 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:36:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,22 @@ int	ft_isnotspecial(char c)
 	if (c == '\'' || c == '\"' || c == '>' || c == '<' || c == '$' || c == '|')
 		return (0);
 	return (1);
+}
+
+int	ft_isspace(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\r'
+		|| c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
+
+char	*ft_chardup(char c)
+{
+	char	*ret;
+
+	ret = malloc(sizeof(char) * 2);
+	ret[0] = c;
+	ret[1] = '\0';
+	return (ret);
 }
