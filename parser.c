@@ -1,21 +1,32 @@
 #include "minishell.h"
 
-void	expansion(t_list **lexer_list)
-{
-	t_list	*tmp;
-	t_lexer	*caster;
+// void	expand_variable(char *str, t_list *env)
+// {
 
-	tmp = (*lexer_list);
-	caster = NULL;
-	while (tmp)
-	{
-		caster = (t_lexer *)(tmp->content);
-		if (caster->token == TOKEN_DQUOTE || caster->token == TOKEN_DOLLAR)
-		tmp = tmp->next;
-	}
-}
+// }
+
+// void	expansion(t_list **lexer_list, t_list *env)
+// {
+// 	t_list	*tmp;
+// 	t_lexer	*caster;
+// 	char	*expanded;
+
+// 	tmp = (*lexer_list);
+// 	caster = NULL;
+// 	expanded = NULL;
+// 	while (tmp)
+// 	{
+// 		caster = (t_lexer *)(tmp->content);
+// 		if (caster->token == TOKEN_DQUOTE || caster->token == TOKEN_DOLLAR)
+// 		{
+// 			expanded = expand_variable(caster->text, env);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+
+// }
 
 void	ft_parser(t_list **lexer_list)
 {
-
+	
 }

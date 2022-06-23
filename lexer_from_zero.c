@@ -87,8 +87,7 @@ static char	*retrieve_variable(char *line, int *i)
 
 	tmp = NULL;
 	tmp2 = NULL;
-	// if (line[*i + 1] && !ft_isspace(line[*i + 1]))
-	// 	(*i)++;
+	(*i)++;
 	ret = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && ft_isalnum(line[*i]) && !ft_isspace(line[*i]))
@@ -124,9 +123,9 @@ static char	*retrieve_text(char *line, int *i)
 		free(tmp);
 		free(tmp2);
 	}
+	(*i)--;
 	return (ret);
 }
-
 
 static char	*retrieve_flag(char *line, int *i)
 {
@@ -223,10 +222,11 @@ void	interpret_token(char *line, int token, int *i, t_list **list)
 		printf("token is flag\n");
 		content = retrieve_flag(line, i);
 	}
-	else if (token == TOKEN_PIPE || token == TOKEN_INFILE)
+	else if (token == TOKEN_PIPE)
 	{
-		printf("token is pipe or infile\n");
-		content = retrieve_text(line, i);
+		content = ft_chardup(line[*i]);
+		printf("token is pipe\n");
+		// content = retrieve_text(line, i);
 	}
 	else if (token == TOKEN_HEREDOC || token == TOKEN_APPEND)
 	{
