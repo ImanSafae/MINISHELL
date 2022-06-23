@@ -25,45 +25,57 @@ int	identify_token(char c, char next)
 	return (0);
 }
 
-static char	*retrieve_quoted_text(char *line, int *i)
+static char	*retrieve_squoted_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
-	(*i)++;
 	tmp = NULL;
+	tmp2 = NULL;
+	(*i)++;
 	if (line[*i])
 		ret = ft_chardup(line[*i]);
-	while (line[*i] && line[*i] != '\"')
+	(*i)++;
+	while (line[*i] && line[*i] != '\'')
 	{
-		tmp = ft_strdup(line);
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
 		free(ret);
-		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
+		ret = ft_strjoin(tmp, tmp2);
 		(*i)++;
 		free(tmp);
+		free(tmp2);
 	}
 	if (!line[*i])
 		send_error(PARSING, OPEN_QUOTE, line);
 	return (ret);
 }
 
-static char	*retrieve_text(char *line, int *i)
+static char	*retrieve_dquoted_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
-	ret = ft_chardup(line[*i]);
-	// printf("ret = %s\n", ret);
 	tmp = NULL;
+	tmp2 = NULL;
 	(*i)++;
-	while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i]))
+	if (line[*i])
+		ret = ft_chardup(line[*i]);
+	(*i)++;
+	while (line[*i] && line[*i] != '\"')
 	{
 		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
 		free(ret);
-		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
+		ret = ft_strjoin(tmp, tmp2);
 		(*i)++;
 		free(tmp);
+		free(tmp2);
 	}
+	if (!line[*i])
+		send_error(PARSING, OPEN_QUOTE, line);
 	return (ret);
 }
 
@@ -71,13 +83,63 @@ static char	*retrieve_variable(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = NULL;
-	if (line[*i + 1] && !ft_isspace(line[*i + 1]))
-		(*i)++;
+	tmp2 = NULL;
+	// if (line[*i + 1] && !ft_isspace(line[*i + 1]))
+	// 	(*i)++;
 	ret = ft_chardup(line[*i]);
-	while (line[*i] && ft_isalnum(line[*i]))
+	(*i)++;
+	while (line[*i] && ft_isalnum(line[*i]) && !ft_isspace(line[*i]))
 	{
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
+		free(ret);
+		ret = ft_strjoin(tmp, tmp2);
+		free(tmp);
+		free(tmp2);
+		(*i)++;
+	}
+	return (ret);
+}
+
+static char	*retrieve_text(char *line, int *i)
+{
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
+
+	ret = ft_chardup(line[*i]);
+	tmp = NULL;
+	tmp2 = NULL;
+	(*i)++;
+	while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i]))
+	{
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
+		free(ret);
+		ret = ft_strjoin(tmp, tmp2);
+		(*i)++;
+		free(tmp);
+		free(tmp2);
+	}
+	return (ret);
+}
+
+
+static char	*retrieve_flag(char *line, int *i)
+{
+	char	*ret;
+	char	*tmp;
+
+	ret = ft_chardup(line[*i]);
+	tmp = NULL;
+	(*i)++;
+	while (line[*i] && !ft_isspace(line[*i]))
+	{
+		if (!ft_isnotspecial(line[*i]))
+			break ;
 		tmp = ft_strdup(ret);
 		free(ret);
 		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
@@ -87,22 +149,43 @@ static char	*retrieve_variable(char *line, int *i)
 	return (ret);
 }
 
-static char	*retrieve_flag(char *line, int *i)
+static char	*retrieve_redirection(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
+	char	*tmp2;
 
-	ret = ft_chardup(line[*i]); // /!\ PB AVEC LE STRDUP : ca copie toute la char*
-	tmp = NULL;
+	tmp = ft_chardup(line[*i]);
+	tmp2 = ft_chardup(line[*i + 1]);
+	ret = ft_strjoin(tmp, tmp2);
 	(*i)++;
-	while (line[*i] && !ft_isspace(line[*i]))
+	return (ret);
+}
+
+static char	*retrieve_filename(char *line, int *i)
+{
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
+
+	ret = NULL;
+	tmp = NULL;
+	tmp2 = NULL;
+	while (line[*i] && ft_isspace(line[*i]))
+		(*i)++;
+	if (line[*i])
 	{
-		if (!ft_isnotspecial(line[*i]))
-			break;
+		ret = ft_chardup(line[*i]);
+		(*i)++;
+	}
+	while (line[*i] && !ft_isspace(line[*i]) && ft_isnotspecial(line[*i]))
+	{
 		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
 		free(ret);
-		ret = ft_strjoin(tmp, ft_chardup(line[*i]));
+		ret = ft_strjoin(tmp, tmp2);
 		free(tmp);
+		free(tmp2);
 		(*i)++;
 	}
 	return (ret);
@@ -111,17 +194,24 @@ static char	*retrieve_flag(char *line, int *i)
 void	interpret_token(char *line, int token, int *i, t_list **list)
 {
 	char	*content;
+	char	*tmp;
 
 	content = NULL;
+	tmp = NULL;
 	if (token == TOKEN_TEXT)
 	{
-		// printf("token is text\n");
+		printf("token is text\n");
 		content = retrieve_text(&(*line), i);
 	}
-	else if (token == TOKEN_SQUOTE || token == TOKEN_DQUOTE)
+	else if (token == TOKEN_SQUOTE)
 	{
 		printf("token is simple quote\n");
-		content = retrieve_quoted_text(line, i);
+		content = retrieve_squoted_text(line, i);
+	}
+	else if (token == TOKEN_DQUOTE)
+	{
+		printf("token is double quote\n");
+		content = retrieve_dquoted_text(line, i);
 	}
 	else if (token == TOKEN_DOLLAR)
 	{
@@ -141,8 +231,12 @@ void	interpret_token(char *line, int token, int *i, t_list **list)
 	else if (token == TOKEN_HEREDOC || token == TOKEN_APPEND)
 	{
 		printf("token is heredoc or append\n");
-		content = ft_strjoin(&line[*i], &line[*i + 1]);
-		(*i)++;
+		content = retrieve_redirection(line, i);
+	}
+	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
+	{
+		printf("token is filename\n");
+		content = retrieve_filename(line, i);
 	}
 	update_lexer_list(list, content, token);
 }
@@ -160,7 +254,6 @@ void	ft_lexer(char *line, t_list **env)
 		token = identify_token(line[i], line[i + 1]);
 		interpret_token(line, token, &i, &lexer_list);
 		i++;
-		// printf("i = %d\n", i);
 		while (ft_isspace(line[i]))
 			i++;
 	}
