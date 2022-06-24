@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/24 12:42:22 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/24 16:20:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	expand_variable(char **value, t_list **env)
+void	expand_variable(char **value, t_list **env) // pq un char **
 {
 	t_list	*tmp;
 
@@ -26,3 +26,4 @@ void	expand_variable(char **value, t_list **env)
 		tmp = tmp->next;
 	}
 }
+

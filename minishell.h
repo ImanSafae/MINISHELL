@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/24 12:42:01 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:18:53 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ typedef struct s_lexer
 	char	*text;
 	int		token;
 }				t_lexer;
+
+typedef struct s_cmd
+{
+	int		pipes;
+	char	**commands;
+	char	*infile;
+	char	*outfile;
+}				t_cmd;
 
 // typedef struct s_token
 // {
