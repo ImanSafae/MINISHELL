@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/24 12:42:01 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:49:52 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
+# include <signal.h>
 
 # define BLUE   "\001\e[0;34m\002"
 # define WHITE  "\001\e[0;37m\002"
@@ -105,6 +106,7 @@ char	*ft_strndup(char *str, int begin, int end);
 int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
 char	*ft_chardup(char c);
+void	detect_signals(void);
 
 // FREE
 void	free_list(t_list **list);
