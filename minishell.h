@@ -6,7 +6,11 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/24 17:18:53 by itaouil          ###   ########.fr       */
+=======
+/*   Updated: 2022/06/24 15:49:52 by anggonza         ###   ########.fr       */
+>>>>>>> 982f9df8d266e8c138af3a8b573c89b19f8bc5b3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
+# include <signal.h>
 
 # define BLUE   "\001\e[0;34m\002"
 # define WHITE  "\001\e[0;37m\002"
@@ -113,6 +118,7 @@ char	*ft_strndup(char *str, int begin, int end);
 int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
 char	*ft_chardup(char c);
+void	detect_signals(void);
 
 // FREE
 void	free_list(t_list **list);
