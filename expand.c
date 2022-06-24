@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 11:20:51 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/23 13:06:35 by anggonza         ###   ########.fr       */
+/*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
+/*   Updated: 2022/06/24 12:42:22 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	expand_variable(char **value, t_list **env)
 {
-	size_t			i;
+	t_list	*tmp;
 
-	i = 0;
-	if (!n)
-		return (0);
-	while ((s1[i] && s2[i]) && (i < n - 1) && (s1[i] == s2[i]))
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	tmp = *env;
+	while (tmp->next)
+	{
+		if (ft_strlen(*value) == ft_strlen(((t_env *)(tmp->content))->variable))
+			if (!ft_strncmp(*value, ((t_env *)(tmp->content))->variable,
+				ft_strlen(*value)))
+				*value = ((t_env *)(tmp->content))->value;
+		tmp = tmp->next;
+	}
 }

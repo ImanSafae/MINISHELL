@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/22 16:35:06 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/24 12:42:01 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
 
 # define BLUE   "\001\e[0;34m\002"
 # define WHITE  "\001\e[0;37m\002"
@@ -58,7 +59,6 @@ typedef struct s_lexer
 # define TOKEN_FLAG 11
 # define TOKEN_QUOTED_TEXT 12
 
-
 // ERRORS: FUNCTIONS
 # define PARSING 0
 # define EXIT 1
@@ -82,7 +82,6 @@ t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line, t_list **env);
 void	update_lexer_list(t_list **list, char *text, int token);
 
-
 // PARSER
 
 // BUILTINS
@@ -91,7 +90,10 @@ void	ft_export(t_list **env, char *var, char *value);
 void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
-void	ft_pwd();
+void	ft_pwd(void);
+
+//EXPAND
+void	expand_variable(char **value, t_list **env);
 
 // EXECUTION
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/22 18:31:04 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/24 12:35:49 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = create_env(envp);
-	// ft_export(&env, "VARTEST", "lol");
-	// ft_export(&env, NULL, NULL);
-	//ft_unset("PATH=", &env);
-	// ft_env(&env);
 	while (1)
 	{
 		str = readline("minishell obama is listening > ");
@@ -33,3 +29,9 @@ int	main(int argc, char **argv, char **envp)
 	free_list(&env);
 	// system("leaks minishell");
 }
+
+// COMMENTAIRE D'AU DESSUS
+// ft_export(&env, "VARTEST", "lol");
+	// ft_export(&env, NULL, NULL);
+	//ft_unset("PATH=", &env);
+	// ft_env(&env);

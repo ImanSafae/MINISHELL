@@ -79,7 +79,8 @@ static char	*retrieve_dquoted_text(char *line, int *i)
 	return (ret);
 }
 
-static char	*retrieve_variable(char *line, int *i)
+static char	*retrieve_variable(char *line, int *i, int single_quoted,
+		t_list **env)
 {
 	char	*ret;
 	char	*tmp;
@@ -100,6 +101,8 @@ static char	*retrieve_variable(char *line, int *i)
 		free(tmp2);
 		(*i)++;
 	}
+	if (!single_quoted)
+		expand_variable(&ret, env);
 	return (ret);
 }
 
@@ -190,13 +193,15 @@ static char	*retrieve_filename(char *line, int *i)
 	return (ret);
 }
 
-void	interpret_token(char *line, int token, int *i, t_list **list)
+void	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 {
 	char	*content;
 	char	*tmp;
+	int		single_quoted;
 
 	content = NULL;
 	tmp = NULL;
+	single_quoted = 0;
 	if (token == TOKEN_TEXT)
 	{
 		printf("token is text\n");
@@ -205,6 +210,7 @@ void	interpret_token(char *line, int token, int *i, t_list **list)
 	else if (token == TOKEN_SQUOTE)
 	{
 		printf("token is simple quote\n");
+		single_quoted = 1;
 		content = retrieve_squoted_text(line, i);
 	}
 	else if (token == TOKEN_DQUOTE)
@@ -215,7 +221,7 @@ void	interpret_token(char *line, int token, int *i, t_list **list)
 	else if (token == TOKEN_DOLLAR)
 	{
 		printf("token is dollar\n");
-		content = retrieve_variable(line, i);
+		content = retrieve_variable(line, i, single_quoted, env);
 	}
 	else if (token == TOKEN_FLAG)
 	{
@@ -252,7 +258,7 @@ void	ft_lexer(char *line, t_list **env)
 	while (line[i])
 	{
 		token = identify_token(line[i], line[i + 1]);
-		interpret_token(line, token, &i, &lexer_list);
+		interpret_token(line, token, &i, &lexer_list, env);
 		i++;
 		while (ft_isspace(line[i]))
 			i++;
