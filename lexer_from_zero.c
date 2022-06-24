@@ -196,11 +196,9 @@ static char	*retrieve_filename(char *line, int *i)
 void	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 {
 	char	*content;
-	char	*tmp;
 	int		single_quoted;
 
 	content = NULL;
-	tmp = NULL;
 	single_quoted = 0;
 	if (token == TOKEN_TEXT)
 	{
