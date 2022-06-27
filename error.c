@@ -1,9 +1,11 @@
 #include "minishell.h"
 
-static void	parsing_errors(int error)
+static void	parsing_errors(int error, char *arg)
 {
 	if (error == OPEN_QUOTE)
 		printf("Error : unclosed quote\n");
+	else if (error == WRONG_FILE)
+		printf("%s: No such file or directory\n", arg);
 	exit(EXIT_FAILURE);
 }
 
@@ -18,9 +20,9 @@ static void	exit_errors(int error, char *arg)
 
 void	send_error(int function, int error, char *arg)
 {
-	printf("minishell-obama :");
+	printf("minishell-obama:");
 	if (function == EXIT)
 		exit_errors(error, arg);
 	else if (function == PARSING)
-		parsing_errors(error);
+		parsing_errors(error, arg);
 }

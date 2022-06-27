@@ -6,11 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/24 17:18:53 by itaouil          ###   ########.fr       */
-=======
-/*   Updated: 2022/06/24 15:49:52 by anggonza         ###   ########.fr       */
->>>>>>> 982f9df8d266e8c138af3a8b573c89b19f8bc5b3
+/*   Updated: 2022/06/27 16:34:44 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +20,9 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 # define BLUE   "\001\e[0;34m\002"
 # define WHITE  "\001\e[0;37m\002"
@@ -45,11 +44,19 @@ typedef struct s_lexer
 
 typedef struct s_cmd
 {
+	char			*command;
+	char			*flags;
+	struct s_cmd	*next;
+}				t_cmd;
+
+typedef struct s_exec
+{
 	int		pipes;
-	char	**commands;
+	t_cmd	**commands;
 	char	*infile;
 	char	*outfile;
-}				t_cmd;
+	int		append;
+}				t_exec;
 
 // typedef struct s_token
 // {
@@ -80,6 +87,7 @@ typedef struct s_cmd
 # define NUM 0
 # define TOO_MANY_ARGS 1
 # define OPEN_QUOTE 2
+# define WRONG_FILE 3
 
 // ENV
 t_list	*create_env(char **envp);
