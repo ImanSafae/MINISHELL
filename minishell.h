@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/24 17:18:53 by itaouil          ###   ########.fr       */
-=======
-/*   Updated: 2022/06/24 15:49:52 by anggonza         ###   ########.fr       */
->>>>>>> 982f9df8d266e8c138af3a8b573c89b19f8bc5b3
+/*   Updated: 2022/06/27 12:39:46 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +117,10 @@ char	*ft_chardup(char c);
 void	detect_signals(void);
 
 // FREE
-void	free_list(t_list **list);
+void	free_env(t_list **list);
 void	free_element(void *element);
 void	free_tab(char **tab);
+void	free_lexer(t_list **lexer);
 void	empty_env_element(void *element);
 
 // TESTS (à supprimer à la fin)

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/24 15:50:00 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:43:24 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell obama is listening > ");
+		if (!ft_strncmp(str, "exit", 4))
+			break ;
 		if (ft_strlen(str) == 0)
 			continue ;
 		ft_lexer(str, &env);
+		free(str);
 	}
-	free(str);
-	free_list(&env);
-	// system("leaks minishell");
+	free_env(&env);
+	system("leaks minishell");
 }
 
 // COMMENTAIRE D'AU DESSUS

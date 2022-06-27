@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_no_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/10 18:24:40 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/27 12:36:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void	print_env_in_ascii_order(t_list *env)
 			ft_lstnew(first_var_in_ascii(&duplicated_env)));
 	}
 	print_env(sorted_env);
-	free_list(&duplicated_env);
-	free_list(&sorted_env);
+	free_env(&duplicated_env);
+	free_env(&sorted_env);
 }
