@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/27 12:39:46 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:55:28 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define RED    "\001\e[0;31m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define RESET  "\001\e[0m\002"
+
+typedef struct s_all
+{
+	int	exit_code;
+}	t_all;
 
 typedef struct s_env
 {
@@ -100,6 +105,7 @@ void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(void);
+void	cd(char *arg);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);

@@ -6,11 +6,13 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/27 12:43:24 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:28:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_all	g_all;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,15 +26,15 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell obama is listening > ");
-		if (!ft_strncmp(str, "exit", 4))
-			break ;
 		if (ft_strlen(str) == 0)
 			continue ;
+		if (!ft_strncmp(str, "exit", 4))
+			break ;
 		ft_lexer(str, &env);
 		free(str);
 	}
 	free_env(&env);
-	system("leaks minishell");
+	//system("leaks minishell");
 }
 
 // COMMENTAIRE D'AU DESSUS
