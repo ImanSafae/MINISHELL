@@ -262,4 +262,5 @@ void	ft_lexer(char *line, t_list **env)
 			i++;
 	}
 	print_lexer_list(lexer_list);
+	free_lexer(&lexer_list);
 }

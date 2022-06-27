@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/06 15:05:29 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/27 12:41:47 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	empty_env_element(void *element)
 	free(_element);
 }
 
-void	free_list(t_list **list)
+void	free_env(t_list **list)
 {
 	ft_lstclear(list, &empty_env_element);
 }
@@ -52,4 +52,19 @@ void	ft_free_list(t_list **liste)
 		free(temp);
 	}
 	liste = NULL;
+}
+
+void	free_lexer(t_list **lexer)
+{
+	t_list	*tmp;
+
+	tmp = NULL;
+	while (*lexer)
+	{
+		free(((t_lexer *)((*lexer)->content))->text);
+		free((t_lexer *)((*lexer)->content));
+		tmp = *lexer;
+		*lexer = (*lexer)->next;
+		free(tmp);
+	}
 }

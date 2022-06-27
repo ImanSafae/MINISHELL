@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/27 16:34:44 by itaouil          ###   ########.fr       */
+=======
+/*   Updated: 2022/06/27 14:55:28 by anggonza         ###   ########.fr       */
+>>>>>>> 5b88ed61cdcd233b9ac54742b73ad7ba6ad2d9b9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +33,11 @@
 # define RED    "\001\e[0;31m\002"
 # define YELLOW "\001\e[0;33m\002"
 # define RESET  "\001\e[0m\002"
+
+typedef struct s_all
+{
+	int	exit_code;
+}	t_all;
 
 typedef struct s_env
 {
@@ -112,6 +121,7 @@ void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(void);
+void	cd(char *arg);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);
@@ -129,9 +139,10 @@ char	*ft_chardup(char c);
 void	detect_signals(void);
 
 // FREE
-void	free_list(t_list **list);
+void	free_env(t_list **list);
 void	free_element(void *element);
 void	free_tab(char **tab);
+void	free_lexer(t_list **lexer);
 void	empty_env_element(void *element);
 
 // TESTS (à supprimer à la fin)

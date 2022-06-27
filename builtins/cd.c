@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/27 15:19:00 by anggonza         ###   ########.fr       */
+/*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
+/*   Updated: 2022/06/27 15:27:44 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(char *code)
-{
-	int	i;
+extern t_all	g_all;
 
-	i = 0;
-	while (code[i])
+void	cd(char *arg)
+{
+	if (!arg)
 	{
-		if (!ft_isdigit(code[i]))
-		{
-			if (ft_isspace(code[i]))
-				send_error(EXIT, TOO_MANY_ARGS, code);
-			else
-				send_error(EXIT, NUM, code);
-		}
-		i++;
+		if (chdir(getenv("HOME")) == -1)
+			g_all.exit_code = 127;
 	}
-	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	else
+	{
+		if (chdir(arg) == -1)
+			g_all.exit_code = 127;
+	}
 }
