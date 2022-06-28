@@ -6,11 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/27 16:34:44 by itaouil          ###   ########.fr       */
-=======
-/*   Updated: 2022/06/27 14:55:28 by anggonza         ###   ########.fr       */
->>>>>>> 5b88ed61cdcd233b9ac54742b73ad7ba6ad2d9b9
+/*   Updated: 2022/06/28 19:19:49 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +117,7 @@ void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(void);
-void	cd(char *arg);
+void	cd(char *arg, t_list **env);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);
@@ -137,7 +133,9 @@ int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
 char	*ft_chardup(char c);
 void	detect_signals(void);
-
+t_env	*add_var_to_env(char *line);
+char	*find_variable_in_env(char *str, t_list **env);
+void	change_env_value(char *variable, char *value, t_list **env);
 // FREE
 void	free_env(t_list **list);
 void	free_element(void *element);
