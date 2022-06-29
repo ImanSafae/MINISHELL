@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/28 19:19:49 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:10:47 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,8 @@ void	empty_env_element(void *element);
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
 void	print_lexer_list(t_list *list);
+
+// VARIABLE GLOBALE
+extern t_all	g_all;
 
 #endif
