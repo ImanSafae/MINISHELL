@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/28 21:22:13 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/29 15:54:30 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	print_env_in_ascii_order(t_list *env);
 void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(void);
-void	cd(char *arg);
+void	cd(char *arg, t_list **env);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);
@@ -137,6 +137,10 @@ void	detect_signals(void);
 char	*ft_getenv(t_list *env, char *variable);
 char	*uncapitalize_str(char *str);
 
+t_env	*add_var_to_env(char *line);
+char	*find_variable_in_env(char *str, t_list **env);
+void	change_env_value(char *variable, char *value, t_list **env);
+
 // FREE
 void	free_env(t_list **list);
 void	free_element(void *element);
@@ -147,5 +151,8 @@ void	empty_env_element(void *element);
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
 void	print_lexer_list(t_list *list);
+
+// VARIABLE GLOBALE
+extern t_all	g_all;
 
 #endif
