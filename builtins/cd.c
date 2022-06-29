@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/28 19:35:29 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:12:45 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,23 +82,23 @@ void	cd(char *arg, t_list **env)
 	if (!arg || ft_strlen(arg) == 0)
 	{
 		if (chdir(find_variable_in_env("HOME", env)) == -1)
-			return ;
-			//g_all.exit_code = 127;
+			g_all.exit_code = 127;
 		else
 		{
 			change_oldpwd(actual_path, env);
 			change_pwd(find_variable_in_env("HOME", env), env);
+			g_all.exit_code = 0;
 		}
 	}
 	else
 	{
 		if (chdir(arg) == -1)
-			return ;
-			//g_all.exit_code = 127;
+			g_all.exit_code = 127;
 		else
 		{
 			change_oldpwd(actual_path, env);
 			change_pwd(getcwd(next_path, 256), env);
+			g_all.exit_code = 0;
 		}
 	}
 }
