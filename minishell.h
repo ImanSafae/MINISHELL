@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/27 16:34:44 by itaouil          ###   ########.fr       */
-=======
-/*   Updated: 2022/06/27 14:55:28 by anggonza         ###   ########.fr       */
->>>>>>> 5b88ed61cdcd233b9ac54742b73ad7ba6ad2d9b9
+/*   Updated: 2022/06/28 21:22:13 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +50,17 @@ typedef struct s_lexer
 typedef struct s_cmd
 {
 	char			*command;
-	char			*flags;
+	char			*args;
+	char			*infile;
+	char			*outfile;
+	int				append;
 	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_exec
 {
 	int		pipes;
-	t_cmd	**commands;
-	char	*infile;
-	char	*outfile;
-	int		append;
+	t_cmd	*commands;
 }				t_exec;
 
 // typedef struct s_token
@@ -84,9 +80,9 @@ typedef struct s_exec
 # define TOKEN_HEREDOC 7
 # define TOKEN_APPEND 8
 # define TOKEN_TEXT 9
-# define TOKEN_WILDCARD 10
-# define TOKEN_FLAG 11
-# define TOKEN_QUOTED_TEXT 12
+// # define TOKEN_WILDCARD 10
+// # define TOKEN_FLAG 11
+// # define TOKEN_QUOTED_TEXT 12
 
 // ERRORS: FUNCTIONS
 # define PARSING 0
@@ -127,6 +123,7 @@ void	cd(char *arg);
 void	expand_variable(char **value, t_list **env);
 
 // EXECUTION
+void	ft_exec(t_exec *instructions, t_list *env);
 
 // UTILS
 void	delete_element_from_list(t_list **previous, t_list **to_delete);
@@ -137,6 +134,8 @@ int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
 char	*ft_chardup(char c);
 void	detect_signals(void);
+char	*ft_getenv(t_list *env, char *variable);
+char	*uncapitalize_str(char *str);
 
 // FREE
 void	free_env(t_list **list);

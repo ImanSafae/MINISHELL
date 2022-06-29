@@ -6,35 +6,13 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/27 18:08:33 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/28 20:19:48 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_getenv(t_list *env, char *variable)
-{
-	t_env	*caster;
-	size_t	len;
-	char	*ret;
-
-	caster = NULL;
-	len = ft_strlen(variable);
-	ret = NULL;
-	while (env)
-	{
-		caster = (t_env *)(env->content);
-		if (!ft_strncmp(variable, caster->variable, len) && ft_strlen(caster->variable) == len)
-		{
-			ret = caster->value;
-			break ;
-		}
-		env = env->next;
-	}
-	return (ret);
-}
-
-char	**get_pathtab(t_list *env)
+static char	**get_pathtab(t_list *env)
 {
 	char	*path;
 	char	**pathtab;
@@ -44,7 +22,7 @@ char	**get_pathtab(t_list *env)
 	return (pathtab);
 }
 
-char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE COMMANDE DONNÉE ; RENVOIE NULL SI RIEN TROUVÉ ; I FAUT LUI ENVOYER UNE COMMANDE SANS FLAGS
+static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE COMMANDE DONNÉE ; RENVOIE NULL SI RIEN TROUVÉ ; I FAUT LUI ENVOYER UNE COMMANDE SANS FLAGS
 {
 	char	**pathtab;
 	char	*cmd_suffix;
@@ -68,32 +46,65 @@ char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE COMMAN
 	return (pathname);
 }
 
+static void	replace_cmd_with_pathname(char **cmd, t_list *env)
+{
+	char	*cmd_pathname;
+
+	cmd_pathname = get_pathname(*cmd, env);
+	free(*cmd);
+	(*cmd) = cmd_pathname;
+}
+
+static int	check_if_builtin(char *cmd)
+{
+	if (!ft_strncmp(cmd, "echo", ft_strlen("echo")))
+		return (1);
+	if (!ft_strncmp(cmd, "exit", ft_strlen("exit")))
+		return (1);
+	if (!ft_strncmp(cmd, "env", ft_strlen("env")))
+		return (1);
+	if (!ft_strncmp(cmd, "export", ft_strlen("export")))
+		return (1);
+	if (!ft_strncmp(cmd, "unset", ft_strlen("unset")))
+		return (1);
+	if (!ft_strncmp(cmd, "cd", ft_strlen("cd")))
+		return (1);
+	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd")))
+		return (1);
+	return (0);
+}
+
+static void	check_cmds_list(t_cmd **list, t_list *env)
+{
+	t_cmd	*tmp;
+
+	tmp = (*list);
+	while (tmp)
+	{
+		if (!check_if_builtin(tmp->command) && access(tmp->command, F_OK) == -1)
+			replace_cmd_with_pathname(&(tmp->command), env);
+		tmp = tmp->next;
+	}
+}
+
 void	ft_exec(t_exec *instructions, t_list *env)
 {
-	t_cmd	*cmds;
-	int		infile;
-	int		outfile;
+	// int		infile;
+	// int		outfile;
 
-	cmds = *(instructions->commands);
-	if (instructions->infile)
-	{	
-		infile = open(instructions->infile, O_RDONLY);
-		if (infile == -1)
-			send_error(PARSING, WRONG_FILE, instructions->infile);
-	}
-	if (instructions->outfile)
-	{
-		if (instructions->append)
-			outfile = open(instructions->outfile, O_APPEND | O_CREAT);
-		else
-			outfile = open(instructions->outfile, O_WRONLY | O_CREAT);
-	}
-	while (cmds)
-	{
-		if (access(cmds->command, F_OK) == -1)
-		{
-			free(cmds->command);
-		}
-		cmds = cmds->next;
-	}
+	// if (instructions->infile)
+	// {	
+	// 	infile = open(instructions->infile, O_RDONLY);
+	// 	if (infile == -1)
+	// 		send_error(PARSING, WRONG_FILE, instructions->infile);
+	// }
+	// if (instructions->outfile)
+	// {
+	// 	if (instructions->append)
+	// 		outfile = open(instructions->outfile, O_APPEND | O_CREAT);
+	// 	else
+	// 		outfile = open(instructions->outfile, O_WRONLY | O_CREAT);
+	// }
+	check_cmds_list(&(instructions->commands), env);
+	
 }

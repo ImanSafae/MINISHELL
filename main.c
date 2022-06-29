@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/27 15:28:07 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:12:30 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = create_env(envp);
-	detect_signals();
+	// detect_signals();
 	while (1)
 	{
 		str = readline("minishell obama is listening > ");
-		if (ft_strlen(str) == 0)
-			continue ;
-		if (!ft_strncmp(str, "exit", 4))
-			break ;
+		// if (ft_strlen(str) == 0)
+		// 	continue ;
+		// if (!ft_strncmp(str, "exit", 4))
+		// 	break ;
 		ft_lexer(str, &env);
 		free(str);
 	}
