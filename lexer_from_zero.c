@@ -10,8 +10,8 @@ int	identify_token(char c, char next)
 		return (TOKEN_DOLLAR);
 	else if (c == '|')
 		return (TOKEN_PIPE);
-	else if (c == '-')
-		return (TOKEN_FLAG);
+	// else if (c == '-')
+	// 	return (TOKEN_FLAG);
 	else if (c == '<' && next != '<')
 		return (TOKEN_INFILE);
 	else if (c == '<' && next == '<')
@@ -38,7 +38,7 @@ static char	*retrieve_variable(char *line, int *i, int single_quoted,
 	ret = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')
-			&& !ft_isspace(line[*i]))
+		&& !ft_isspace(line[*i]))
 	{
 		tmp = ft_strdup(ret);
 		tmp2 = ft_chardup(line[*i]);
@@ -276,11 +276,11 @@ void interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 		printf("token is dollar\n");
 		content = retrieve_variable(line, i, single_quoted, env);
 	}
-	else if (token == TOKEN_FLAG)
-	{
-		printf("token is flag\n");
-		content = retrieve_flag(line, i);
-	}
+	// else if (token == TOKEN_FLAG)
+	// {
+	// 	printf("token is flag\n");
+	// 	content = retrieve_flag(line, i);
+	// }
 	else if (token == TOKEN_PIPE)
 	{
 		content = ft_chardup(line[*i]);

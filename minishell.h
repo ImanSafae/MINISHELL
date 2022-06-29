@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/29 14:10:47 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:54:30 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ typedef struct s_lexer
 typedef struct s_cmd
 {
 	char			*command;
-	char			*flags;
+	char			*args;
+	char			*infile;
+	char			*outfile;
+	int				append;
 	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_exec
 {
 	int		pipes;
-	t_cmd	**commands;
-	char	*infile;
-	char	*outfile;
-	int		append;
+	t_cmd	*commands;
 }				t_exec;
 
 // typedef struct s_token
@@ -80,9 +80,9 @@ typedef struct s_exec
 # define TOKEN_HEREDOC 7
 # define TOKEN_APPEND 8
 # define TOKEN_TEXT 9
-# define TOKEN_WILDCARD 10
-# define TOKEN_FLAG 11
-# define TOKEN_QUOTED_TEXT 12
+// # define TOKEN_WILDCARD 10
+// # define TOKEN_FLAG 11
+// # define TOKEN_QUOTED_TEXT 12
 
 // ERRORS: FUNCTIONS
 # define PARSING 0
@@ -123,6 +123,7 @@ void	cd(char *arg, t_list **env);
 void	expand_variable(char **value, t_list **env);
 
 // EXECUTION
+void	ft_exec(t_exec *instructions, t_list *env);
 
 // UTILS
 void	delete_element_from_list(t_list **previous, t_list **to_delete);
@@ -133,9 +134,13 @@ int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
 char	*ft_chardup(char c);
 void	detect_signals(void);
+char	*ft_getenv(t_list *env, char *variable);
+char	*uncapitalize_str(char *str);
+
 t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);
 void	change_env_value(char *variable, char *value, t_list **env);
+
 // FREE
 void	free_env(t_list **list);
 void	free_element(void *element);

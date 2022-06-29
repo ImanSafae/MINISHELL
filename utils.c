@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/29 15:40:03 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:03:30 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,46 @@ char	*ft_chardup(char c)
 	ret = malloc(sizeof(char) * 2);
 	ret[0] = c;
 	ret[1] = '\0';
+	return (ret);
+}
+
+char	*ft_getenv(t_list *env, char *variable)
+{
+	t_env	*caster;
+	size_t	len;
+	char	*ret;
+
+	caster = NULL;
+	len = ft_strlen(variable);
+	ret = NULL;
+	while (env)
+	{
+		caster = (t_env *)(env->content);
+		if (!ft_strncmp(variable, caster->variable, len) && ft_strlen(caster->variable) == len)
+		{
+			ret = caster->value;
+			break ;
+		}
+		env = env->next;
+	}
+	return (ret);
+}
+
+char	*uncapitalize_str(char *str)
+{
+	int		i;
+	char	*ret;
+
+	i = 0;
+	ret = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i])
+	{
+		if (str[i] >= 65 && str[i] <= 90)
+			ret[i] = (str[i] + 32);
+		else
+			ret[i] = str[i];
+		i++;
+	}
+	ret[i] = '\0';
 	return (ret);
 }
