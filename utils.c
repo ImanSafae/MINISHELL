@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/22 16:36:18 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/29 15:40:03 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ char	*ft_strndup(char *str, int begin, int end)
 
 	ret = malloc(sizeof(char) * (end - begin + 2));
 	i = 0;
-	while (ret[i])
+	while (begin <= end)
 	{
 		ret[i] = str[begin];
 		i++;
 		begin++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }
 
