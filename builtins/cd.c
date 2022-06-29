@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/29 14:12:45 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:21:27 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	change_env_value(char *variable, char *value, t_list **env)
 		{
 			if (!ft_strncmp(variable, ((t_env *)(tmp->content))->variable,
 				ft_strlen(variable)))
+			{
+				free((((t_env *)(tmp->content))->value));
 				(((t_env *)(tmp->content))->value) = value;
+			}
 		}
 		tmp = tmp->next;
 	}
