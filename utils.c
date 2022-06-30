@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/30 18:33:28 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:35:06 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ char	*ft_strndup(char *str, int begin, int end)
 
 	ret = malloc(sizeof(char) * (end - begin + 2));
 	i = 0;
-	while (ret[i])
+	while (begin <= end)
 	{
 		ret[i] = str[begin];
 		i++;
 		begin++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }
 

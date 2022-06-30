@@ -25,6 +25,76 @@ int	identify_token(char c, char next)
 	return (0);
 }
 
+static char	*retrieve_variable(char *line, int *i, int single_quoted,
+		t_list **env)
+{
+	char	*ret;
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = NULL;
+	tmp2 = NULL;
+	(*i)++;
+	ret = ft_chardup(line[*i]);
+	(*i)++;
+	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')
+		&& !ft_isspace(line[*i]))
+	{
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
+		free(ret);
+		ret = ft_strjoin(tmp, tmp2);
+		free(tmp);
+		free(tmp2);
+		(*i)++;
+	}
+	if (!single_quoted)
+		expand_variable(&ret, env);
+	return (ret);
+}
+
+char	*find_end(char *line, int i)
+{
+	char	*end;
+
+	while (line[i] && !ft_isspace(line[i]))
+		i++;
+	end = ft_substr(line, i, ft_strlen(line) - i);
+	return (end);
+}
+
+char	*check_for_envvar(char *line, t_list **env)
+{
+	int		i;
+	char	*end;
+	char	*begin;
+	char	*tmp;
+	int		before_var;
+
+	i = 0;
+	end = NULL;
+	begin = NULL;
+	tmp = NULL;
+	while (line[i])
+	{
+		if (line[i] == '$')
+		{
+			before_var = i;
+			end = find_end(line, i + 1);
+			begin = ft_strndup(line, 0, i - 1);
+			line = retrieve_variable(line, &i, 0, env);
+			tmp = ft_strjoin(begin, line);
+			line = ft_strjoin(tmp, end);
+			free(tmp);
+			free(end);
+			free(begin);
+			i = before_var;
+		}
+		i++;
+	}
+	return (line);
+}
+
 static char	*retrieve_squoted_text(char *line, int *i)
 {
 	char	*ret;
@@ -52,57 +122,42 @@ static char	*retrieve_squoted_text(char *line, int *i)
 	return (ret);
 }
 
-static char	*retrieve_dquoted_text(char *line, int *i)
+void	get_index(char *line, int *i)
 {
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = NULL;
-	tmp2 = NULL;
-	(*i)++;
-	if (line[*i])
-		ret = ft_chardup(line[*i]);
-	(*i)++;
 	while (line[*i] && line[*i] != '\"')
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
 		(*i)++;
-		free(tmp);
-		free(tmp2);
-	}
-	if (!line[*i])
-		send_error(PARSING, OPEN_QUOTE, line);
-	return (ret);
 }
-
-static char	*retrieve_variable(char *line, int *i, int single_quoted,
-		t_list **env)
+static char	*retrieve_dquoted_text(char *line, int *i, t_list **env)
 {
 	char	*ret;
 	char	*tmp;
 	char	*tmp2;
+	char	*line_tmp;
+	int		i_tmp;
 
 	tmp = NULL;
 	tmp2 = NULL;
 	(*i)++;
-	ret = ft_chardup(line[*i]);
-	(*i)++;
-	while (line[*i] && ft_isalnum(line[*i]) && !ft_isspace(line[*i]))
+	i_tmp = *i;
+	tmp = ft_strndup(line, 0, i_tmp - 1);
+	line_tmp = ft_strjoin(tmp, check_for_envvar(&(line[i_tmp]), env));
+	free(tmp);
+	if (line_tmp[i_tmp])
+		ret = ft_chardup(line_tmp[i_tmp]);
+	i_tmp++;
+	get_index(line, i);
+	while (line_tmp[i_tmp] && line_tmp[i_tmp] != '\"')
 	{
 		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
+		tmp2 = ft_chardup(line_tmp[i_tmp]);
 		free(ret);
 		ret = ft_strjoin(tmp, tmp2);
+		i_tmp++;
 		free(tmp);
 		free(tmp2);
-		(*i)++;
 	}
-	if (!single_quoted)
-		expand_variable(&ret, env);
+	if (!line_tmp[i_tmp])
+		send_error(PARSING, OPEN_QUOTE, line);
 	return (ret);
 }
 
@@ -193,7 +248,7 @@ static char	*retrieve_filename(char *line, int *i)
 	return (ret);
 }
 
-void	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
+void interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 {
 	char	*content;
 	int		single_quoted;
@@ -214,7 +269,7 @@ void	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	else if (token == TOKEN_DQUOTE)
 	{
 		printf("token is double quote\n");
-		content = retrieve_dquoted_text(line, i);
+		content = retrieve_dquoted_text(line, i, env);
 	}
 	else if (token == TOKEN_DOLLAR)
 	{
