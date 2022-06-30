@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/29 15:54:30 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:33:48 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ typedef struct s_cmd
 	char			*infile;
 	char			*outfile;
 	int				append;
-	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct s_exec
 {
 	int		pipes;
-	t_cmd	*commands;
+	t_list	*commands;
 }				t_exec;
 
 // typedef struct s_token
@@ -76,7 +75,7 @@ typedef struct s_exec
 # define TOKEN_DOLLAR 3
 # define TOKEN_INFILE 4
 # define TOKEN_OUTFILE 5
-# define TOKEN_SPACE 6
+// # define TOKEN_SPACE 6
 # define TOKEN_HEREDOC 7
 # define TOKEN_APPEND 8
 # define TOKEN_TEXT 9
@@ -128,7 +127,7 @@ void	ft_exec(t_exec *instructions, t_list *env);
 // UTILS
 void	delete_element_from_list(t_list **previous, t_list **to_delete);
 t_list	*duplicate_list(t_list *list);
-t_env	*duplicate_line(t_env *line);
+t_env	*duplicate_env_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);
 int		ft_isnotspecial(char c);
 int		ft_isspace(char c);
@@ -136,6 +135,7 @@ char	*ft_chardup(char c);
 void	detect_signals(void);
 char	*ft_getenv(t_list *env, char *variable);
 char	*uncapitalize_str(char *str);
+char	*ft_strndup(char *str, int start, int end);
 
 t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);

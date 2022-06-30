@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/28 21:11:46 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:33:28 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	delete_element_from_list(t_list **previous, t_list **to_delete)
 	ft_lstdelone((*to_delete), delete_element);
 }
 
-t_env	*duplicate_line(t_env *line)
+t_env	*duplicate_env_line(t_env *line)
 {
 	t_env	*duplicate;
 
@@ -38,7 +38,7 @@ t_list	*duplicate_list(t_list *list)
 	tmp = list;
 	while (tmp)
 	{
-		ft_lstadd_back(&dup, ft_lstnew(duplicate_line(tmp->content)));
+		ft_lstadd_back(&dup, ft_lstnew(duplicate_env_line(tmp->content)));
 		tmp = tmp->next;
 	}
 	return (dup);
@@ -124,4 +124,21 @@ char	*uncapitalize_str(char *str)
 	}
 	ret[i] = '\0';
 	return (ret);
+}
+
+char	*ft_strndup(char *str, int start, int end)
+{
+	char	*ret;
+	int		i;
+
+	ret = malloc(sizeof(char) * (end - start + 1));
+	i = start;
+	if (!ret)
+		return (NULL);
+	while (str[i] && i <= end)
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[i] = '\0';
 }

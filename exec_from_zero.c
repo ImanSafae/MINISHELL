@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/28 20:19:48 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:13:15 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,4 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	check_cmds_list(&(instructions->commands), env);
 	
 }
+BEBOU
