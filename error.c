@@ -6,7 +6,9 @@ static void	parsing_errors(int error, char *arg)
 		printf("Error : unclosed quote\n");
 	else if (error == WRONG_FILE)
 		printf("%s: No such file or directory\n", arg);
-	exit(EXIT_FAILURE);
+	else if (error == NEAR)
+		printf("parse error near'%s'", arg);
+	// exit(EXIT_FAILURE);
 }
 
 static void	exit_errors(int error, char *arg)
@@ -20,7 +22,7 @@ static void	exit_errors(int error, char *arg)
 
 void	send_error(int function, int error, char *arg)
 {
-	printf("minishell-obama:");
+	printf("minishell-obama: ");
 	if (function == EXIT)
 		exit_errors(error, arg);
 	else if (function == PARSING)

@@ -1,86 +1,61 @@
 #include "minishell.h"
 
-
-t_cmd	*new_command(char *cmd, char *infile, char *outfile, int append)
+char	*get_command(t_list *lexer_list, t_list **pointer) // C TROP LONG ET C MEME PAS FINI JE VAIS CABLER
 {
-	t_cmd	*command;
-	int		i;
+	char	*ret;
+	char	*temp;
+	t_lexer	*caster;
 
-	command = malloc(sizeof(t_cmd));
-	i = 0;
-	if (infile)
-		command->infile = ft_strdup(infile);
-	if (outfile)
-		command->outfile = ft_strdup(outfile);
-	if (append == 1)
-		command->append = 1;
-	else
-		command->append = 0;
-	while (cmd[i] && !ft_isspace(cmd[i]))
-		i++;
-	command->command = ft_strndup(cmd, 0, i - 1);
-	if (cmd[i] && ft_isspace(cmd[i]))
+	caster = (t_lexer *)((*pointer)->content);
+	if (caster->token == TOKEN_TEXT) //rajouter les autres types de token qui correpsondent a du texte
+		ret = ft_strdup(caster->text);
+	(*pointer) = (*pointer)->next;
+	while ((*pointer) && caster->token != TOKEN_PIPE)
 	{
-		i++;
-		command->args = ft_strndup(cmd, i, ft_strlen(cmd) - 1);
+		if (caster->token == TOKEN_TEXT) // rajouter etc
+		{
+			temp = ft_strdup(ret);
+			free(ret);
+			ret = ft_strjoin_with_space(temp, caster->text);
+			free(temp);
+		}
+		else if (caster->token == TOKEN_APPEND || caster->token == TOKEN_HEREDOC
+			|| caster->token == TOKEN_INFILE || caster->token == TOKEN_OUTFILE)
+		{
+			// ajouter gestion de l'infile/outfile/append/heredoc
+		}
+		(*pointer) = (*pointer)->next;
+		caster = (t_lexer *)((*pointer)->content);
 	}
-	return (command);
+	return (ret);
 }
 
-
-void	split_list_on_pipes(t_list **lexer_list)
+void	split_list_on_pipes(t_list **lexer_list, int nb_of_pipes)
 {
 	t_list	*tmp;
 	t_lexer	*caster;
+	char	**command_line;
+	int		i;
 
 	tmp = (*lexer_list);
-	caster = NULL;
+	caster = (t_lexer *)(tmp->content);
+	command_line = malloc(sizeof(char *) * (nb_of_pipes + 1));
+	i = 1;
+	if (caster->token == TOKEN_PIPE)
+	{
+		free_tab(command_line);
+		send_error(PARSING, NEAR, "|");
+		return ;
+	}
+	command_line[0] = get_command(*lexer_list, &tmp);
 	while (tmp)
 	{
-		caster = (t_lexer *)(tmp->content);
-		while (tmp && caster->token != TOKEN_PIPE)
+		if (caster->token == TOKEN_PIPE)
 		{
 			tmp = tmp->next;
-			caster = (t_lexer *)(tmp->content);
+			command_line[i] = get_command(*lexer_list, &tmp);
+			i++;
 		}
-		if (caster->token == TOKEN_APPEND || caster->token == TOKEN_HEREDOC
-			|| caster->token == TOKEN_INFILE || caster->token == TOKEN_OUTFILE)
-
-		tmp = tmp->next;
+		// tmp = tmp->next;
 	}
 }
-
-t_list	*tmp;
-t_lexer	*caster;
-char	*cmd;
-char	*tmp2;
-
-tmp = (*lexer_list);
-while (tmp)
-{
-	caster = (t_lexer *)(tmp ->content);
-	if (caster->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE
-		|| caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR)
-		cmd = ft_strjoin(caster->text, " ");
-	while (tmp && caster->token != TOKEN_PIPE)
-	{
-		if (caster->token != TOKEN_APPEND && etc)
-		{
-			tmp2 = ft_strdup(cmd);
-			free(cmd);
-			cmd = ft_strjoin(tmp2, caster->text);
-			free(tmp2);
-		}
-		tmp = tmp->next;
-		caster = (t_lexer *)(tmp->content);
-	}
-
-	tmp = tmp->next;
-}
-
-
-
-// 1er élément
-if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DQUOTE || caster->token == TOKEN_DOLLAR || caster->token == TOKEN_SQUOTE)
-	cmd->command = caster->text;
-else if (caster->token == TOKEN_PIPE)

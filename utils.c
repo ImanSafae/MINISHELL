@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/30 18:35:06 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:47:03 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,31 @@ char	*ft_strndup(char *str, int start, int end)
 		i++;
 	}
 	ret[i] = '\0';
+}
+
+char	*ft_strjoin_with_space(char *s1, char *s2)
+{
+	size_t	total_length;
+	char	*ret;
+	int		i;
+	
+	if (!s1 || !s2)
+		return (NULL);
+	total_length = ft_strlen(s1) + ft_strlen(s2) + 2;
+	ret = malloc(sizeof(char) * total_length);
+	i = 0;
+	while(s1[i])
+	{
+		ret[i] = s1[i];
+		i++;
+	}
+	ret[i] = ' ';
+	i = 0;
+	while (s2[i])
+	{
+		ret[i] = s2[i];
+		i++;
+	}
+	ret[i] = '\0';
+	return (ret);
 }

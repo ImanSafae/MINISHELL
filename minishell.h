@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/30 18:33:48 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:09:31 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_exec
 // ERRORS: FUNCTIONS
 # define PARSING 0
 # define EXIT 1
+# define NEAR 2
 
 // ERRORS: ERROR CODES
 # define NUM 0
@@ -136,6 +137,7 @@ void	detect_signals(void);
 char	*ft_getenv(t_list *env, char *variable);
 char	*uncapitalize_str(char *str);
 char	*ft_strndup(char *str, int start, int end);
+char	*ft_strjoin_with_space(char *s1, char *s2);
 
 t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);
