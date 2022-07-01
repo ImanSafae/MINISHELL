@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/30 18:47:03 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/01 15:10:58 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_list	*duplicate_list(t_list *list)
 	}
 	return (dup);
 }
-
+/*
 char	*ft_strndup(char *str, int begin, int end)
 {
 	char	*ret;
@@ -60,7 +60,7 @@ char	*ft_strndup(char *str, int begin, int end)
 	ret[i] = '\0';
 	return (ret);
 }
-
+*/
 int	ft_isnotspecial(char c)
 {
 	if (c == '\'' || c == '\"' || c == '>' || c == '<' || c == '$' || c == '|')
@@ -142,6 +142,7 @@ char	*ft_strndup(char *str, int start, int end)
 		i++;
 	}
 	ret[i] = '\0';
+	return (ret);
 }
 
 char	*ft_strjoin_with_space(char *s1, char *s2)
@@ -149,7 +150,7 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	size_t	total_length;
 	char	*ret;
 	int		i;
-	
+
 	if (!s1 || !s2)
 		return (NULL);
 	total_length = ft_strlen(s1) + ft_strlen(s2) + 2;
