@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/30 19:09:31 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/01 15:37:51 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	ft_env(t_list **env);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(void);
 void	cd(char *arg, t_list **env);
+void	echo(char *arg, int newtrail);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);
