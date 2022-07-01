@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/01 15:10:58 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:18:26 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,12 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	char	*ret;
 	int		i;
 
-	if (!s1 || !s2)
-		return (NULL);
+	// if (!s1 || !s2)
+	// 	return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
 	total_length = ft_strlen(s1) + ft_strlen(s2) + 2;
 	ret = malloc(sizeof(char) * total_length);
 	i = 0;

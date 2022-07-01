@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
-/*   Updated: 2022/06/21 20:02:25 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/01 21:14:09 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,17 @@ void	print_lexer_list(t_list *list)
 		printf("%s\n", ((t_lexer *)(tmp->content))->text);
 		tmp = tmp->next;
 		printf("next\n");
+	}
+}
+
+void	print_commands_tab(t_cmd *commands, int nb_of_pipes)
+{
+	int	i;
+
+	i = 0;
+	while (i < (nb_of_pipes + 1))
+	{
+		printf("%s\n", (commands[i]).command);
+		i++;
 	}
 }

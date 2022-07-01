@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/01 15:37:51 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/01 21:14:39 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_cmd
 typedef struct s_exec
 {
 	int		pipes;
-	t_list	*commands;
+	t_cmd	*commands;
 }				t_exec;
 
 // typedef struct s_token
@@ -109,6 +109,7 @@ void	ft_lexer(char *line, t_list **env);
 void	update_lexer_list(t_list **list, char *text, int token);
 
 // PARSER
+void	ft_parser(t_list **lexer_list, t_list *env);
 
 // BUILTINS
 void	ft_unset(char	*variable, t_list **env);
@@ -154,6 +155,7 @@ void	empty_env_element(void *element);
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
 void	print_lexer_list(t_list *list);
+void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
 
 // VARIABLE GLOBALE
 extern t_all	g_all;

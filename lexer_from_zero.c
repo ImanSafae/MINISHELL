@@ -317,5 +317,6 @@ void	ft_lexer(char *line, t_list **env)
 			i++;
 	}
 	print_lexer_list(lexer_list);
-	free_lexer(&lexer_list);
+	ft_parser(&lexer_list, *env);
+	// free_lexer(&lexer_list);
 }
