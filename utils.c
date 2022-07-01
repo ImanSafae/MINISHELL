@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/01 18:18:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/02 00:04:05 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,17 +131,20 @@ char	*ft_strndup(char *str, int start, int end)
 {
 	char	*ret;
 	int		i;
+	int		j;
 
-	ret = malloc(sizeof(char) * (end - start + 1));
+	ret = malloc(sizeof(char) * (end - start + 2));
 	i = start;
+	j = 0;
 	if (!ret)
 		return (NULL);
-	while (str[i] && i <= end)
+	while (str[j] && i <= end)
 	{
-		ret[i] = str[i];
+		ret[j] = str[i];
 		i++;
+		j++;
 	}
-	ret[i] = '\0';
+	ret[j] = '\0';
 	return (ret);
 }
 
@@ -150,9 +153,8 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	size_t	total_length;
 	char	*ret;
 	int		i;
+	int		j;
 
-	// if (!s1 || !s2)
-	// 	return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
 	else if (!s2)
@@ -160,17 +162,19 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	total_length = ft_strlen(s1) + ft_strlen(s2) + 2;
 	ret = malloc(sizeof(char) * total_length);
 	i = 0;
+	j = 0;
 	while(s1[i])
 	{
 		ret[i] = s1[i];
 		i++;
 	}
 	ret[i] = ' ';
-	i = 0;
-	while (s2[i])
+	i++;
+	while (s2[j])
 	{
-		ret[i] = s2[i];
+		ret[i] = s2[j];
 		i++;
+		j++;
 	}
 	ret[i] = '\0';
 	return (ret);

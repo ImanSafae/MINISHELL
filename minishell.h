@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/01 21:14:39 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/02 00:12:44 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ typedef struct s_exec
 // ERRORS: FUNCTIONS
 # define PARSING 0
 # define EXIT 1
-# define NEAR 2
 
 // ERRORS: ERROR CODES
 # define NUM 0
 # define TOO_MANY_ARGS 1
 # define OPEN_QUOTE 2
 # define WRONG_FILE 3
+# define NEAR 4
 
 // ENV
 t_list	*create_env(char **envp);

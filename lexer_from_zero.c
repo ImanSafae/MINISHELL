@@ -257,23 +257,23 @@ void interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	single_quoted = 0;
 	if (token == TOKEN_TEXT)
 	{
-		printf("token is text\n");
+		// printf("token is text\n");
 		content = retrieve_text(&(*line), i);
 	}
 	else if (token == TOKEN_SQUOTE)
 	{
-		printf("token is simple quote\n");
+		// printf("token is simple quote\n");
 		single_quoted = 1;
 		content = retrieve_squoted_text(line, i);
 	}
 	else if (token == TOKEN_DQUOTE)
 	{
-		printf("token is double quote\n");
+		// printf("token is double quote\n");
 		content = retrieve_dquoted_text(line, i, env);
 	}
 	else if (token == TOKEN_DOLLAR)
 	{
-		printf("token is dollar\n");
+		// printf("token is dollar\n");
 		content = retrieve_variable(line, i, single_quoted, env);
 	}
 	// else if (token == TOKEN_FLAG)
@@ -284,17 +284,17 @@ void interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	else if (token == TOKEN_PIPE)
 	{
 		content = ft_chardup(line[*i]);
-		printf("token is pipe\n");
+		// printf("token is pipe\n");
 		// content = retrieve_text(line, i);
 	}
 	else if (token == TOKEN_HEREDOC || token == TOKEN_APPEND)
 	{
-		printf("token is heredoc or append\n");
+		// printf("token is heredoc or append\n");
 		content = retrieve_redirection(line, i);
 	}
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
 	{
-		printf("token is filename\n");
+		// printf("token is filename\n");
 		content = retrieve_filename(line, i);
 	}
 	update_lexer_list(list, content, token);
@@ -316,7 +316,7 @@ void	ft_lexer(char *line, t_list **env)
 		while (ft_isspace(line[i]))
 			i++;
 	}
-	print_lexer_list(lexer_list);
+	// print_lexer_list(lexer_list);
 	ft_parser(&lexer_list, *env);
-	// free_lexer(&lexer_list);
+	free_lexer(&lexer_list);
 }

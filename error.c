@@ -7,7 +7,7 @@ static void	parsing_errors(int error, char *arg)
 	else if (error == WRONG_FILE)
 		printf("%s: No such file or directory\n", arg);
 	else if (error == NEAR)
-		printf("parse error near'%s'", arg);
+		printf("parse error near '%s'\n", arg);
 	// exit(EXIT_FAILURE);
 }
 

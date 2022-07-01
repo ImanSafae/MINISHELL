@@ -10,7 +10,7 @@ INC			=	-I ./libft
 LIB			=	-L ./libft -lft
 SRCS_DIR	=	./
 OBJS_DIR	=	objs
-SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c error.c free.c lexer_from_zero.c lexer_list.c lexer_test.c main.c parser.c shell_env.c test.c utils.c expand.c signal.c # exec_from_zero.c
+SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c error.c free.c lexer_from_zero.c lexer_list.c lexer_test.c main.c split_list_on_pipes.c shell_env.c test.c utils.c expand.c # signal.c # exec_from_zero.c
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # IF NEEDED at 42 on MacOS10 Install :
@@ -38,7 +38,7 @@ $(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 			@echo
 			@echo "$(RED)[**] Compiling $< [**]"
 			@echo "$(COLOR_OFF)"
-			$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $<
+			$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $< 
 
 clean:
 			@make -s $@ -C libft
