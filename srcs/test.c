@@ -1,32 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/27 15:26:58 by anggonza         ###   ########.fr       */
+/*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
+/*   Updated: 2022/07/02 14:38:45 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_all	g_all;
-
-void	expand_variable(char **value, t_list **env)
+void	print_env(t_list *env)
 {
 	t_list	*tmp;
 
-	tmp = *env;
-	if (!ft_strncmp(*value, "?", 1))
-		*value = ft_itoa(g_all.exit_code);
+	tmp = env;
 	while (tmp->next)
 	{
-		if (ft_strlen(*value) == ft_strlen(((t_env *)(tmp->content))->variable))
-			if (!ft_strncmp(*value, ((t_env *)(tmp->content))->variable,
-				ft_strlen(*value)))
-				*value = ((t_env *)(tmp->content))->value;
+		printf("%s=%s\n", (((t_env *)(tmp->content))->variable),
+			(((t_env *)(tmp->content))->value));
 		tmp = tmp->next;
+	}
+}
+
+void	print_lexer_list(t_list *list)
+{
+	t_list	*tmp;
+
+	tmp = list;
+	while (tmp)
+	{
+		printf("%s\n", ((t_lexer *)(tmp->content))->text);
+		tmp = tmp->next;
+		printf("next\n");
+	}
+}
+
+void	print_commands_tab(t_cmd *commands, int nb_of_pipes)
+{
+	int	i;
+
+	i = 0;
+	while (i < (nb_of_pipes + 1))
+	{
+		printf("%s\n", (commands[i]).command);
+		i++;
 	}
 }

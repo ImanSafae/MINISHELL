@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 static t_lexer	*new_token(int token, char *str)
 {

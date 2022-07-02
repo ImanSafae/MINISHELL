@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 /* EXECUTION
 -
@@ -62,7 +62,7 @@ char	*check_if_builtin(char *cmd)
 void exec(t_cmd *cmd, t_list *env)
 {
 	/*
-	Execution d'une seule commande : 
+	Execution d'une seule commande :
 	Le but est d'abord de créer un double tableau qui contient la commande d'un coté (sous forme de chemin absolu) et ses flags de l'autre.
 
 	Exemple : Je reçois "ls -la", je veux créer un double tableau qui contient "/bin/ls" et "-la".

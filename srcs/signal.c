@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/01 15:42:59 by anggonza         ###   ########.fr       */
+/*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
+/*   Updated: 2022/07/02 14:39:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_exit(char *code)
+void	sigint(int sig)
 {
-	int	i;
+	(void)sig;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
 
-	i = 0;
-	if (!code)
-		return (g_all.exit_code);
-	while (code[i])
-	{
-		if (!ft_isdigit(code[i]))
-		{
-			if (ft_isspace(code[i]))
-				send_error(EXIT, TOO_MANY_ARGS, code);
-			else
-				send_error(EXIT, NUM, code);
-		}
-		i++;
-	}
-	printf("exit\n");
-	exit(EXIT_SUCCESS);
+void	sigquit(int sig)
+{
+	(void)sig;
+	ft_putchar_fd(4, 1);
+}
+
+void	detect_signals(void)
+{
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
 }

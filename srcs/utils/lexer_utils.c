@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 15:26:22 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/01 15:36:56 by anggonza         ###   ########.fr       */
+/*   Created: 2022/07/02 14:28:01 by anggonza          #+#    #+#             */
+/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	echo(char *arg, int newtrail)
+int	ft_isnotspecial(char c)
 {
-	if (!newtrail)
-		printf("%s", arg);
-	else
-		printf("%s\n", arg);
-	g_all.exit_code = 0;
+	if (c == '\'' || c == '\"' || c == '>' || c == '<' || c == '$' || c == '|')
+		return (0);
+	return (1);
+}
+
+int	ft_isspace(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\r'
+		|| c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
+
+char	*ft_chardup(char c)
+{
+	char	*ret;
+
+	ret = malloc(sizeof(char) * 2);
+	ret[0] = c;
+	ret[1] = '\0';
+	return (ret);
 }

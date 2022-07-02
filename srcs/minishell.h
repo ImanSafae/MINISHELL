@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 00:12:44 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/02 14:45:47 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
@@ -140,10 +140,11 @@ char	*ft_getenv(t_list *env, char *variable);
 char	*uncapitalize_str(char *str);
 char	*ft_strndup(char *str, int start, int end);
 char	*ft_strjoin_with_space(char *s1, char *s2);
-
+int		count_pipes(t_list *list);
 t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);
 void	change_env_value(char *variable, char *value, t_list **env);
+void	uncapitalize_cmd(t_list **lexer_list);
 
 // FREE
 void	free_env(t_list **list);

@@ -1,23 +1,4 @@
-#include "minishell.h"
-
-int	count_pipes(t_list *list)
-{
-	t_list	*tmp;
-	t_lexer	*caster;
-	int		count;
-
-	tmp = list;
-	caster = NULL;
-	count = 0;
-	while (tmp)
-	{
-		caster = (t_lexer *)tmp->content;
-		if (caster->token == TOKEN_PIPE)
-			count++;
-		tmp = tmp->next;
-	}
-	return (count);
-}
+#include "../minishell.h"
 
 void	uncapitalize_cmd(t_list **lexer_list)
 {

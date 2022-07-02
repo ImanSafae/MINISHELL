@@ -6,11 +6,11 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/06/27 12:41:47 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_tab(char **tab)
 {

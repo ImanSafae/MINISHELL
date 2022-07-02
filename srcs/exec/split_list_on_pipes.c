@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_list_on_pipes.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
+/*   Updated: 2022/07/02 14:44:07 by anggonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	count_pipes(t_list *list)
 {
@@ -17,29 +29,6 @@ int	count_pipes(t_list *list)
 		tmp = tmp->next;
 	}
 	return (count);
-}
-
-void	uncapitalize_cmd(t_list **lexer_list)
-{
-	t_list	*tmp;
-	t_lexer	*caster;
-	char	*uncapitalized;
-
-	tmp = (*lexer_list);
-	caster = NULL;
-	uncapitalized = NULL;
-	while (tmp)
-	{
-		caster = (t_lexer *)(tmp->content);
-		if (caster->token == TOKEN_TEXT)
-		{
-			uncapitalized = uncapitalize_str(caster->text);
-			free(caster->text);
-			caster->text = uncapitalized;
-			break ;
-		}
-		tmp = tmp->next;
-	}
 }
 
 void	parse_redirections(int token, t_cmd *command, char *file)

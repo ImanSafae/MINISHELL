@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 // int	identify_token(char c, char next)
 // {
