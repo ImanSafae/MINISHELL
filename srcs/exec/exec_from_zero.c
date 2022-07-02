@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 19:22:18 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/02 23:24:58 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**get_pathtab(t_list *env)
 	return (pathtab);
 }
 
-static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE COMMANDE DONNÉE ; RENVOIE NULL SI RIEN TROUVÉ ; I FAUT LUI ENVOYER UNE COMMANDE SANS FLAGS
+static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE COMMANDE DONNÉE ; RENVOIE NULL SI RIEN TROUVÉ ; IL FAUT LUI ENVOYER UNE COMMANDE SANS FLAGS
 {
 	char	**pathtab;
 	char	*cmd_suffix;
@@ -77,15 +77,48 @@ static int	check_if_builtin(char *cmd)
 static void	check_cmds_list(t_cmd *list, t_list *env)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	while (list[i])
 	{
-		tmp = uncapi
 		if (!check_if_builtin(list[i]->command) && access(list[i]->command, F_OK) == -1)
-			replace_cmd_with_pathname(&(tmp->command), env);
+			replace_cmd_with_pathname(&(list[i]->command), env);
+		// else if (check_if_builtin(list[i]->command))
+		// {
+			
+		// }
 		i++;
+	}
+}
+
+void	check_files(t_cmd command, int *infile, int *outfile)
+{
+	if (command.infile)
+	
+}
+
+void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
+{
+	int		pipefd[2];
+	int		infile;
+	int		outfile;
+	pid_t	cpid;
+
+	pipe(pipefd);
+	cpid = fork();
+	if (cpid == 0) // process fils dans lequel on va exécuter
+	{
+		//le fils va lire, donc commencer par close l'extrémité d'écriture
+		close(pipe[1]);
+		// commencer par s'occuper des redirections
+		check_files(commands[cmd_id], &infile, &outfile);
+	}
+	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
+	{
+		// le parent va écrire, donc commencer par close l'extrémité de lecture
+		close(pipefd[0]);
+		while (cmd_id < (nb_of_pipes + 1))
+			fork_and_exec(commands, nb_of_pipes, cmd_id + 1);
 	}
 }
 
@@ -94,6 +127,11 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	// int		infile;
 	// int		outfile;
 
+	check_cmds_list(&(instructions->commands), env);
+	if (instructions->pipes > 0)
+		fork_and_exec(instructions->commands, instructions->pipes, 0);
+	else
+		
 	// if (instructions->infile)
 	// {
 	// 	infile = open(instructions->infile, O_RDONLY);
@@ -107,6 +145,4 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	// 	else
 	// 		outfile = open(instructions->outfile, O_WRONLY | O_CREAT);
 	// }
-	check_cmds_list(&(instructions->commands), env);
-
 }
