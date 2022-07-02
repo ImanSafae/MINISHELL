@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 14:45:47 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:38:05 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_exec
 # define OPEN_QUOTE 2
 # define WRONG_FILE 3
 # define NEAR 4
+# define ERROR_CHAR "error"
 
 // ENV
 t_list	*create_env(char **envp);

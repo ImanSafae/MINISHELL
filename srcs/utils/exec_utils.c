@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 22:20:38 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ char	*uncapitalize_str(char *str)
 	int		i;
 	char	*ret;
 
+	if (!str)
+		return (NULL);
 	i = 0;
 	ret = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] >= 65 && str[i] <= 90)
 			ret[i] = (str[i] + 32);
@@ -59,10 +61,6 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	else if (!s2)
-		return (ft_strdup(s1));
 	total_length = ft_strlen(s1) + ft_strlen(s2) + 2;
 	ret = malloc(sizeof(char) * total_length);
 	i = 0;

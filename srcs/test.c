@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:38:45 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:17:43 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	print_commands_tab(t_cmd *commands, int nb_of_pipes)
 	i = 0;
 	while (i < (nb_of_pipes + 1))
 	{
-		printf("%s\n", (commands[i]).command);
+		printf("command = %s\n", (commands[i]).command);
+		printf("args = %s\n", (commands[i]).args);
 		i++;
 	}
 }

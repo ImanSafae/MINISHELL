@@ -12,12 +12,16 @@ void	uncapitalize_cmd(t_list **lexer_list)
 	while (tmp)
 	{
 		caster = (t_lexer *)(tmp->content);
-		if (caster->token == TOKEN_TEXT)
+		if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
+			|| caster->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
 		{
-			uncapitalized = uncapitalize_str(caster->text);
-			free(caster->text);
-			caster->text = uncapitalized;
-			break ;
+			if (caster->text)
+			{
+				uncapitalized = uncapitalize_str(caster->text);
+				free(caster->text);
+				caster->text = ft_strdup(uncapitalized);
+				free(uncapitalized);
+			}
 		}
 		tmp = tmp->next;
 	}

@@ -4,7 +4,7 @@ RED			=	\033[0;31m
 CYAN		=	\033[0;36m
 COLOR_OFF	=	\033[0m\0
 YELLOW		=	\033[0;33m
-FLAGS		=	-Wall -Wextra -g
+FLAGS		=	-Wall -Wextra -g -fsanitize=address
 LFT			=	libft/libft.a
 INC			=	-I ./libft
 LIB			=	-L ./libft -lft
@@ -17,8 +17,8 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				lexer/lexer_from_zero.c lexer/lexer_list.c lexer/lexer_test.c \
 				parser/parser.c parser/heredoc.c \
 				expand/expand.c \
-				main.c test.c signal.c \
-				exec/split_list_on_pipes.c #exec/exec_from_zero.c \
+				main.c test.c \
+				exec/split_list_on_pipes.c #exec/exec_from_zero.c signal.c \
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 

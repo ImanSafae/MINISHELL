@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_from_zero.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:28 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:22:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,18 @@ static int	check_if_builtin(char *cmd)
 	return (0);
 }
 
-static void	check_cmds_list(t_cmd **list, t_list *env)
+static void	check_cmds_list(t_cmd *list, t_list *env)
 {
-	t_cmd	*tmp;
+	int		i;
+	char	*tmp;
 
-	tmp = (*list);
-	while (tmp)
+	i = 0;
+	while (list[i])
 	{
-		if (!check_if_builtin(tmp->command) && access(tmp->command, F_OK) == -1)
+		tmp = uncapi
+		if (!check_if_builtin(list[i]->command) && access(list[i]->command, F_OK) == -1)
 			replace_cmd_with_pathname(&(tmp->command), env);
-		tmp = tmp->next;
+		i++;
 	}
 }
 

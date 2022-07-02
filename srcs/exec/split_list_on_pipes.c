@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_list_on_pipes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:44:07 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/02 22:22:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	count_pipes(t_list *list)
 void	parse_redirections(int token, t_cmd *command, char *file)
 {
 	if (token == TOKEN_APPEND)
+	{
 		command->append = 1;
+		command->outfile = ft_strdup(file);
+	}
 	if (token == TOKEN_INFILE)
 		command->infile = ft_strdup(file);
 	if (token == TOKEN_OUTFILE)
@@ -148,7 +151,6 @@ void	ft_parser(t_list **lexer_list, t_list *env) // IL FAUT ENCORE GERER LE HERE
 	int		nb_of_pipes;
 	t_exec	*exec;
 	t_cmd	*cmd; // c'est un tableau de structures et non pas une liste chaînée
-	int		i = 0;
 
 	nb_of_pipes = count_pipes(*lexer_list);
 	exec = malloc(sizeof(t_exec));
@@ -163,4 +165,5 @@ void	ft_parser(t_list **lexer_list, t_list *env) // IL FAUT ENCORE GERER LE HERE
 	exec->commands = cmd;
 	exec->pipes = nb_of_pipes;
 	separate_cmd_from_args(&cmd, nb_of_pipes + 1);
+	// print_commands_tab(cmd, nb_of_pipes);
 }

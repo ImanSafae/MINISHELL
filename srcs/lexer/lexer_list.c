@@ -20,18 +20,6 @@ t_list	*new_entry_with_token(int token, char *str)
 	return (new_entry);
 }
 
-// void	print_lexer_list(t_list *lexer_list)
-// {
-// 	while (lexer_list)
-// 	{
-// 		printf("%s\n", ((t_lexer *)(lexer_list->content))->text);
-// 		lexer_list = lexer_list->next;
-// 	}
-// }
-
-
-
-
 void	update_lexer_list(t_list **list, char *text, int token)
 {
 	t_lexer	*new_entry;
