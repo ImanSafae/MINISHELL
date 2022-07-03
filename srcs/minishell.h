@@ -54,6 +54,7 @@ typedef struct s_cmd
 	char			*infile;
 	char			*outfile;
 	int				append;
+	int				nb_of_cmds;
 }				t_cmd;
 
 typedef struct s_exec
