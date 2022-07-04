@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/04 01:57:14 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:24:10 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,20 @@ static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE
 	return (pathname);
 }
 
-static void	replace_cmd_with_pathname(char **cmd, t_list *env)
+static int	replace_cmd_with_pathname(char **cmd, t_list *env)
 {
 	char	*cmd_pathname;
 
 	cmd_pathname = get_pathname(*cmd, env);
+	if (!cmd_pathname)
+	{
+		send_error(PARSING, UNKNOWN_COMMAND, *cmd);
+		free(*cmd);
+		return (0);
+	}
 	free(*cmd);
 	(*cmd) = cmd_pathname;
+	return (1);
 }
 
 static int	check_if_builtin(char *cmd)
@@ -74,7 +81,7 @@ static int	check_if_builtin(char *cmd)
 	return (0);
 }
 
-static void	check_cmds_list(t_cmd *list, t_list *env)
+static int	check_cmds_list(t_cmd *list, t_list *env)
 {
 	int		i;
 
@@ -82,13 +89,17 @@ static void	check_cmds_list(t_cmd *list, t_list *env)
 	while (list[i])
 	{
 		if (!check_if_builtin(list[i].command) && access(list[i].command, F_OK) == -1)
-			replace_cmd_with_pathname(&(list[i].command), env);
+		{
+			if (!replace_cmd_with_pathname(&(list[i].command), env))
+				return (0);
+		}
 		// else if (check_if_builtin(list[i]->command))
 		// {
 			
 		// }
 		i++;
 	}
+	return (1);
 }
 
 int	check_infile(t_cmd command, int *infile, int cmd_id)
@@ -106,9 +117,9 @@ int	check_infile(t_cmd command, int *infile, int cmd_id)
 	return (1);
 }
 
-void	exec_cmd()
+void	exec_cmd(t_cmd command)
 {
-	
+	execve()
 }
 
 void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
@@ -168,7 +179,8 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	int	cmd_id;
 
 	cmd_id = 0;
-	check_cmds_list(&(instructions->commands), env);
+	if (!check_cmds_list(&(instructions->commands), env))
+		return ; // cas de commande inconnue
 	if (instructions->pipes > 0)
 	{
 		while (cmd_id >= instructions->pipes)
@@ -176,7 +188,7 @@ void	ft_exec(t_exec *instructions, t_list *env)
 			fork_and_exec(instructions->commands, instructions->pipes, cmd_id);
 			cmd_id++;
 		}
-
+	
 	}
 	else
 }

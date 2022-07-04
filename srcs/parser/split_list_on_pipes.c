@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 22:22:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 16:22:01 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,10 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 		if (((*cmds)[i].command)[j])
 			tmp_args = ft_strndup((*cmds)[i].command, j + 1, ft_strlen((*cmds)[i].command));
 		free((*cmds)[i].command);
-		(*cmds)[i].command = tmp_command;
-		(*cmds)[i].args = tmp_args;
+		(*cmds)[i].command = ft_strdup(tmp_command);
+		free(tmp_command);
+		(*cmds)[i].args = ft_split(tmp_args, ' ');
+		free(tmp_args);
 		i++;
 		j = 0;
 	}

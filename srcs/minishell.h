@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/03 20:36:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 16:58:57 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_lexer
 typedef struct s_cmd
 {
 	char			*command;
-	char			*args;
+	char			**args;
 	char			*infile;
 	char			*outfile;
 	int				append;
@@ -94,6 +94,7 @@ typedef struct s_exec
 # define OPEN_QUOTE 2
 # define WRONG_FILE 3
 # define NEAR 4
+# define UNKNOWN_COMMAND 5
 # define ERROR_CHAR "error"
 
 // REDIRECTIONS

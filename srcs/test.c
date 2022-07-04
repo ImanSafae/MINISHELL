@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 20:17:43 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 16:23:39 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,19 @@ void	print_lexer_list(t_list *list)
 void	print_commands_tab(t_cmd *commands, int nb_of_pipes)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (i < (nb_of_pipes + 1))
 	{
 		printf("command = %s\n", (commands[i]).command);
-		printf("args = %s\n", (commands[i]).args);
+		while ((commands[i]).args[j])
+		{
+			printf("args = %s\n", (commands[i]).args[j]);
+			j++;
+		}
 		i++;
+		j = 0;
 	}
 }
