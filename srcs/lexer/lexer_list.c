@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_list.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 18:00:55 by anggonza          #+#    #+#             */
+/*   Updated: 2022/07/04 18:00:56 by anggonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static t_lexer	*new_token(int token, char *str)
@@ -25,7 +37,6 @@ void	update_lexer_list(t_list **list, char *text, int token)
 	t_lexer	*new_entry;
 
 	new_entry = malloc(sizeof(t_lexer));
-
 	new_entry->token = token;
 	new_entry->text = text;
 	ft_lstadd_back(list, ft_lstnew(new_entry));

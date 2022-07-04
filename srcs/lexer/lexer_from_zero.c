@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_from_zero.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
+/*   Updated: 2022/07/04 19:43:00 by anggonza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	identify_token(char c, char next)
 {
+	if (!next)
+		next = '\0';
 	if (c == '\"')
 		return (TOKEN_DQUOTE);
 	else if (c == '\'')
@@ -21,44 +35,6 @@ int	identify_token(char c, char next)
 	else if (ft_isnotspecial(c) && !ft_isspace(c))
 		return (TOKEN_TEXT);
 	return (0);
-}
-
-static char	*retrieve_variable(char *line, int *i, int single_quoted,
-		t_list **env)
-{
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = NULL;
-	tmp2 = NULL;
-	(*i)++;
-	ret = ft_chardup(line[*i]);
-	(*i)++;
-	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')
-		&& !ft_isspace(line[*i]))
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
-		free(tmp);
-		free(tmp2);
-		(*i)++;
-	}
-	if (!single_quoted)
-		expand_variable(&ret, env);
-	return (ret);
-}
-
-char	*find_end(char *line, int i)
-{
-	char	*end;
-
-	while (line[i] && !ft_isspace(line[i]))
-		i++;
-	end = ft_substr(line, i, ft_strlen(line) - i);
-	return (end);
 }
 
 char	*check_for_envvar(char *line, t_list **env)
@@ -93,118 +69,7 @@ char	*check_for_envvar(char *line, t_list **env)
 	return (line);
 }
 
-static char	*retrieve_squoted_text(char *line, int *i)
-{
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-
-	ret = NULL;
-	tmp = NULL;
-	tmp2 = NULL;
-	(*i)++;
-	if (line[*i] && line[*i] != '\'')
-	{
-		ret = ft_chardup(line[*i]);
-		(*i)++;
-	}
-	while (line[*i] && line[*i] != '\'')
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
-		free(tmp);
-		free(tmp2);
-		(*i)++;
-	}
-	if (!line[*i])
-	{
-		send_error(PARSING, OPEN_QUOTE, line);
-		ret = ERROR_CHAR;
-	}
-	return (ret);
-}
-
-void	get_index(char *line, int *i)
-{
-	while (line[*i] && line[*i] != '\"')
-		(*i)++;
-}
-static char	*retrieve_dquoted_text(char *line, int *i, t_list **env)
-{
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-	char	*line_tmp;
-	int		i_tmp;
-
-	tmp = NULL;
-	tmp2 = NULL;
-	(*i)++;
-	i_tmp = *i;
-	tmp = ft_strndup(line, 0, i_tmp - 1);
-	line_tmp = ft_strjoin(tmp, check_for_envvar(&(line[i_tmp]), env));
-	free(tmp);
-	if (line_tmp[i_tmp])
-		ret = ft_chardup(line_tmp[i_tmp]);
-	i_tmp++;
-	get_index(line, i);
-	while (line_tmp[i_tmp] && line_tmp[i_tmp] != '\"')
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line_tmp[i_tmp]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
-		i_tmp++;
-		free(tmp);
-		free(tmp2);
-	}
-	if (!line_tmp[i_tmp])
-		send_error(PARSING, OPEN_QUOTE, line);
-	return (ret);
-}
-
-static char	*retrieve_text(char *line, int *i)
-{
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-
-	ret = ft_chardup(line[*i]);
-	tmp = NULL;
-	tmp2 = NULL;
-	(*i)++;
-	while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i]))
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
-		(*i)++;
-		free(tmp);
-		free(tmp2);
-	}
-	(*i)--;
-	return (ret);
-}
-
-static char	*retrieve_redirection(char *line, int *i)
-{
-	char	*ret;
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = ft_chardup(line[*i]);
-	tmp2 = ft_chardup(line[*i + 1]);
-	ret = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	(*i)++;
-	return (ret);
-}
-
-static char	*retrieve_filename(char *line, int *i)
+char	*retrieve_filename(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
@@ -233,7 +98,7 @@ static char	*retrieve_filename(char *line, int *i)
 	return (ret);
 }
 
-int interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
+int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 {
 	char	*content;
 	int		single_quoted;
@@ -243,7 +108,7 @@ int interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	if (token == TOKEN_TEXT)
 	{
 		printf("token is text\n");
-		content = retrieve_text(&(*line), i);
+		content = retrieve_text(&(*line), i, env);
 	}
 	else if (token == TOKEN_SQUOTE)
 	{
@@ -252,38 +117,23 @@ int interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 		content = retrieve_squoted_text(line, i);
 	}
 	else if (token == TOKEN_DQUOTE)
-	{
-		// printf("token is double quote\n");
 		content = retrieve_dquoted_text(line, i, env);
-	}
 	else if (token == TOKEN_DOLLAR)
-	{
-		// printf("token is dollar\n");
 		content = retrieve_variable(line, i, single_quoted, env);
-	}
 	else if (token == TOKEN_PIPE)
-	{
 		content = ft_chardup(line[*i]);
-		// printf("token is pipe\n");
-	}
 	else if (token == TOKEN_HEREDOC)
-	{
-		// printf("token is heredoc\n");
 		content = retrieve_redirection(line, i);
-	}
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
-	{
-		// printf("token is filename\n");
 		content = retrieve_filename(line, i);
-	}
 	else if (token == TOKEN_APPEND)
 	{
 		while (line[*i] && line[*i] == '>')
 			(*i)++;
 		content = retrieve_filename(line, i);
 	}
-	if (content == ERROR_CHAR)
-		return (0);
+	/*if (content == ERROR_CHAR)
+		return (0); */
 	if (content)
 		update_lexer_list(list, content, token);
 	return (1);
@@ -301,12 +151,11 @@ void	ft_lexer(char *line, t_list **env)
 	{
 		token = identify_token(line[i], line[i + 1]);
 		if (!interpret_token(line, token, &i, &lexer_list, env))
-			return;
-		i++;
+			return ;
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	// print_lexer_list(lexer_list);
+	print_lexer_list(lexer_list);
 	uncapitalize_cmd(&lexer_list);
 	ft_parser(&lexer_list, *env);
 	free_lexer(&lexer_list);
