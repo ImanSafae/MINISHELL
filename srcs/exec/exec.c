@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/04 17:24:10 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:50:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	check_infile(t_cmd command, int *infile, int cmd_id)
 
 void	exec_cmd(t_cmd command)
 {
+	
 	execve()
 }
 
@@ -161,7 +162,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
 			outfile = pipefd[0];
 			dup2(outfile, STDOUT_FILENO);
 		}
-		exec_cmd()
+		exec_cmd();
 	}
 	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
 	{

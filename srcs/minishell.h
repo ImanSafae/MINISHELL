@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 16:58:57 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:33:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmd
 	char			**args;
 	char			*infile;
 	char			*outfile;
+	char			*hd_delimiter;
 	int				append;
 	int				nb_of_cmds;
 }				t_cmd;

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 22:20:38 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:52:03 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	}
 	ret[i] = '\0';
 	return (ret);
+}
+
+char	**tab_addfront(char **tab, char *to_add)
+{
+	int	length;
+
+	length = 0;
+	while (tab[length])
+		length++;
 }
