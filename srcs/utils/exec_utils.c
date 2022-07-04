@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/07/04 17:52:03 by itaouil          ###   ########.fr       */
+=======
+/*   Updated: 2022/07/04 17:40:39 by anggonza         ###   ########.fr       */
+>>>>>>> 7ab68c3bbe5b6c9b6ae8836f5a2bc596d9438bff
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +69,7 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	ret = malloc(sizeof(char) * total_length);
 	i = 0;
 	j = 0;
-	while(s1[i])
+	while (s1[i])
 	{
 		ret[i] = s1[i];
 		i++;

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 17:11:21 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:54:40 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	heredoc(char *delim)
 	int		tmp_file;
 
 	tmp_file = open("/tmp/heredoc.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	g_all.fd_to_close = tmp_file;
 	line = NULL;
 	while (1)
 	{
@@ -33,28 +34,4 @@ void	heredoc(char *delim)
 		free(line);
 	}
 	close(tmp_file);
-}
-
-void	read_heredoc(void)
-{
-	int		file;
-	char	buffer[2];
-	int		count;
-
-	file = open("/tmp/heredoc.tmp", O_RDONLY);
-	if (file < 0)
-		return ;
-	count = read(file, buffer, 1);
-	if (count <= 0)
-	{
-		close(file);
-		return ;
-	}
-	while (count != 0)
-	{
-		buffer[1] = 0;
-		write(0, buffer, 1);
-		count = read(file, buffer, 1);
-	}
-	close(file);
 }
