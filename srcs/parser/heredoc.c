@@ -6,13 +6,11 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 17:06:54 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:11:21 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_all	g_all;
 
 void	heredoc(char *delim)
 {
