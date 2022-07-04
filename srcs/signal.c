@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 14:39:07 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:38:02 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	sigint(int sig)
 {
 	(void)sig;
+	if (g_all.fd_to_close != -1)
+		close(g_all.fd_to_close);
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();

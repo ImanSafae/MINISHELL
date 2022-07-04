@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 17:33:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 19:41:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 typedef struct s_all
 {
 	int	exit_code;
+	int	fd_to_close;
 }	t_all;
 
 typedef struct s_env
@@ -115,6 +116,12 @@ void	send_error(int function, int error, char *arg);
 t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line, t_list **env);
 void	update_lexer_list(t_list **list, char *text, int token);
+char	*retrieve_variable(char *line, int *i, int single_quoted, t_list **env);
+char	*retrieve_squoted_text(char *line, int *i);
+char	*retrieve_dquoted_text(char *line, int *i, t_list **env);
+char	*retrieve_text(char *line, int *i, t_list **env);
+char	*retrieve_redirection(char *line, int *i);
+char	*check_for_envvar(char *line, t_list **env);
 
 // PARSER
 void	ft_parser(t_list **lexer_list, t_list *env);
@@ -153,6 +160,8 @@ t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);
 void	change_env_value(char *variable, char *value, t_list **env);
 void	uncapitalize_cmd(t_list **lexer_list);
+void	get_index(char *line, int *i, int type);
+char	*find_end(char *line, int i);
 
 // FREE
 void	free_env(t_list **list);

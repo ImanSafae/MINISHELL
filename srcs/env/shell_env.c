@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:27:11 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	delete_element(void *element)
 {
 	element = NULL;
+	(void)element;
 }
 
 int	envlen(char **envp)
