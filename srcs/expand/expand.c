@@ -6,13 +6,11 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:11:24 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-extern t_all	g_all;
 
 void	expand_variable(char **value, t_list **env)
 {
