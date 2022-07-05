@@ -10,7 +10,7 @@ INC			=	-I ./libft
 LIB			=	-L ./libft -lft
 SRCS_DIR	=	./srcs
 OBJS_DIR	=	objs
-SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c \
+SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c builtins/echo.c builtins/exit.c \
 				error/error.c error/free.c \
 				env/shell_env.c \
 				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c \
@@ -18,7 +18,7 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				parser/parser.c parser/heredoc.c \
 				expand/expand.c \
 				main.c test.c \
-				exec/split_list_on_pipes.c #exec/exec_from_zero.c signal.c \
+				parser/split_list_on_pipes.c exec/exec.c #signal.c \
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 

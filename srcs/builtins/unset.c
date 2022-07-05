@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 19:11:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static void	remove_from_env(t_list **env, char *var)
 	}
 }
 
-void	ft_unset(char *variable, t_list **env)
+static void	exec_unset(char *variable, t_list **env)
 {
 	t_list	*tmp;
-	int		found;
+	// int		found;
 
 	tmp = (*env);
-	found = 0;
+	// found = 0;
 	if (!variable)
 		return ;
 	while (tmp)
@@ -63,9 +63,26 @@ void	ft_unset(char *variable, t_list **env)
 		if (found_variable(tmp, variable))
 		{
 			remove_from_env(env, variable);
-			found = 1;
+			// found = 1;
 			return ;
 		}
 		tmp = tmp->next;
+	}
+}
+
+void	ft_unset(char **args, t_list **env)
+{
+	int	i;
+
+	i = 0;
+	if (args == NULL)
+	{
+		send_error(UNSET, NOT_ENOUGH_ARGS, NULL);
+		exit(EXIT_FAILURE);
+	}
+	while (args[i])
+	{
+		exec_unset(args[i], env);
+		i++;
 	}
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:58:26 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(char *code)
+static int	exec_exit(char *code)
 {
 	int	i;
 
@@ -31,5 +31,16 @@ void	ft_exit(char *code)
 		i++;
 	}
 	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	// il faut aussi envoyer un signal pour terminer le process
+	exit(EXIT_SUCCESS); 
+}
+
+void	ft_exit(char **args)
+{
+	if (tab_length(args) > 1)
+	{
+		send_error(EXIT, TOO_MANY_ARGS, NULL);
+		exit(EXIT_FAILURE);
+	}
+	exec_exit(args[0]);
 }

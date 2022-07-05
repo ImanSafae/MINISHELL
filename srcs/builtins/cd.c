@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 14:41:13 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:52:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	change_pwd(char *path, t_list **env)
 	free(tmp);
 }
 
-void	cd(char *arg, t_list **env)
+static void	cd(char **arg, t_list **env)
 {
 	char	*actual_path;
 	char	*next_path;
@@ -104,4 +104,16 @@ void	cd(char *arg, t_list **env)
 			g_all.exit_code = 0;
 		}
 	}
+}
+
+void	ft_cd(char **args)
+{
+	if (tab_length(args) > 1)
+	{
+		send_error(CD, TOO_MANY_ARGS, NULL);
+		exit(EXIT_FAILURE);
+	}
+	if (args[0] && access(args[0], F_OK) == -1)
+		send_error(CD, WRONG_FILE, args[0]);
+	cd(&(args[0]), &(g_all.env));
 }

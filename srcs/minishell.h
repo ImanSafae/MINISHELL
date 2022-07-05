@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 17:33:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/05 20:51:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@
 
 typedef struct s_all
 {
-	int	exit_code;
+	int		exit_code;
+	int		fd_to_close;
+	t_list	*env;
 }	t_all;
 
 typedef struct s_env
@@ -88,6 +90,10 @@ typedef struct s_exec
 // ERRORS: FUNCTIONS
 # define PARSING 0
 # define EXIT 1
+# define PWD 2
+# define ENV 3
+# define UNSET 4
+# define CD 5
 
 // ERRORS: ERROR CODES
 # define NUM 0
@@ -96,6 +102,8 @@ typedef struct s_exec
 # define WRONG_FILE 3
 # define NEAR 4
 # define UNKNOWN_COMMAND 5
+# define NOT_ENOUGH_ARGS 6
+# define BAD_ASSIGN 7
 # define ERROR_CHAR "error"
 
 // REDIRECTIONS
@@ -120,14 +128,15 @@ void	update_lexer_list(t_list **list, char *text, int token);
 void	ft_parser(t_list **lexer_list, t_list *env);
 
 // BUILTINS
-void	ft_unset(char	*variable, t_list **env);
-void	ft_export(t_list **env, char *var, char *value);
+void	ft_unset(char **args, t_list **env);
+void	ft_export(char **args);
 void	print_env_in_ascii_order(t_list *env);
-void	ft_env(t_list **env);
+void	ft_env(t_list **env, char **args);
 t_env	*new_env_entry(char *var, char *value);
-void	ft_pwd(void);
-void	cd(char *arg, t_list **env);
-void	echo(char *arg, int newtrail);
+void	ft_pwd(char **args);
+void	ft_cd(char **args);
+void	ft_echo(char **args);
+void	ft_exit(char **args);
 
 //EXPAND
 void	expand_variable(char **value, t_list **env);
@@ -153,6 +162,8 @@ t_env	*add_var_to_env(char *line);
 char	*find_variable_in_env(char *str, t_list **env);
 void	change_env_value(char *variable, char *value, t_list **env);
 void	uncapitalize_cmd(t_list **lexer_list);
+void	tab_addfront(char ***tab, char *to_add);
+int		tab_length(char **tab);
 
 // FREE
 void	free_env(t_list **list);

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/07/04 17:52:03 by itaouil          ###   ########.fr       */
-=======
-/*   Updated: 2022/07/04 17:40:39 by anggonza         ###   ########.fr       */
->>>>>>> 7ab68c3bbe5b6c9b6ae8836f5a2bc596d9438bff
+/*   Updated: 2022/07/05 19:18:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +82,34 @@ char	*ft_strjoin_with_space(char *s1, char *s2)
 	return (ret);
 }
 
-char	**tab_addfront(char **tab, char *to_add)
+void	tab_addfront(char ***tab, char *to_add)
 {
-	int	length;
+	int		length;
+	char	**new_tab;
+	int		i;
 
 	length = 0;
-	while (tab[length])
+	i = 1;
+	while ((*tab)[length])
 		length++;
+	new_tab = malloc(sizeof(char *) * (length + 2));
+	new_tab[0] = ft_strdup(to_add);
+	while (i < (length + 1))
+	{
+		new_tab[i] = ft_strdup((*tab)[i - 1]);
+		i++;
+	}
+	new_tab[i] = 0;
+	free_tab(*tab);
+	(*tab) = new_tab;
+}
+
+int	tab_length(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

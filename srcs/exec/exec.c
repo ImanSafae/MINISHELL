@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/04 17:50:34 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/05 20:56:46 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,35 @@ static int	replace_cmd_with_pathname(char **cmd, t_list *env)
 
 static int	check_if_builtin(char *cmd)
 {
-	if (!ft_strncmp(cmd, "echo", ft_strlen("echo")))
+	if (!ft_strncmp(cmd, "echo", ft_strlen("cmd")) && ft_strlen(cmd) == 4)
 		return (1);
-	if (!ft_strncmp(cmd, "exit", ft_strlen("exit")))
+	if (!ft_strncmp(cmd, "exit", ft_strlen("exit")) && ft_strlen(cmd) == 4)
 		return (1);
-	if (!ft_strncmp(cmd, "env", ft_strlen("env")))
+	if (!ft_strncmp(cmd, "env", ft_strlen("env"))  && ft_strlen(cmd) == 3)
 		return (1);
-	if (!ft_strncmp(cmd, "export", ft_strlen("export")))
+	if (!ft_strncmp(cmd, "export", ft_strlen("export")) && ft_strlen(cmd) == 6)
 		return (1);
-	if (!ft_strncmp(cmd, "unset", ft_strlen("unset")))
+	if (!ft_strncmp(cmd, "unset", ft_strlen("unset"))  && ft_strlen(cmd) == 5)
 		return (1);
-	if (!ft_strncmp(cmd, "cd", ft_strlen("cd")))
+	if (!ft_strncmp(cmd, "cd", ft_strlen("cd"))  && ft_strlen(cmd) == 2)
 		return (1);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd")))
+	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd"))  && ft_strlen(cmd) == 3)
 		return (1);
 	return (0);
 }
 
-static int	check_cmds_list(t_cmd *list, t_list *env)
+static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 {
 	int		i;
 
 	i = 0;
-	while (list[i])
+	while (i < nb_of_cmds)
 	{
 		if (!check_if_builtin(list[i].command) && access(list[i].command, F_OK) == -1)
 		{
 			if (!replace_cmd_with_pathname(&(list[i].command), env))
 				return (0);
 		}
-		// else if (check_if_builtin(list[i]->command))
-		// {
-			
-		// }
 		i++;
 	}
 	return (1);
@@ -119,11 +115,32 @@ int	check_infile(t_cmd command, int *infile, int cmd_id)
 
 void	exec_cmd(t_cmd command)
 {
-	
-	execve()
+	if (check_if_builtin(command.command))
+	{
+		if (!ft_strncmp(command.command, "pwd", 3))
+			ft_pwd(command.args);
+		if (!ft_strncmp(command.command, "cd", 2))
+			ft_cd(command.args);
+		if (!ft_strncmp(command.command, "export", 6))
+			ft_export(command.args);
+		if (!ft_strncmp(command.command, "env", 3))
+			ft_env(&(g_all.env), command.args);
+		if (!ft_strncmp(command.command, "unset", 5))
+			ft_unset(command.args, &(g_all.env));
+		if (!ft_strncmp(command.command, "echo", 4))
+			ft_echo(command.args);
+		if (!ft_strncmp(command.command, "exit", 4))
+			ft_exit(command.args);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		tab_addfront(&(command.args), command.command);
+		execve(command.command, command.args, NULL);
+	}
 }
 
-void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
+void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 {
 	int		pipefd[2];
 	int		infile;
@@ -136,15 +153,9 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
 	{
 		//le fils va écrire, donc commencer par close l'extrémité de lecture
 		close(pipefd[1]);
-		/* commencer par s'occuper des redirections in :
-		- si un infile est précisé, on dup2 l'entrée standard vers l'infile.
-		- si pas d'infile et qu'on est dans la première commande, l'entrée reste l'entrée standard : pas besoin de dup2
-		- si pas d'infile et qu'on n'est pas dans la première commande, l'entrée = la sortie du pipe précédent, le dup2 a déjà été fait par le process père */
-		if (!check_infile(commands[cmd_id], &infile, cmd_id))
+		dup2(input, STDIN_FILENO);
+		if (!check_infile(*commands, &infile, cmd_id))
 			return ;
-		/* checker ensuite les redirections out :
-		- si un outfile est précisé -> dup2 la sortie standard vers l'outfile
-		*/
 		if (commands->outfile)
 		{
 			if (commands->append == 1)
@@ -153,24 +164,21 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id)
 				outfile = open(commands->outfile, O_WRONLY | O_CREAT, 0777);
 			dup2(outfile, STDOUT_FILENO);
 		}
-		/* - si aucun outfile n'est précisé :
-		- la sortie standard reste la sortie standard dans le cas où on est dans la dernière commande
-		- la sortie standard devient l'entrée du pipe dans le cas où on est dans une des commandes du milieu
-		*/
 		else if (cmd_id < nb_of_pipes)
 		{
 			outfile = pipefd[0];
 			dup2(outfile, STDOUT_FILENO);
 		}
-		exec_cmd();
+		exec_cmd(*commands);
 	}
 	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
 	{
 		// le parent va lire, donc commencer par close l'extrémité d'écriture
 		close(pipefd[0]);
 		wait(NULL);
-		dup2(pipefd[1], STDIN_FILENO);
-		if (cmd_id == nb_of_pipes)
+		if (cmd_id != nb_of_pipes)
+			fork_and_exec(&commands[cmd_id + 1], nb_of_pipes, cmd_id + 1, pipefd[1]);
+		else if (cmd_id == nb_of_pipes)
 			close(pipefd[1]);
 	}
 }
@@ -180,16 +188,18 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	int	cmd_id;
 
 	cmd_id = 0;
-	if (!check_cmds_list(&(instructions->commands), env))
+	if (!check_cmds_list(instructions->commands, env, instructions->pipes + 1))
 		return ; // cas de commande inconnue
 	if (instructions->pipes > 0)
 	{
 		while (cmd_id >= instructions->pipes)
 		{
-			fork_and_exec(instructions->commands, instructions->pipes, cmd_id);
+			fork_and_exec(&(instructions->commands)[cmd_id], instructions->pipes, cmd_id, 0);
 			cmd_id++;
 		}
-	
 	}
 	else
+	{
+		
+	}
 }
