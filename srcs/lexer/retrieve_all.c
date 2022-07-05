@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 20:26:59 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:54:24 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,17 +144,46 @@ char	*retrieve_text(char *line, int *i, t_list **env)
 	return (ret);
 }
 
-char	*retrieve_redirection(char *line, int *i)
+char	*retrieve_heredoc(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
 	char	*tmp2;
+	int		into_quote;
 
-	tmp = ft_chardup(line[*i]);
-	tmp2 = ft_chardup(line[*i + 1]);
-	ret = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
+	(*i) += 2;
+	into_quote = 0;
+	while (ft_isspace(line[*i]))
+		(*i)++;
+	into_quote = 0;
+	if (line[*i] == '\"' || line[*i] == '\'')
+	{
+		into_quote = 1;
+		(*i)++;
+	}
+	ret = ft_chardup(line[*i]);
 	(*i)++;
+	while (line[*i] && ft_isnotspecial(line[*i])
+		&& (!ft_isspace(line[*i] || (ft_isspace && into_quote == 1))))
+	{
+		if (line[*i] == '\"' || line[*i] == '\'')
+		{
+			if (ft_strlen(line) > i)
+				(*i)++;
+			else
+			{
+				(*i)++;
+				break ;
+			}
+			into_quote = 1;
+		}
+		tmp = ft_strdup(ret);
+		tmp2 = ft_chardup(line[*i]);
+		free(ret);
+		ret = ft_strjoin(tmp, tmp2);
+		free(tmp);
+		free(tmp2);
+		(*i)++;
+	}
 	return (ret);
 }

@@ -1,5 +1,3 @@
-#include "../minishell.h"
-
 void	uncapitalize_cmd(t_list **lexer_list)
 {
 	t_list	*tmp;

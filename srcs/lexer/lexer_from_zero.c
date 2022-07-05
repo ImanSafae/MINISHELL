@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 20:37:29 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:23:37 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	else if (token == TOKEN_PIPE)
 		content = ft_chardup(line[*i]);
 	else if (token == TOKEN_HEREDOC)
-		content = retrieve_redirection(line, i);
+		content = retrieve_heredoc(line, i);
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
 		content = retrieve_filename(line, i);
 	else if (token == TOKEN_APPEND)

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 19:41:07 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:34:18 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	*retrieve_variable(char *line, int *i, int single_quoted, t_list **env);
 char	*retrieve_squoted_text(char *line, int *i);
 char	*retrieve_dquoted_text(char *line, int *i, t_list **env);
 char	*retrieve_text(char *line, int *i, t_list **env);
-char	*retrieve_redirection(char *line, int *i);
+char	*retrieve_heredoc(char *line, int *i);
 char	*check_for_envvar(char *line, t_list **env);
 
 // PARSER
