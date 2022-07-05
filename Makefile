@@ -14,8 +14,8 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				error/error.c error/free.c \
 				env/shell_env.c \
 				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c \
-				lexer/lexer_from_zero.c lexer/lexer_list.c lexer/lexer_test.c \
-				parser/parser.c parser/heredoc.c \
+				lexer/lexer_from_zero.c lexer/lexer_list.c lexer/lexer_test.c lexer/retrieve_all.c \
+				parser/parser.c parser/heredoc.c parser/split_list_on_pipes.c \
 				expand/expand.c \
 				main.c test.c \
 				parser/split_list_on_pipes.c exec/exec.c #signal.c \

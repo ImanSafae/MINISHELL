@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:28:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/02 21:38:09 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/04 19:26:53 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isnotspecial(char c)
 {
-	if (c == '\'' || c == '\"' || c == '>' || c == '<' || c == '$' || c == '|')
+	if (c == '>' || c == '<' || c == '|')
 		return (0);
 	return (1);
 }
@@ -35,4 +35,30 @@ char	*ft_chardup(char c)
 	ret[0] = c;
 	ret[1] = '\0';
 	return (ret);
+}
+
+void	get_index(char *line, int *i, int type)
+{
+	if (type == TOKEN_DQUOTE)
+		while (line[*i] && line[*i] != '\"')
+			(*i)++;
+	else if (type == TOKEN_SQUOTE)
+		while (line[*i] && line[*i] != '\'')
+			(*i)++;
+	else if (type == TOKEN_DOLLAR)
+	{
+		while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i])
+			&& line[*i] != '\"' && line[*i] != '\'')
+			(*i)++;
+	}
+}
+
+char	*find_end(char *line, int i)
+{
+	char	*end;
+
+	while (line[i] && !ft_isspace(line[i]))
+		i++;
+	end = ft_substr(line, i, ft_strlen(line) - i);
+	return (end);
 }
