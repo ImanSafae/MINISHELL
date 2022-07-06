@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:46:41 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:22:32 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ static void	exec_unset(char *variable)
 {
 	t_list	*tmp;
 
-	// int		found;
-
 	tmp = *g_all.env;
-	// found = 0;
 	if (!variable)
 		return ;
 	while (tmp)
@@ -64,7 +61,6 @@ static void	exec_unset(char *variable)
 		if (found_variable(tmp, variable))
 		{
 			remove_from_env(variable);
-			// found = 1;
 			return ;
 		}
 		tmp = tmp->next;

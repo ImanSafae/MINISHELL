@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:39:26 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:31:30 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ static void	cd(char **arg)
 	char	*actual_path;
 	char	*next_path;
 
-	actual_path = malloc(256);
-	next_path = malloc(256);
-	actual_path = getcwd(actual_path, 256);
+	actual_path = getcwd(NULL, 0);
 	if (!arg || ft_strlen(arg) == 0)
 	{
 		if (chdir(find_variable_in_env("HOME")) == -1)
@@ -100,7 +98,7 @@ static void	cd(char **arg)
 		else
 		{
 			change_oldpwd(actual_path);
-			change_pwd(getcwd(next_path, 256));
+			change_pwd(getcwd(next_path, 0));
 			g_all.exit_code = 0;
 		}
 	}

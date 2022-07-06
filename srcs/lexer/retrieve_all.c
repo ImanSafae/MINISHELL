@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:49:12 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:34:41 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char	*retrieve_text(char *line, int *i)
 		ret = ft_strjoin(tmp, tmp2);
 		free(tmp);
 		free(tmp2);
-		if (ft_strlen(line) > *i)
+		if ((int)ft_strlen(line) > *i)
 			(*i)++;
 	}
 	return (ret);
@@ -163,11 +163,11 @@ char	*retrieve_heredoc(char *line, int *i)
 	ret = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && ft_isnotspecial(line[*i])
-		&& (!ft_isspace(line[*i] || (ft_isspace && into_quote == 1))))
+		&& (!ft_isspace(line[*i]) || (ft_isspace(line[*i]) && into_quote == 1)))
 	{
 		if (line[*i] == '\"' || line[*i] == '\'')
 		{
-			if (ft_strlen(line) > i)
+			if ((int)ft_strlen(line) > *i)
 				(*i)++;
 			else
 			{
