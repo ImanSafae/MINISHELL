@@ -17,8 +17,8 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				lexer/lexer_from_zero.c lexer/lexer_list.c lexer/lexer_test.c lexer/retrieve_all.c \
 				parser/parser.c parser/heredoc.c parser/split_list_on_pipes.c \
 				expand/expand.c \
-				main.c test.c \
-				parser/split_list_on_pipes.c exec/exec.c #signal.c \
+				main.c test.c signal.c \
+				exec/exec.c \
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 

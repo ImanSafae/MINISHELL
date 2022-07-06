@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:27:56 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:49:12 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*retrieve_variable(char *line, int *i, int single_quoted)
 		(*i)++;
 	}
 	if (!single_quoted)
-		expand_variable(&ret, &(g_all.env));
+		expand_variable(&ret);
 	return (ret);
 }
 

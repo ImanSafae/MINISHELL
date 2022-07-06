@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:38:25 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:07:42 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = create_env(envp);
 	g_all.env = &env;
-	// detect_signals();
+	detect_signals();
 	while (1)
 	{
 		str = readline("minishell obama is listening > ");
 		if (ft_strlen(str) == 0)
 			continue ;
 		if (!ft_strncmp(str, "exit", 4))
+		{
+			free(str);
 			break ;
+		}
 		add_history(str);
 		ft_lexer(str);
 		free(str);

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:27:15 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:06:11 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 	else if (token == TOKEN_DOLLAR)
 		content = retrieve_variable(line, i, single_quoted);
 	else if (token == TOKEN_PIPE)
+	{
 		content = ft_chardup(line[*i]);
+		(*i)++;
+	}
 	else if (token == TOKEN_HEREDOC)
 		content = retrieve_heredoc(line, i);
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
