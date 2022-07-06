@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_from_zero.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 17:06:11 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:32:36 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 	single_quoted = 0;
 	if (token == TOKEN_TEXT)
 	{
-		printf("token is text\n");
+		// printf("token is text\n");
 		content = retrieve_text(&(*line), i);
 	}
 	else if (token == TOKEN_SQUOTE)
@@ -158,8 +158,8 @@ void	ft_lexer(char *line)
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	print_lexer_list(lexer_list);
+	// print_lexer_list(lexer_list);
 	uncapitalize_cmd(&lexer_list);
-	//ft_parser(&lexer_list, *env);
+	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }

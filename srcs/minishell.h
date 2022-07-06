@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:44:37 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:42:38 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char	*retrieve_heredoc(char *line, int *i);
 char	*check_for_envvar(char *line);
 
 // PARSER
-void	ft_parser(t_list **lexer_list, t_list *env);
+void	ft_parser(t_list **lexer_list);
 
 // BUILTINS
 void	ft_unset(char **args);

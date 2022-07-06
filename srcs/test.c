@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:08 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/04 16:23:39 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 21:05:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_commands_tab(t_cmd *commands, int nb_of_pipes)
 	while (i < (nb_of_pipes + 1))
 	{
 		printf("command = %s\n", (commands[i]).command);
-		while ((commands[i]).args[j])
+		while (commands[i].args && (commands[i]).args[j])
 		{
 			printf("args = %s\n", (commands[i]).args[j]);
 			j++;

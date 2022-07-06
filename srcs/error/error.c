@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 20:53:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 22:16:48 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	parsing_errors(int error, char *arg) // REMPLACER LES PRINTF PAR DES
 		printf("parse error near '%s'\n", arg);
 	else if (error == BAD_ASSIGN)
 		printf("bad assignment\n");
+	else if (error == UNKNOWN_COMMAND)
+		printf("%s: command not found\n", arg);
 }
 
 static void	exit_errors(int error, char *arg)

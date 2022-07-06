@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:43:08 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 22:19:52 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE
 		if (!access(pathname, F_OK))
 			break ;
 		free(pathname);
+		pathname = NULL;
 		i++;
 	}
 	free_tab(pathtab);
@@ -98,17 +99,20 @@ static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 	return (1);
 }
 
-int	check_infile(t_cmd command, int *infile, int cmd_id)
+int	check_infile(t_cmd command, int cmd_id)
 {
+	int	infile;
+	
+	infile = 0;
 	if (command.infile)
 	{
-		(*infile) = open(command.infile, O_RDONLY);
-		if ((*infile) == -1)
+		infile = open(command.infile, O_RDONLY);
+		if (infile == -1)
 		{
 			send_error(PARSING, WRONG_FILE, command.infile);
 			return (0);
 		}
-		dup2(*infile, STDIN_FILENO);
+		dup2(infile, STDIN_FILENO);
 	}
 	return (1);
 }
@@ -143,7 +147,6 @@ void	exec_cmd(t_cmd command)
 void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 {
 	int		pipefd[2];
-	int		infile;
 	int		outfile;
 	pid_t	cpid;
 
@@ -154,7 +157,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		//le fils va écrire, donc commencer par close l'extrémité de lecture
 		close(pipefd[1]);
 		dup2(input, STDIN_FILENO);
-		if (!check_infile(*commands, &infile, cmd_id))
+		if (!check_infile(*commands, cmd_id))
 			return ;
 		if (commands->outfile)
 		{
@@ -165,10 +168,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 			dup2(outfile, STDOUT_FILENO);
 		}
 		else if (cmd_id < nb_of_pipes)
-		{
-			outfile = pipefd[0];
-			dup2(outfile, STDOUT_FILENO);
-		}
+			dup2(pipefd[0], STDOUT_FILENO);
 		exec_cmd(*commands);
 	}
 	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
@@ -178,7 +178,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		wait(NULL);
 		if (cmd_id != nb_of_pipes)
 			fork_and_exec(&commands[cmd_id + 1], nb_of_pipes, cmd_id + 1, pipefd[1]);
-		else if (cmd_id == nb_of_pipes)
+		else
 			close(pipefd[1]);
 	}
 }
@@ -192,14 +192,10 @@ void	ft_exec(t_exec *instructions, t_list *env)
 		return ; // cas de commande inconnue
 	if (instructions->pipes > 0)
 	{
-		while (cmd_id >= instructions->pipes)
-		{
-			fork_and_exec(&(instructions->commands)[cmd_id], instructions->pipes, cmd_id, 0);
-			cmd_id++;
-		}
+		fork_and_exec(&(instructions->commands)[cmd_id], instructions->pipes, cmd_id, 0);
 	}
-	else
-	{
-
-	}
+	// else
+	// {
+		
+	// }
 }

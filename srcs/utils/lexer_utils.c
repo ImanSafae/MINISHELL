@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:28:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 19:26:53 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:07:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,31 @@ char	*find_end(char *line, int i)
 		i++;
 	end = ft_substr(line, i, ft_strlen(line) - i);
 	return (end);
+}
+
+void	uncapitalize_cmd(t_list **lexer_list)
+{
+	t_list	*tmp;
+	t_lexer	*caster;
+	char	*uncapitalized;
+
+	tmp = (*lexer_list);
+	caster = NULL;
+	uncapitalized = NULL;
+	while (tmp)
+	{
+		caster = (t_lexer *)(tmp->content);
+		if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
+			|| caster->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
+		{
+			if (caster->text)
+			{
+				uncapitalized = uncapitalize_str(caster->text);
+				free(caster->text);
+				caster->text = ft_strdup(uncapitalized);
+				free(uncapitalized);
+			}
+		}
+		tmp = tmp->next;
+	}
 }
