@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:18 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/05 19:03:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:39:44 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_list **env, char **args)
+void	ft_env(char **args)
 {
 	t_list	*tmp;
 
-	tmp = (*env);
+	tmp = *g_all.env;
 	if (args != NULL)
 	{
 		send_error(ENV, TOO_MANY_ARGS, NULL);

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 20:52:49 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:39:26 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	change_env_value(char *variable, char *value, t_list **env)
+void	change_env_value(char *variable, char *value)
 {
 	t_list	*tmp;
 
-	tmp = *env;
+	tmp = *g_all.env;
 	while (tmp->next)
 	{
 		if (ft_strlen(variable) == ft_strlen(((t_env *)
@@ -33,11 +33,11 @@ void	change_env_value(char *variable, char *value, t_list **env)
 	}
 }
 
-char	*find_variable_in_env(char *str, t_list **env)
+char	*find_variable_in_env(char *str)
 {
 	t_list	*tmp;
 
-	tmp = *env;
+	tmp = *g_all.env;
 	while (tmp->next)
 	{
 		if (ft_strlen(str) == ft_strlen(((t_env *)(tmp->content))->variable))
@@ -51,30 +51,30 @@ char	*find_variable_in_env(char *str, t_list **env)
 	return (NULL);
 }
 
-void	change_oldpwd(char *path, t_list **env)
+void	change_oldpwd(char *path)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin("OLDPWD=", path);
-	if (find_variable_in_env("OLDPWD", env) == NULL)
-		ft_lstadd_back(env, ft_lstnew(add_var_to_env(tmp)));
+	if (find_variable_in_env("OLDPWD") == NULL)
+		ft_lstadd_back(g_all.env, ft_lstnew(add_var_to_env(tmp)));
 	else
-		change_env_value("OLDPWD", path, env);
+		change_env_value("OLDPWD", path);
 }
 
-void	change_pwd(char *path, t_list **env)
+void	change_pwd(char *path)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin("PWD=", path);
-	if (find_variable_in_env("PWD", env) == NULL)
-		ft_lstadd_back(env, ft_lstnew(add_var_to_env(tmp)));
+	if (find_variable_in_env("PWD") == NULL)
+		ft_lstadd_back(g_all.env, ft_lstnew(add_var_to_env(tmp)));
 	else
-		change_env_value("PWD", path, env);
+		change_env_value("PWD", path);
 	free(tmp);
 }
 
-static void	cd(char **arg, t_list **env)
+static void	cd(char **arg)
 {
 	char	*actual_path;
 	char	*next_path;
@@ -84,12 +84,12 @@ static void	cd(char **arg, t_list **env)
 	actual_path = getcwd(actual_path, 256);
 	if (!arg || ft_strlen(arg) == 0)
 	{
-		if (chdir(find_variable_in_env("HOME", env)) == -1)
+		if (chdir(find_variable_in_env("HOME")) == -1)
 			g_all.exit_code = 127;
 		else
 		{
-			change_oldpwd(actual_path, env);
-			change_pwd(find_variable_in_env("HOME", env), env);
+			change_oldpwd(actual_path);
+			change_pwd(find_variable_in_env("HOME"));
 			g_all.exit_code = 0;
 		}
 	}
@@ -99,8 +99,8 @@ static void	cd(char **arg, t_list **env)
 			g_all.exit_code = 127;
 		else
 		{
-			change_oldpwd(actual_path, env);
-			change_pwd(getcwd(next_path, 256), env);
+			change_oldpwd(actual_path);
+			change_pwd(getcwd(next_path, 256));
 			g_all.exit_code = 0;
 		}
 	}
@@ -115,5 +115,5 @@ void	ft_cd(char **args)
 	}
 	if (args[0] && access(args[0], F_OK) == -1)
 		send_error(CD, WRONG_FILE, args[0]);
-	cd(&(args[0]), &(g_all.env));
+	cd(&(args[0]));
 }

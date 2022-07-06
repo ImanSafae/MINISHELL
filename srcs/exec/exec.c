@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/05 20:56:46 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:43:08 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void	exec_cmd(t_cmd command)
 		if (!ft_strncmp(command.command, "export", 6))
 			ft_export(command.args);
 		if (!ft_strncmp(command.command, "env", 3))
-			ft_env(&(g_all.env), command.args);
+			ft_env(command.args);
 		if (!ft_strncmp(command.command, "unset", 5))
-			ft_unset(command.args, &(g_all.env));
+			ft_unset(command.args);
 		if (!ft_strncmp(command.command, "echo", 4))
 			ft_echo(command.args);
 		if (!ft_strncmp(command.command, "exit", 4))
@@ -200,6 +200,6 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	}
 	else
 	{
-		
+
 	}
 }

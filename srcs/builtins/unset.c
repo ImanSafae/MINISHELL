@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/05 19:11:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:46:41 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static int	found_variable(t_list *element, char *variable)
 	return (0);
 }
 
-static void	remove_from_env(t_list **env, char *var)
+static void	remove_from_env(char *var)
 {
 	t_list	*tmp;
 
-	tmp = (*env);
+	tmp = *g_all.env;
 	if (found_variable(tmp, var))
 	{
-		(*env) = (*env)->next;
+		(*g_all.env) = (*g_all.env)->next;
 		ft_lstdelone(tmp, &empty_env_element);
 		return ;
 	}
@@ -49,12 +49,13 @@ static void	remove_from_env(t_list **env, char *var)
 	}
 }
 
-static void	exec_unset(char *variable, t_list **env)
+static void	exec_unset(char *variable)
 {
 	t_list	*tmp;
+
 	// int		found;
 
-	tmp = (*env);
+	tmp = *g_all.env;
 	// found = 0;
 	if (!variable)
 		return ;
@@ -62,7 +63,7 @@ static void	exec_unset(char *variable, t_list **env)
 	{
 		if (found_variable(tmp, variable))
 		{
-			remove_from_env(env, variable);
+			remove_from_env(variable);
 			// found = 1;
 			return ;
 		}
@@ -70,7 +71,7 @@ static void	exec_unset(char *variable, t_list **env)
 	}
 }
 
-void	ft_unset(char **args, t_list **env)
+void	ft_unset(char **args)
 {
 	int	i;
 
@@ -82,7 +83,7 @@ void	ft_unset(char **args, t_list **env)
 	}
 	while (args[i])
 	{
-		exec_unset(args[i], env);
+		exec_unset(args[i]);
 		i++;
 	}
 }

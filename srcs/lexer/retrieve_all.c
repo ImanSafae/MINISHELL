@@ -6,14 +6,13 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 15:54:24 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:27:56 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*retrieve_variable(char *line, int *i, int single_quoted,
-		t_list **env)
+char	*retrieve_variable(char *line, int *i, int single_quoted)
 {
 	char	*ret;
 	char	*tmp;
@@ -36,7 +35,7 @@ char	*retrieve_variable(char *line, int *i, int single_quoted,
 		(*i)++;
 	}
 	if (!single_quoted)
-		expand_variable(&ret, env);
+		expand_variable(&ret, &(g_all.env));
 	return (ret);
 }
 
@@ -73,7 +72,7 @@ char	*retrieve_squoted_text(char *line, int *i)
 	return (ret);
 }
 
-char	*retrieve_dquoted_text(char *line, int *i, t_list **env)
+char	*retrieve_dquoted_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
@@ -86,7 +85,7 @@ char	*retrieve_dquoted_text(char *line, int *i, t_list **env)
 	(*i)++;
 	i_tmp = *i;
 	tmp = ft_strndup(line, 0, i_tmp - 1);
-	line_tmp = ft_strjoin(tmp, check_for_envvar(&(line[i_tmp]), env));
+	line_tmp = ft_strjoin(tmp, check_for_envvar(&(line[i_tmp])));
 	free(tmp);
 	if (line_tmp[i_tmp])
 		ret = ft_chardup(line_tmp[i_tmp]);
@@ -108,7 +107,7 @@ char	*retrieve_dquoted_text(char *line, int *i, t_list **env)
 	return (ret);
 }
 
-char	*retrieve_text(char *line, int *i, t_list **env)
+char	*retrieve_text(char *line, int *i)
 {
 	char	*ret;
 	char	*tmp;
@@ -124,11 +123,11 @@ char	*retrieve_text(char *line, int *i, t_list **env)
 		i_tmp = *i;
 		if (line[*i] == '$')
 		{
-			tmp2 = retrieve_variable(line, &i_tmp, 0, env);
+			tmp2 = retrieve_variable(line, &i_tmp, 0);
 			get_index(line, i, TOKEN_DOLLAR);
 		}
 		else if (line[*i] == '\"')
-			tmp2 = retrieve_dquoted_text(line, i, env);
+			tmp2 = retrieve_dquoted_text(line, i);
 		else if (line[*i] == '\'')
 			tmp2 = retrieve_squoted_text(line, i);
 		else

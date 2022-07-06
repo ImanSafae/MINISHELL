@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/05 20:50:15 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:38:25 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = create_env(envp);
-	g_all.env = env;
+	g_all.env = &env;
 	// detect_signals();
 	while (1)
 	{
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!ft_strncmp(str, "exit", 4))
 			break ;
 		add_history(str);
-		ft_lexer(str, &env);
+		ft_lexer(str);
 		free(str);
 	}
 	free_env(&env);

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 15:23:37 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:27:15 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	identify_token(char c, char next)
 	return (0);
 }
 
-char	*check_for_envvar(char *line, t_list **env)
+char	*check_for_envvar(char *line)
 {
 	int		i;
 	char	*end;
@@ -56,7 +56,7 @@ char	*check_for_envvar(char *line, t_list **env)
 			before_var = i;
 			end = find_end(line, i + 1);
 			begin = ft_strndup(line, 0, i - 1);
-			line = retrieve_variable(line, &i, 0, env);
+			line = retrieve_variable(line, &i, 0);
 			tmp = ft_strjoin(begin, line);
 			line = ft_strjoin(tmp, end);
 			free(tmp);
@@ -98,7 +98,7 @@ char	*retrieve_filename(char *line, int *i)
 	return (ret);
 }
 
-int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
+int	interpret_token(char *line, int token, int *i, t_list **list)
 {
 	char	*content;
 	int		single_quoted;
@@ -108,7 +108,7 @@ int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	if (token == TOKEN_TEXT)
 	{
 		printf("token is text\n");
-		content = retrieve_text(&(*line), i, env);
+		content = retrieve_text(&(*line), i);
 	}
 	else if (token == TOKEN_SQUOTE)
 	{
@@ -117,9 +117,9 @@ int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 		content = retrieve_squoted_text(line, i);
 	}
 	else if (token == TOKEN_DQUOTE)
-		content = retrieve_dquoted_text(line, i, env);
+		content = retrieve_dquoted_text(line, i);
 	else if (token == TOKEN_DOLLAR)
-		content = retrieve_variable(line, i, single_quoted, env);
+		content = retrieve_variable(line, i, single_quoted);
 	else if (token == TOKEN_PIPE)
 		content = ft_chardup(line[*i]);
 	else if (token == TOKEN_HEREDOC)
@@ -139,7 +139,7 @@ int	interpret_token(char *line, int token, int *i, t_list **list, t_list **env)
 	return (1);
 }
 
-void	ft_lexer(char *line, t_list **env)
+void	ft_lexer(char *line)
 {
 	int		i;
 	int		token;
@@ -150,7 +150,7 @@ void	ft_lexer(char *line, t_list **env)
 	while (line[i])
 	{
 		token = identify_token(line[i], line[i + 1]);
-		if (!interpret_token(line, token, &i, &lexer_list, env))
+		if (!interpret_token(line, token, &i, &lexer_list))
 			return ;
 		while (line[i] && ft_isspace(line[i]))
 			i++;

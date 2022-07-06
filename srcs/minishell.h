@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 21:00:54 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/06 16:44:37 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_all
 {
 	int		exit_code;
 	int		fd_to_close;
-	t_list	*env;
+	t_list	**env;
 }	t_all;
 
 typedef struct s_env
@@ -121,23 +121,23 @@ void	send_error(int function, int error, char *arg);
 
 // LEXER
 t_list	*new_entry_with_token(int token, char *str);
-void	ft_lexer(char *line, t_list **env);
+void	ft_lexer(char *line);
 void	update_lexer_list(t_list **list, char *text, int token);
-char	*retrieve_variable(char *line, int *i, int single_quoted, t_list **env);
+char	*retrieve_variable(char *line, int *i, int single_quoted);
 char	*retrieve_squoted_text(char *line, int *i);
-char	*retrieve_dquoted_text(char *line, int *i, t_list **env);
-char	*retrieve_text(char *line, int *i, t_list **env);
+char	*retrieve_dquoted_text(char *line, int *i);
+char	*retrieve_text(char *line, int *i);
 char	*retrieve_heredoc(char *line, int *i);
-char	*check_for_envvar(char *line, t_list **env);
+char	*check_for_envvar(char *line);
 
 // PARSER
 void	ft_parser(t_list **lexer_list, t_list *env);
 
 // BUILTINS
-void	ft_unset(char **args, t_list **env);
+void	ft_unset(char **args);
 void	ft_export(char **args);
 void	print_env_in_ascii_order(t_list *env);
-void	ft_env(t_list **env, char **args);
+void	ft_env(char **args);
 t_env	*new_env_entry(char *var, char *value);
 void	ft_pwd(char **args);
 void	ft_cd(char **args);
@@ -145,7 +145,7 @@ void	ft_echo(char **args);
 void	ft_exit(char **args);
 
 //EXPAND
-void	expand_variable(char **value, t_list **env);
+void	expand_variable(char **value);
 
 // EXECUTION
 void	ft_exec(t_exec *instructions, t_list *env);
@@ -165,8 +165,8 @@ char	*ft_strndup(char *str, int start, int end);
 char	*ft_strjoin_with_space(char *s1, char *s2);
 int		count_pipes(t_list *list);
 t_env	*add_var_to_env(char *line);
-char	*find_variable_in_env(char *str, t_list **env);
-void	change_env_value(char *variable, char *value, t_list **env);
+char	*find_variable_in_env(char *str);
+void	change_env_value(char *variable, char *value);
 void	uncapitalize_cmd(t_list **lexer_list);
 void	tab_addfront(char ***tab, char *to_add);
 int		tab_length(char **tab);
