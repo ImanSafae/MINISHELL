@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:26:22 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 19:46:39 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:55:50 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_echo(char **args)
 	newtrail = 1;
 	i = 0;
 	j = 1;
-	if (!args)
+	if (!(*args))
 		echo("\n", 0);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 20:10:58 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 20:51:39 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,15 +131,13 @@ void	ft_lexer(char *line)
 	int		i;
 	int		token;
 	t_list	*lexer_list;
+	int		error;
 
 	i = 0;
 	lexer_list = NULL;
 	if (ft_strlen(line) < 3)
-	{
-		all_check_errors(line);
-		return ;
-	}
-	if (check_error(line))
+		all_check_errors(line, &error);
+	if (check_error(line, error))
 		return ;
 	while (line[i])
 	{
