@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 18:55:25 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:22:11 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	check_error_or_update(char *content, t_list **list, int token)
 	return (1);
 }
 
-void	all_check_errors(char *line)
+void	all_check_errors(char *line, int *error)
 {
+	*error = 1;
 	if (ft_strlen(line) == 1)
 	{
 		if (*line == '\'' || *line == '\"')
@@ -60,13 +61,15 @@ void	all_check_errors(char *line)
 		else if (*line == '<' || *line == '>')
 			send_error(PARSING, OPEN_REDIRECTION, line);
 		else
-			send_error(PARSING, UNKNOWN_COMMAND, line);
+			*error = 0;
 	}
 	if (ft_strlen(line) == 2)
 	{
 		if (!ft_strncmp(line, "<<", 2) || !ft_strncmp(line, ">>", 2))
 			send_error(PARSING, OPEN_REDIRECTION, line);
-		if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
+		else if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
 			send_error(PARSING, UNKNOWN_COMMAND, "");
+		else
+			*error = 0;
 	}
 }

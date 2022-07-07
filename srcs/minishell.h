@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 18:58:15 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:22:27 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ void	delete_element(void *element);
 
 // ERROR
 void	send_error(int function, int error, char *arg);
-int		check_error(char *line);
+int		check_error(char *line, int error);
 int		check_error_or_update(char *content, t_list **list, int token);
-void	all_check_errors(char *line);
+void	all_check_errors(char *line, int *error);
 // LEXER
 t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line);
@@ -184,6 +184,7 @@ void	check_unclose_squoted(char *line, char **ret, int *i);
 void	check_sometoken(char *line, int token, char **content, int *i);
 int		check_doublequote(char *line, int *i);
 int		count_quote(char *line, int type);
+int	check_singlequote(char *line, int *i);
 
 // FREE
 void	free_env(t_list **list);

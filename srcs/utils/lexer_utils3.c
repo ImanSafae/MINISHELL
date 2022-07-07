@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:55:10 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 19:11:35 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:20:45 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	nothing_after_redirect(char *line)
 	return (0);
 }
 
-int	check_error(char *line)
+int	check_error(char *line, int error)
 {
+	if (error)
+		return (1);
 	if (count_quote(line, TOKEN_DQUOTE) % 2 == 1
 		|| count_quote(line, TOKEN_SQUOTE) % 2 == 1)
 	{
