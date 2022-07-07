@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:16:32 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:33:12 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	*retrieve_text(char *line, int *i)
 	char	*ret;
 	char	*tmp;
 	char	*tmp2;
-	int		i_tmp;
 
 	ret = ft_chardup(line[*i]);
 	tmp = NULL;
@@ -120,18 +119,7 @@ char	*retrieve_text(char *line, int *i)
 	(*i)++;
 	while (line[*i] && ft_isnotspecial(line[*i]) && !ft_isspace(line[*i]))
 	{
-		i_tmp = *i;
-		if (line[*i] == '$')
-		{
-			tmp2 = retrieve_variable(line, &i_tmp, 0);
-			get_index(line, i, TOKEN_DOLLAR);
-		}
-		else if (line[*i] == '\"')
-			tmp2 = retrieve_dquoted_text(line, i);
-		else if (line[*i] == '\'')
-			tmp2 = retrieve_squoted_text(line, i);
-		else
-			tmp2 = ft_chardup(line[*i]);
+		determine_tmp2_value(line, i, &tmp2);
 		tmp = ft_strdup(ret);
 		free(ret);
 		ret = ft_strjoin(tmp, tmp2);
