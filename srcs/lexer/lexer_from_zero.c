@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 17:16:08 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:57:52 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,28 +105,14 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 
 	content = NULL;
 	single_quoted = 0;
-	if (token == TOKEN_TEXT)
+	check_sometoken(line, token, &content, i);
+	if (token == TOKEN_SQUOTE)
 	{
-		// printf("token is text\n");
-		content = retrieve_text(&(*line), i);
-	}
-	else if (token == TOKEN_SQUOTE)
-	{
-		printf("token is simple quote\n");
 		single_quoted = 1;
 		content = retrieve_squoted_text(line, i);
 	}
-	else if (token == TOKEN_DQUOTE)
-		content = retrieve_dquoted_text(line, i);
 	else if (token == TOKEN_DOLLAR)
 		content = retrieve_variable(line, i, single_quoted);
-	else if (token == TOKEN_PIPE)
-	{
-		content = ft_chardup(line[*i]);
-		(*i)++;
-	}
-	else if (token == TOKEN_HEREDOC)
-		content = retrieve_heredoc(line, i);
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
 		content = retrieve_filename(line, i);
 	else if (token == TOKEN_APPEND)
@@ -135,10 +121,8 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 			(*i)++;
 		content = retrieve_filename(line, i);
 	}
-	/*if (content == ERROR_CHAR)
-		return (0); */
-	if (content)
-		update_lexer_list(list, content, token);
+	if (!check_error_or_update(content, list, token))
+		return (0);
 	return (1);
 }
 
@@ -150,6 +134,13 @@ void	ft_lexer(char *line)
 
 	i = 0;
 	lexer_list = NULL;
+	if (ft_strlen(line) < 3)
+	{
+		all_check_errors(line);
+		return ;
+	}
+	if (check_error(line))
+		return ;
 	while (line[i])
 	{
 		token = identify_token(line[i], line[i + 1]);
@@ -159,7 +150,7 @@ void	ft_lexer(char *line)
 			i++;
 	}
 	print_lexer_list(lexer_list);
-	//uncapitalize_cmd(&lexer_list);
-	//ft_parser(&lexer_list);
+	uncapitalize_cmd(&lexer_list);
+	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }

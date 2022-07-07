@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 17:20:19 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:48:58 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*retrieve_variable(char *line, int *i, int single_quoted)
 	char	*tmp;
 	char	*tmp2;
 
+	(*i)++;
+	if ((int)ft_strlen(&line[*i - 1]) == 1)
+		return (ft_strdup("$"));
 	tmp = NULL;
 	tmp2 = NULL;
-	(*i)++;
 	ret = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')
@@ -72,15 +74,16 @@ char	*retrieve_dquoted_text(char *line, int *i)
 	char	*line_tmp;
 	int		i_tmp;
 
-	tmp = NULL;
-	tmp2 = NULL;
 	line_tmp = dquoted_utils(line, i, &i_tmp, &tmp);
-	if (line_tmp[i_tmp - 1])
+	if (line_tmp[i_tmp - 1] || !line_tmp[i_tmp - 1])
 		ret = ft_chardup(line_tmp[i_tmp - 1]);
-	while (line_tmp[i_tmp] && line_tmp[i_tmp] != '\"')
+	while (line_tmp[i_tmp - 1] && line_tmp[i_tmp] && line_tmp[i_tmp] != '\"')
 	{
+		if (check_doublequote(line, i))
+			tmp2 = ft_strdup("");
+		else
+			tmp2 = ft_chardup(line_tmp[i_tmp]);
 		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line_tmp[i_tmp]);
 		free(ret);
 		ret = ft_strjoin(tmp, tmp2);
 		i_tmp++;

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:14:52 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 17:20:28 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:55:58 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,17 @@ void	check_unclose_squoted(char *line, char **ret, int *i)
 	}
 	else
 		(*i)++;
+}
+
+int	check_doublequote(char *line, int *i)
+{
+	if ((int)ft_strlen(&line[*i]) >= 2)
+	{
+		if (line[*i] == '\"' && line[*i + 1] == '\"')
+		{
+			(*i) += 2;
+			return (1);
+		}
+	}
+	return (0);
 }

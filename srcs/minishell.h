@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 17:20:54 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:58:15 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_exec
 # define NOT_ENOUGH_ARGS 6
 # define BAD_ASSIGN 7
 # define ERROR_CHAR "error"
-
+# define OPEN_REDIRECTION 8
 // REDIRECTIONS
 # define INFILE 0
 # define OUTFILE 1
@@ -118,7 +118,9 @@ void	delete_element(void *element);
 
 // ERROR
 void	send_error(int function, int error, char *arg);
-
+int		check_error(char *line);
+int		check_error_or_update(char *content, t_list **list, int token);
+void	all_check_errors(char *line);
 // LEXER
 t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line);
@@ -179,6 +181,9 @@ char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp);
 void	check_unclose_dquoted(char *line_tmp, int i_tmp, char **ret, int *i);
 int		squote_utils(char *line, int *i, char **ret);
 void	check_unclose_squoted(char *line, char **ret, int *i);
+void	check_sometoken(char *line, int token, char **content, int *i);
+int		check_doublequote(char *line, int *i);
+int		count_quote(char *line, int type);
 
 // FREE
 void	free_env(t_list **list);

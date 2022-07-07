@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:11:20 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 17:18:02 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:47:06 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp)
 {
 	char	*line_tmp;
 
+	*i_tmp = 0;
+	if (check_doublequote(line, i))
+	{
+		(*i_tmp)++;
+		return (ft_strdup(""));
+	}
 	line_tmp = NULL;
 	(*i)++;
 	*i_tmp = *i;
@@ -77,6 +83,8 @@ char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp)
 
 void	check_unclose_dquoted(char *line_tmp, int i_tmp, char **ret, int *i)
 {
+	if (!line_tmp[i_tmp - 1])
+		return ;
 	if (!line_tmp[i_tmp])
 	{
 		free(*ret);

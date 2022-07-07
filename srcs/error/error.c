@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 22:16:48 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 18:04:34 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 static void	parsing_errors(int error, char *arg) // REMPLACER LES PRINTF PAR DES PUTSTR QUI ECRIVENT DANS STDERR
 {
 	if (error == OPEN_QUOTE)
-		printf("Error : unclosed quote\n");
+		ft_putstr_fd("Error : unclosed quote\n", 2);
 	else if (error == WRONG_FILE)
 		printf("no such file or directory: %s\n", arg);
 	else if (error == NEAR)
 		printf("parse error near '%s'\n", arg);
 	else if (error == BAD_ASSIGN)
-		printf("bad assignment\n");
+		ft_putstr_fd("bad assignment\n", 2);
 	else if (error == UNKNOWN_COMMAND)
 		printf("%s: command not found\n", arg);
+	else if (error == OPEN_REDIRECTION)
+		printf("syntax error near unexpected token `newline'\n");
 }
 
 static void	exit_errors(int error, char *arg)
