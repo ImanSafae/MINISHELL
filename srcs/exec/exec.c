@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/07 20:01:37 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 20:59:31 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,12 @@ void	exec_cmd(t_cmd command)
 	else
 	{
 		tab_addfront(&(command.args), command.command);
-		printf("command = %s\n", command.command);
-		int i = 0;
-		while (command.args && (command.args)[i])
-		{
-			printf("arg numero %d = %s\n", i + 1, (command.args)[i]);
-			i++;
-		}
+		// int i = 0;
+		// while (command.args && (command.args)[i])
+		// {
+		// 	printf("arg numero %d = %s\n", i + 1, (command.args)[i]);
+		// 	i++;
+		// }
 		execve(command.command, command.args, NULL);
 	}
 }
@@ -197,7 +196,6 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	int	cmd_id;
 
 	cmd_id = 0;
-	printf("about to exec\n");
 	if (!check_cmds_list(instructions->commands, env, instructions->pipes + 1))
 		return ; // cas de commande inconnue
 	fork_and_exec(&(instructions->commands)[cmd_id], instructions->pipes, cmd_id, 0);

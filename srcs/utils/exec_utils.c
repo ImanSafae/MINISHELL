@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/07 19:59:47 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 20:55:20 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	tab_addfront(char ***tab, char *to_add)
 		i++;
 	}
 	new_tab[i] = 0;
-	free_tab(*tab);
+	if (*tab)
+		free_tab(*tab);
 	(*tab) = new_tab;
 }
 
