@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:33:12 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:55:35 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,9 @@ char	*retrieve_dquoted_text(char *line, int *i)
 
 	tmp = NULL;
 	tmp2 = NULL;
-	(*i)++;
-	i_tmp = *i;
-	tmp = ft_strndup(line, 0, i_tmp - 1);
-	line_tmp = ft_strjoin(tmp, check_for_envvar(&(line[i_tmp])));
-	free(tmp);
-	if (line_tmp[i_tmp])
-		ret = ft_chardup(line_tmp[i_tmp]);
-	i_tmp++;
-	get_index(line, i, TOKEN_DQUOTE);
+	line_tmp = dquoted_utils(line, i, &i_tmp, &tmp);
+	if (line_tmp[i_tmp - 1])
+		ret = ft_chardup(line_tmp[i_tmp - 1]);
 	while (line_tmp[i_tmp] && line_tmp[i_tmp] != '\"')
 	{
 		tmp = ft_strdup(ret);

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:11:20 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:31:43 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:39:58 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ void	determine_tmp2_value(char *line, int *i, char **tmp2)
 		*tmp2 = retrieve_squoted_text(line, i);
 	else
 		*tmp2 = ft_chardup(line[*i]);
+}
+
+char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp)
+{
+	char	*line_tmp;
+
+	line_tmp = NULL;
+	(*i)++;
+	*i_tmp = *i;
+	*tmp = ft_strndup(line, 0, *i_tmp - 1);
+	line_tmp = ft_strjoin(*tmp, check_for_envvar(&(line[*i_tmp])));
+	free(*tmp);
+	(*i_tmp)++;
+	get_index(line, i, TOKEN_DQUOTE);
+	return (line_tmp);
 }
