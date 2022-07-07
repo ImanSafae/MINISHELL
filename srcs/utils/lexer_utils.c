@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:28:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:54:27 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:06:52 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ char	*ft_chardup(char c)
 void	get_index(char *line, int *i, int type)
 {
 	if (type == TOKEN_DQUOTE)
-	{
 		while (line[*i] && line[*i] != '\"')
 			(*i)++;
-		(*i)++;
-	}
 	else if (type == TOKEN_SQUOTE)
 		while (line[*i] && line[*i] != '\'')
 			(*i)++;

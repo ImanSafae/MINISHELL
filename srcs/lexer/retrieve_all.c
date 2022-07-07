@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:55:35 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:20:19 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,8 @@ char	*retrieve_squoted_text(char *line, int *i)
 	ret = NULL;
 	tmp = NULL;
 	tmp2 = NULL;
-	(*i)++;
-	if (line[*i] && line[*i] != '\'')
-	{
-		ret = ft_chardup(line[*i]);
-		(*i)++;
-	}
+	if (squote_utils(line, i, &ret))
+		return (line);
 	while (line[*i] && line[*i] != '\'')
 	{
 		tmp = ft_strdup(ret);
@@ -64,11 +60,7 @@ char	*retrieve_squoted_text(char *line, int *i)
 		free(tmp2);
 		(*i)++;
 	}
-	if (!line[*i])
-	{
-		send_error(PARSING, OPEN_QUOTE, line);
-		ret = ERROR_CHAR;
-	}
+	check_unclose_squoted(line, &ret, i);
 	return (ret);
 }
 
@@ -95,8 +87,7 @@ char	*retrieve_dquoted_text(char *line, int *i)
 		free(tmp);
 		free(tmp2);
 	}
-	if (!line_tmp[i_tmp])
-		send_error(PARSING, OPEN_QUOTE, line);
+	check_unclose_dquoted(line_tmp, i_tmp, &ret, i);
 	free(line_tmp);
 	return (ret);
 }

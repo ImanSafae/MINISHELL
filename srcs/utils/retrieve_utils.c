@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:11:20 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:39:58 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:18:02 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,16 @@ char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp)
 	(*i_tmp)++;
 	get_index(line, i, TOKEN_DQUOTE);
 	return (line_tmp);
+}
+
+void	check_unclose_dquoted(char *line_tmp, int i_tmp, char **ret, int *i)
+{
+	if (!line_tmp[i_tmp])
+	{
+		free(*ret);
+		send_error(PARSING, OPEN_QUOTE, line_tmp);
+		*ret = ft_strdup("error");
+	}
+	else
+		(*i)++;
 }

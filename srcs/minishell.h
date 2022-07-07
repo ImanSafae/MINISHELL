@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:38:57 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:20:54 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,9 @@ void	check_for_heredoc(char *line, int *i, int *into_quote);
 int		heredoc_quoted(char *line, int *i, int *into_quote);
 void	determine_tmp2_value(char *line, int *i, char **tmp2);
 char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp);
+void	check_unclose_dquoted(char *line_tmp, int i_tmp, char **ret, int *i);
+int		squote_utils(char *line, int *i, char **ret);
+void	check_unclose_squoted(char *line, char **ret, int *i);
 
 // FREE
 void	free_env(t_list **list);

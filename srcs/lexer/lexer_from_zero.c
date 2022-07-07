@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 16:47:40 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:16:08 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	ft_lexer(char *line)
 			i++;
 	}
 	print_lexer_list(lexer_list);
-	uncapitalize_cmd(&lexer_list);
-	ft_parser(&lexer_list);
+	//uncapitalize_cmd(&lexer_list);
+	//ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }
