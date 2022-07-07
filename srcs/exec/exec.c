@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 22:19:52 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 16:06:20 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ static int	check_if_builtin(char *cmd)
 		return (1);
 	if (!ft_strncmp(cmd, "exit", ft_strlen("exit")) && ft_strlen(cmd) == 4)
 		return (1);
-	if (!ft_strncmp(cmd, "env", ft_strlen("env"))  && ft_strlen(cmd) == 3)
+	if (!ft_strncmp(cmd, "env", ft_strlen("env")) && ft_strlen(cmd) == 3)
 		return (1);
 	if (!ft_strncmp(cmd, "export", ft_strlen("export")) && ft_strlen(cmd) == 6)
 		return (1);
-	if (!ft_strncmp(cmd, "unset", ft_strlen("unset"))  && ft_strlen(cmd) == 5)
+	if (!ft_strncmp(cmd, "unset", ft_strlen("unset")) && ft_strlen(cmd) == 5)
 		return (1);
-	if (!ft_strncmp(cmd, "cd", ft_strlen("cd"))  && ft_strlen(cmd) == 2)
+	if (!ft_strncmp(cmd, "cd", ft_strlen("cd")) && ft_strlen(cmd) == 2)
 		return (1);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd"))  && ft_strlen(cmd) == 3)
+	if (!ft_strncmp(cmd, "pwd", ft_strlen("pwd")) && ft_strlen(cmd) == 3)
 		return (1);
 	return (0);
 }
@@ -89,7 +89,8 @@ static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 	i = 0;
 	while (i < nb_of_cmds)
 	{
-		if (!check_if_builtin(list[i].command) && access(list[i].command, F_OK) == -1)
+		if (!check_if_builtin(list[i].command)
+			&& access(list[i].command, F_OK) == -1)
 		{
 			if (!replace_cmd_with_pathname(&(list[i].command), env))
 				return (0);
@@ -102,7 +103,7 @@ static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 int	check_infile(t_cmd command, int cmd_id)
 {
 	int	infile;
-	
+
 	infile = 0;
 	if (command.infile)
 	{
@@ -177,7 +178,8 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		close(pipefd[0]);
 		wait(NULL);
 		if (cmd_id != nb_of_pipes)
-			fork_and_exec(&commands[cmd_id + 1], nb_of_pipes, cmd_id + 1, pipefd[1]);
+			fork_and_exec(&commands[cmd_id + 1], nb_of_pipes,
+				cmd_id + 1, pipefd[1]);
 		else
 			close(pipefd[1]);
 	}
@@ -196,6 +198,6 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	}
 	// else
 	// {
-		
+
 	// }
 }

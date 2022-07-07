@@ -13,7 +13,7 @@ OBJS_DIR	=	objs
 SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c builtins/echo.c builtins/exit.c \
 				error/error.c error/free.c \
 				env/shell_env.c \
-				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c \
+				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c utils/lexer_utils2.c utils/retrieve_utils.c \
 				lexer/lexer_from_zero.c lexer/lexer_list.c lexer/lexer_test.c lexer/retrieve_all.c \
 				parser/parser.c parser/heredoc.c \
 				expand/expand.c \

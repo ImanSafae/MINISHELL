@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 20:42:38 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 16:16:50 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ void	tab_addfront(char ***tab, char *to_add);
 int		tab_length(char **tab);
 void	get_index(char *line, int *i, int type);
 char	*find_end(char *line, int i);
+void	check_for_heredoc(char *line, int *i, int *into_quote);
+int		heredoc_quoted(char *line, int *i, int *into_quote);
 
 // FREE
 void	free_env(t_list **list);

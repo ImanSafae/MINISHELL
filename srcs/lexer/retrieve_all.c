@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 17:34:41 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:16:32 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,32 +150,13 @@ char	*retrieve_heredoc(char *line, int *i)
 	char	*tmp2;
 	int		into_quote;
 
-	(*i) += 2;
-	into_quote = 0;
-	while (ft_isspace(line[*i]))
-		(*i)++;
-	into_quote = 0;
-	if (line[*i] == '\"' || line[*i] == '\'')
-	{
-		into_quote = 1;
-		(*i)++;
-	}
-	ret = ft_chardup(line[*i]);
-	(*i)++;
+	check_for_heredoc(line, i, &into_quote);
+	ret = ft_chardup(line[*i - 1]);
 	while (line[*i] && ft_isnotspecial(line[*i])
 		&& (!ft_isspace(line[*i]) || (ft_isspace(line[*i]) && into_quote == 1)))
 	{
-		if (line[*i] == '\"' || line[*i] == '\'')
-		{
-			if ((int)ft_strlen(line) > *i)
-				(*i)++;
-			else
-			{
-				(*i)++;
-				break ;
-			}
-			into_quote = 1;
-		}
+		if (!heredoc_quoted(line, i, &into_quote))
+			break ;
 		tmp = ft_strdup(ret);
 		tmp2 = ft_chardup(line[*i]);
 		free(ret);
