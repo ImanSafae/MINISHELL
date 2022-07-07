@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:23 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/05 21:01:01 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:59:47 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,13 @@ void	tab_addfront(char ***tab, char *to_add)
 
 	length = 0;
 	i = 1;
-	while ((*tab)[length])
+	if (!(*tab))
+		length = 2;
+	while ((*tab) && (*tab)[length])
 		length++;
 	new_tab = malloc(sizeof(char *) * (length + 2));
 	new_tab[0] = ft_strdup(to_add);
-	while (i < (length + 1))
+	while ((*tab) && i < (length + 1))
 	{
 		new_tab[i] = ft_strdup((*tab)[i - 1]);
 		i++;
