@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:26:22 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 20:22:43 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:46:39 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,29 @@ void	ft_echo(char **args)
 {
 	int	newtrail;
 	int	i;
+	int	j;
 
-	newtrail = 0;
-	i = 1;
+	newtrail = 1;
+	i = 0;
+	j = 1;
 	if (!args)
 		echo("\n", 0);
 	else
 	{
-		if (!ft_strncmp(args[0], "-n", 2) && ft_strlen(args[0]) == 2)
-			newtrail = 1;
+		while (args[0][j] && !ft_strncmp(args[0], "-n", 2))
+		{
+			if (args[0][j] != 'n')
+			{
+				newtrail = 1;
+				break ;
+			}
+			j++;
+			if (j == ft_strlen(args[0]))
+			{
+				i++;
+				newtrail = 0;
+			}
+		}
 		while (args[i])
 		{
 			echo(args[i], newtrail);
