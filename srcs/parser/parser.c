@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/08 01:02:21 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/08 17:02:55 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	add_text_to_string(char **str, char *to_append)
 		(*str) = ft_strdup(to_append);
 }
 
-char	*get_command(t_list *lexer_list, t_list **pointer, t_cmd *cmd)
+char	*get_command(t_list **pointer, t_cmd *cmd)
 {
 	char	*ret;
 	t_lexer	*caster;
@@ -115,7 +115,7 @@ t_cmd	*split_list_on_pipes(t_list **lexer_list, int nb_of_cmds)
 	tmp = (*lexer_list);
 	caster = (t_lexer *)(tmp->content);
 	i = 1;
-	command[0].command = get_command(*lexer_list, &tmp, &command[0]);
+	command[0].command = get_command(&tmp, &command[0]);
 	while (tmp && (i < nb_of_cmds))
 	{
 		caster = (t_lexer *)(tmp->content);
@@ -127,7 +127,7 @@ t_cmd	*split_list_on_pipes(t_list **lexer_list, int nb_of_cmds)
 				send_error(PARSING, NEAR, "|");
 				return NULL;
 			}
-			(command[i]).command = get_command(*lexer_list, &tmp, &command[i]);
+			(command[i]).command = get_command(&tmp, &command[i]);
 			i++;
 		}
 		else
