@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:14:52 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 19:59:00 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 16:56:11 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	squote_utils(char *line, int *i, char **ret)
 {
+	if (*i == (int)ft_strlen(line))
+		return (0);
 	if (ft_strlen(&(line[*i])) > 1)
 		(*i)++;
 	else
@@ -28,6 +30,8 @@ int	squote_utils(char *line, int *i, char **ret)
 
 void	check_unclose_squoted(char *line, char **ret, int *i)
 {
+	if (**ret == 0)
+		return ;
 	if (!line[*i])
 	{
 		free(*ret);

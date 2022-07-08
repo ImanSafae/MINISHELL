@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 01:04:29 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/08 14:25:19 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,7 @@ char	*retrieve_filename(char *line, int *i)
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
 	if (line[*i])
-	{
 		ret = get_next_word(line, i);
-	// 	ret = ft_chardup(line[*i]);
-	// 	(*i)++;
-	// }
-	// while (line[*i] && !ft_isspace(line[*i]) && ft_isnotspecial(line[*i]))
-	// {
-	// 	tmp = ft_strdup(ret);
-	// 	tmp2 = ft_chardup(line[*i]);
-	// 	free(ret);
-	// 	ret = ft_strjoin(tmp, tmp2);
-	// 	free(tmp);
-	// 	free(tmp2);
-	// 	(*i)++;
-	}
 	return (ret);
 }
 
@@ -150,7 +136,6 @@ void	ft_lexer(char *line)
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	// print_lexer_list(lexer_list);
 	uncapitalize_cmd(&lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);

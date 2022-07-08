@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:55:10 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 20:20:45 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 14:24:56 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,32 @@ int	check_error(char *line, int error)
 		return (1);
 	}
 	return (0);
+}
+
+char	*get_next_word(char *str, int *index)
+{
+	char	*ret;
+	char	*tmp;
+	char	*buffer;
+
+	ret = NULL;
+	tmp = NULL;
+	buffer = NULL;
+	if (!str)
+		return (NULL);
+	if (str[*index])
+		ret = ft_chardup(str[*index]);
+	(*index)++;
+	while (str[*index] && !ft_isspace(str[*index])
+		&& ft_isnotspecial(str[*index]))
+	{
+		tmp = ft_strdup(ret);
+		free(ret);
+		buffer = ft_chardup(str[*index]);
+		ret = ft_strjoin(tmp, buffer);
+		free(buffer);
+		free(tmp);
+		(*index)++;
+	}
+	return (ret);
 }
