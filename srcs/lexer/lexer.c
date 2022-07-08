@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 14:25:19 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 16:59:57 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,8 @@ char	*check_for_envvar(char *line)
 char	*retrieve_filename(char *line, int *i)
 {
 	char	*ret;
-	char	*tmp;
-	char	*tmp2;
 
 	ret = NULL;
-	tmp = NULL;
-	tmp2 = NULL;
 	(*i)++;
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;

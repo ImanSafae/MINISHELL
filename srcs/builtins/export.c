@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:45:26 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:01:52 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,10 @@ static void	set_var_and_value(char *str, char **var, char **value)
 void	ft_export(char **args)
 {
 	int		i;
-	int		j;
 	char	*var;
 	char	*value;
 
 	i = 0;
-	j = 0;
 	var = NULL;
 	value = NULL;
 	if (args == NULL)
@@ -100,7 +98,6 @@ void	ft_export(char **args)
 		set_var_and_value(args[i], &var, &value);
 		exec_export(var, value);
 		i++;
-		j = 0;
 		if (value)
 			free(value);
 		if (var)
