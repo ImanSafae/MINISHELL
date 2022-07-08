@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 20:22:27 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 01:00:17 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ void	check_unclose_squoted(char *line, char **ret, int *i);
 void	check_sometoken(char *line, int token, char **content, int *i);
 int		check_doublequote(char *line, int *i);
 int		count_quote(char *line, int type);
-int	check_singlequote(char *line, int *i);
+int		check_singlequote(char *line, int *i);
+char	*get_next_word(char *str, int *index);
 
 // FREE
 void	free_env(t_list **list);

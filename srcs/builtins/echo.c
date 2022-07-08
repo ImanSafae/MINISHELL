@@ -3,21 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:26:22 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 19:55:50 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 01:48:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	echo(char *arg, int newtrail)
+static void	echo(char **args, int newtrail)
 {
+	int	i;
+
+	i = 0;
 	if (!newtrail)
-		printf("%s", arg);
+		i++;
+	while (i < tab_length(args) - 1)
+	{
+		printf("%s ", args[i]);
+		i++;
+	}
+	if (!newtrail)
+		printf("%s", args[i]);
 	else
-		printf("%s\n", arg);
+		printf("%s\n", args[i]);
 	g_all.exit_code = 0;
 }
 
@@ -48,10 +58,6 @@ void	ft_echo(char **args)
 				newtrail = 0;
 			}
 		}
-		while (args[i])
-		{
-			echo(args[i], newtrail);
-			i++;
-		}
+		echo(args, newtrail);
 	}
 }

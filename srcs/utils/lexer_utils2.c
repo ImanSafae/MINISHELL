@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 20:51:43 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/08 01:04:50 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,31 @@ void	all_check_errors(char *line, int *error)
 		else
 			*error = 0;
 	}
+}
+
+char	*get_next_word(char *str, int *index)
+{
+	char	*ret;
+	char	*tmp;
+	char	*buffer;
+
+	ret = NULL;
+	tmp = NULL;
+	buffer = NULL;
+	if (!str)
+		return NULL;
+	if (str[*index])
+		ret = ft_chardup(str[*index]);
+	(*index)++;
+	while (str[*index] && !ft_isspace(str[*index]) && ft_isnotspecial(str[*index]))
+	{
+		tmp = ft_strdup(ret);
+		free(ret);
+		buffer = ft_chardup(str[*index]);
+		ret = ft_strjoin(tmp, buffer);
+		free(buffer);
+		free(tmp);
+		(*index)++;
+	}
+	return (ret);
 }

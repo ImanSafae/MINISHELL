@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_from_zero.c                                  :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 20:57:12 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/08 01:04:29 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,24 @@ char	*retrieve_filename(char *line, int *i)
 	ret = NULL;
 	tmp = NULL;
 	tmp2 = NULL;
+	(*i)++;
 	while (line[*i] && ft_isspace(line[*i]))
 		(*i)++;
 	if (line[*i])
 	{
-		ret = ft_chardup(line[*i]);
-		(*i)++;
-	}
-	while (line[*i] && !ft_isspace(line[*i]) && ft_isnotspecial(line[*i]))
-	{
-		tmp = ft_strdup(ret);
-		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
-		free(tmp);
-		free(tmp2);
-		(*i)++;
+		ret = get_next_word(line, i);
+	// 	ret = ft_chardup(line[*i]);
+	// 	(*i)++;
+	// }
+	// while (line[*i] && !ft_isspace(line[*i]) && ft_isnotspecial(line[*i]))
+	// {
+	// 	tmp = ft_strdup(ret);
+	// 	tmp2 = ft_chardup(line[*i]);
+	// 	free(ret);
+	// 	ret = ft_strjoin(tmp, tmp2);
+	// 	free(tmp);
+	// 	free(tmp2);
+	// 	(*i)++;
 	}
 	return (ret);
 }
@@ -135,6 +137,7 @@ void	ft_lexer(char *line)
 
 	i = 0;
 	lexer_list = NULL;
+	error = 0;
 	if (ft_strlen(line) < 3)
 		all_check_errors(line, &error);
 	if (check_error(line, error))

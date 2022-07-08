@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_no_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:45:10 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/08 02:56:50 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ static int	comes_first_in_ascii(char *one, char *two)
 		return (2);
 }
 
-static void	delete_head_from_env(t_env **line, t_list **tmp)
+static void	delete_head_from_env(t_env **line, t_list **tmp, t_list **dup_env)
 {
-	if (ft_lstsize(*g_all.env) == 1)
+	if (ft_lstsize(*tmp) == 1)
 		(*line) = new_env_entry((*line)->variable, (*line)->value);
-	else if ((*line) == (*g_all.env)->content)
+	else if ((*line) == (*dup_env)->content)
 	{
 		(*line) = new_env_entry((*line)->variable, (*line)->value);
-		(*tmp) = (*g_all.env);
-		(*g_all.env) = (*g_all.env)->next;
+		(*tmp) = (*dup_env);
+		(*dup_env) = (*dup_env)->next;
 		ft_lstdelone((*tmp), empty_env_element);
 	}
 }
@@ -67,7 +67,7 @@ static t_env	*first_var_in_ascii(t_list **env)
 		tmp = tmp->next;
 	}
 	if ((ft_lstsize(*env) == 1) || (line == (*env)->content))
-		delete_head_from_env(&line, &tmp);
+		delete_head_from_env(&line, &tmp, env);
 	else
 		delete_element_from_list(&previous, &first);
 	return (line);

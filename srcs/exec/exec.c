@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/07 20:59:31 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/07 23:45:16 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 	return (1);
 }
 
-int	check_infile(t_cmd command, int cmd_id)
+int	check_infile(t_cmd command)
 {
 	int	infile;
 
@@ -164,7 +164,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		//le fils va écrire, donc commencer par close l'extrémité de lecture
 		close(pipefd[0]);
 		dup2(input, STDIN_FILENO);
-		if (!check_infile(*commands, cmd_id))
+		if (!check_infile(*commands))
 			return ;
 		if (commands->outfile)
 		{
