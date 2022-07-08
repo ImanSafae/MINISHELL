@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/07 23:45:16 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/08 03:13:16 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,19 +164,19 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		//le fils va écrire, donc commencer par close l'extrémité de lecture
 		close(pipefd[0]);
 		dup2(input, STDIN_FILENO);
-		if (!check_infile(*commands))
+		if (!check_infile(commands[cmd_id]))
 			return ;
-		if (commands->outfile)
+		if (commands[cmd_id].outfile)
 		{
-			if (commands->append == 1)
-				outfile = open(commands->outfile, O_APPEND | O_CREAT, 0777);
+			if (commands[cmd_id].append == 1)
+				outfile = open(commands[cmd_id].outfile, O_APPEND | O_CREAT, 0777);
 			else
-				outfile = open(commands->outfile, O_WRONLY | O_CREAT, 0777);
+				outfile = open(commands[cmd_id].outfile, O_WRONLY | O_CREAT, 0777);
 			dup2(outfile, STDOUT_FILENO);
 		}
 		else if (cmd_id < nb_of_pipes)
 			dup2(pipefd[1], STDOUT_FILENO);
-		exec_cmd(*commands);
+		exec_cmd(commands[cmd_id]);
 	}
 	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
 	{
@@ -184,7 +184,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		close(pipefd[1]);
 		wait(NULL);
 		if (cmd_id != nb_of_pipes)
-			fork_and_exec(&commands[cmd_id + 1], nb_of_pipes,
+			fork_and_exec(commands, nb_of_pipes,
 				cmd_id + 1, pipefd[0]);
 		else
 			close(pipefd[0]);
@@ -198,5 +198,5 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	cmd_id = 0;
 	if (!check_cmds_list(instructions->commands, env, instructions->pipes + 1))
 		return ; // cas de commande inconnue
-	fork_and_exec(&(instructions->commands)[cmd_id], instructions->pipes, cmd_id, 0);
+	fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 }
