@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/08 02:56:50 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/09 09:59:58 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int	comes_first_in_ascii(char *one, char *two)
 		return (2);
 }
 
-static void	delete_head_from_env(t_env **line, t_list **tmp, t_list **dup_env)
+static void	delete_head_from_env(t_list **dup_env, t_env **line, t_list **tmp)
 {
-	if (ft_lstsize(*tmp) == 1)
+	if (ft_lstsize(*dup_env) == 1)
 		(*line) = new_env_entry((*line)->variable, (*line)->value);
 	else if ((*line) == (*dup_env)->content)
 	{
@@ -67,7 +67,7 @@ static t_env	*first_var_in_ascii(t_list **env)
 		tmp = tmp->next;
 	}
 	if ((ft_lstsize(*env) == 1) || (line == (*env)->content))
-		delete_head_from_env(&line, &tmp, env);
+		delete_head_from_env(env, &line, &tmp);
 	else
 		delete_element_from_list(&previous, &first);
 	return (line);

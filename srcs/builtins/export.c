@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/08 17:01:52 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:56:39 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_export(char *var, char *value)
 {
 
 	if (!var) // cas où on a fait export sans arguments derrière -> on fera un appel à cette fonction avec NULL à la place de var et value
-		print_env_in_ascii_order(*g_all.env);
+		print_env_in_ascii_order(*(g_all.env));
 	else // car où on export avec arguments ; value peut être égale à NULL ce qui est géré dans l'autre fonction
 	{
 		if (!check_if_variable_exists(*g_all.env, var, value))
@@ -93,7 +93,7 @@ void	ft_export(char **args)
 	value = NULL;
 	if (args == NULL)
 		exec_export(NULL, NULL);
-	while (args[i])
+	while (args && args[i])
 	{
 		set_var_and_value(args[i], &var, &value);
 		exec_export(var, value);
