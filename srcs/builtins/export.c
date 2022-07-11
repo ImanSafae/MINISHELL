@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/11 13:56:39 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/12 01:18:44 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ t_env	*new_env_entry(char *var, char *value)
 void	exec_export(char *var, char *value)
 {
 
-	if (!var) // cas où on a fait export sans arguments derrière -> on fera un appel à cette fonction avec NULL à la place de var et value
-		print_env_in_ascii_order(*(g_all.env));
+	if (!var)
+		print_env_in_ascii_order(g_all.env);
 	else // car où on export avec arguments ; value peut être égale à NULL ce qui est géré dans l'autre fonction
 	{
-		if (!check_if_variable_exists(*g_all.env, var, value))
-			ft_lstadd_back(g_all.env, ft_lstnew(new_env_entry(var, value)));
+		if (!check_if_variable_exists(g_all.env, var, value))
+			ft_lstadd_back(&(g_all.env), ft_lstnew(new_env_entry(var, value)));
 	}
 }
 
@@ -79,6 +79,11 @@ static void	set_var_and_value(char *str, char **var, char **value)
 			break ;
 		}
 		i++;
+	}
+	if (i == ft_strlen(str))
+	{
+		printf("Str = %s\n", str);
+		(*var) = ft_strdup(str);
 	}
 }
 

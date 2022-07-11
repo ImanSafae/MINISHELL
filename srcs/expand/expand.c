@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 16:43:24 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 01:26:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	expand_variable(char **value)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	if (!ft_strncmp(*value, "?", 1))
 		*value = ft_itoa(g_all.exit_code);
 	while (tmp->next)

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/08 03:13:16 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/11 18:32:58 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,59 +136,61 @@ void	exec_cmd(t_cmd command)
 			ft_echo(command.args);
 		if (!ft_strncmp(command.command, "exit", 4))
 			ft_exit(command.args);
-		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		tab_addfront(&(command.args), command.command);
-		// int i = 0;
-		// while (command.args && (command.args)[i])
-		// {
-		// 	printf("arg numero %d = %s\n", i + 1, (command.args)[i]);
-		// 	i++;
-		// }
 		execve(command.command, command.args, NULL);
 	}
+}
+
+static int	check_outfile(t_cmd command)
+{
+	int	outfile;
+
+	if (command.outfile)
+	{
+		if (command.append == 1)
+			outfile = open(command.outfile, O_APPEND | O_CREAT, 0777);
+		else
+			outfile = open(command.outfile, O_WRONLY | O_CREAT, 0777);
+		if (outfile == -1)
+		{
+			send_error(PARSING, WRONG_FILE, command.outfile);
+			return (0);
+		}
+		dup2(outfile, STDOUT_FILENO);
+	}
+	return (1);
 }
 
 void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 {
 	int		pipefd[2];
-	int		outfile;
 	pid_t	cpid;
 
 	pipe(pipefd);
 	cpid = fork();
 	if (cpid == 0) // process fils dans lequel on va exécuter
 	{
-		//le fils va écrire, donc commencer par close l'extrémité de lecture
 		close(pipefd[0]);
 		dup2(input, STDIN_FILENO);
 		if (!check_infile(commands[cmd_id]))
 			return ;
-		if (commands[cmd_id].outfile)
-		{
-			if (commands[cmd_id].append == 1)
-				outfile = open(commands[cmd_id].outfile, O_APPEND | O_CREAT, 0777);
-			else
-				outfile = open(commands[cmd_id].outfile, O_WRONLY | O_CREAT, 0777);
-			dup2(outfile, STDOUT_FILENO);
-		}
+		if (commands[cmd_id].outfile && !check_outfile(commands[cmd_id]))
+			return ;
 		else if (cmd_id < nb_of_pipes)
 			dup2(pipefd[1], STDOUT_FILENO);
 		exec_cmd(commands[cmd_id]);
-	}
-	else // process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
-	{
-		// le parent va lire, donc commencer par close l'extrémité d'écriture
-		close(pipefd[1]);
-		wait(NULL);
-		if (cmd_id != nb_of_pipes)
-			fork_and_exec(commands, nb_of_pipes,
-				cmd_id + 1, pipefd[0]);
-		else
-			close(pipefd[0]);
-	}
+		exit(EXIT_SUCCESS);
+	}// process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
+	close(pipefd[1]);
+	wait(NULL);
+	if (cmd_id != nb_of_pipes)
+		fork_and_exec(commands, nb_of_pipes,
+			cmd_id + 1, pipefd[0]);
+	else if (cmd_id == nb_of_pipes)
+		close(pipefd[0]);
 }
 
 void	ft_exec(t_exec *instructions, t_list *env)
@@ -198,5 +200,10 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	cmd_id = 0;
 	if (!check_cmds_list(instructions->commands, env, instructions->pipes + 1))
 		return ; // cas de commande inconnue
-	fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
+	// faire une condition pour ne pas fork quand il y a une seule commande
+	// idem pour les builtins
+	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
+		exec_cmd(*instructions->commands);
+	else
+		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 17:22:32 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 01:21:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	remove_from_env(char *var)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	if (found_variable(tmp, var))
 	{
-		(*g_all.env) = (*g_all.env)->next;
+		g_all.env = (g_all.env)->next;
 		ft_lstdelone(tmp, &empty_env_element);
 		return ;
 	}
@@ -53,7 +53,7 @@ static void	exec_unset(char *variable)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	if (!variable)
 		return ;
 	while (tmp)
@@ -74,10 +74,10 @@ void	ft_unset(char **args)
 	i = 0;
 	if (args == NULL)
 	{
+		printf("error\n");
 		send_error(UNSET, NOT_ENOUGH_ARGS, NULL);
-		exit(EXIT_FAILURE);
 	}
-	while (args[i])
+	while (args && args[i])
 	{
 		exec_unset(args[i]);
 		i++;

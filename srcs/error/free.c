@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/11 13:58:06 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/12 01:12:50 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	free_tab(char **tab)
 
 void	empty_env_element(void *element)
 {
-	t_env	*_element;
+	// t_env	*_element;
 
-	_element = (t_env *)element;
+	// _element = (t_env *)element;
 	// printf("freeing %s\n", _element->variable);
-	free(_element->variable);
-	if (_element->value)
-		free(_element->value);
+	free(((t_env *)element)->variable);
+	if (((t_env *)element)->value)
+		free(((t_env *)element)->value);
 	free(element);
 }
 

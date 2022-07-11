@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:18 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/06 16:39:44 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 01:19:15 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_env(char **args)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	if (args != NULL)
 	{
 		send_error(ENV, TOO_MANY_ARGS, NULL);

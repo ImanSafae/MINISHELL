@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/06 17:48:47 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 01:24:31 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	change_env_value(char *variable, char *value)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	while (tmp->next)
 	{
 		if (ft_strlen(variable) == ft_strlen(((t_env *)
@@ -37,7 +37,7 @@ char	*find_variable_in_env(char *str)
 {
 	t_list	*tmp;
 
-	tmp = *g_all.env;
+	tmp = g_all.env;
 	while (tmp->next)
 	{
 		if (ft_strlen(str) == ft_strlen(((t_env *)(tmp->content))->variable))
@@ -57,7 +57,7 @@ void	change_oldpwd(char *path)
 
 	tmp = ft_strjoin("OLDPWD=", path);
 	if (find_variable_in_env("OLDPWD") == NULL)
-		ft_lstadd_back(g_all.env, ft_lstnew(add_var_to_env(tmp)));
+		ft_lstadd_back(&(g_all.env), ft_lstnew(add_var_to_env(tmp)));
 	else
 		change_env_value("OLDPWD", path);
 }
@@ -68,7 +68,7 @@ void	change_pwd(char *path)
 
 	tmp = ft_strjoin("PWD=", path);
 	if (find_variable_in_env("PWD") == NULL)
-		ft_lstadd_back(g_all.env, ft_lstnew(add_var_to_env(tmp)));
+		ft_lstadd_back(&(g_all.env), ft_lstnew(add_var_to_env(tmp)));
 	else
 		change_env_value("PWD", path);
 	free(tmp);

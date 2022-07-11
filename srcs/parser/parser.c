@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/08 17:02:55 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 01:26:15 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 		free(tmp_command);
 		(*cmds)[i].args = ft_split(tmp_args, ' ');
 		free(tmp_args);
+		tmp_args = NULL;
 		i++;
 		j = 0;
 	}
@@ -185,5 +186,5 @@ void	ft_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRIGE
 	exec->pipes = nb_of_pipes;
 	separate_cmd_from_args(&cmd, nb_of_pipes + 1);
 	// print_commands_tab(cmd, nb_of_pipes);
-	ft_exec(exec, *(g_all.env));
+	ft_exec(exec, g_all.env);
 }
