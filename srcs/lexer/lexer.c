@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 16:59:57 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 22:04:23 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	ft_lexer(char *line)
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	uncapitalize_cmd(&lexer_list);
+	// uncapitalize_cmd(&lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }

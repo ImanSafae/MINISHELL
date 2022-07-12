@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/11 18:32:58 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/12 01:51:44 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,10 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	// faire une condition pour ne pas fork quand il y a une seule commande
 	// idem pour les builtins
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
+	{
+		printf("excuting builtin\n");
 		exec_cmd(*instructions->commands);
+	}
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 }

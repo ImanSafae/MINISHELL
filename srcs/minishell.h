@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 01:18:03 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/12 21:35:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	expand_variable(char **value);
 void	ft_exec(t_exec *instructions, t_list *env);
 
 // UTILS
-void	delete_element_from_list(t_list **previous, t_list **to_delete);
+void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line);
 t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_env_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);
@@ -202,5 +202,6 @@ void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
 
 // VARIABLE GLOBALE
 extern t_all	g_all;
+int	ft_lstsiize(t_list *lst);
 
 #endif
