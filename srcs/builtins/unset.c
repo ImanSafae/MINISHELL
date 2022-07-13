@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/12 01:21:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 02:59:48 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	found_variable(t_list *element, char *variable)
 	_element = ((t_env *)(element->content))->variable;
 	len = ft_strlen(variable);
 	if (!ft_strncmp(_element, variable, len)
-		&& !_element[len + 1])
+		&& ft_strlen(_element) == len)
 		return (1);
 	return (0);
 }
@@ -28,6 +28,7 @@ static int	found_variable(t_list *element, char *variable)
 static void	remove_from_env(char *var)
 {
 	t_list	*tmp;
+	t_list	*tmp2;
 
 	tmp = g_all.env;
 	if (found_variable(tmp, var))
@@ -40,9 +41,18 @@ static void	remove_from_env(char *var)
 	{
 		if (found_variable(tmp->next, var))
 		{
-			ft_lstdelone(tmp->next, &empty_env_element);
-			tmp->next = tmp->next->next;
-			return ;
+			if (tmp->next->next)
+			{
+				tmp2 = tmp->next->next;
+				ft_lstdelone(tmp->next, &empty_env_element);
+				tmp->next = tmp2;
+				return ;
+			}
+			else
+			{
+				ft_lstdelone(tmp->next, &empty_env_element);
+				return ;
+			}
 		}
 		else
 			tmp = tmp->next;

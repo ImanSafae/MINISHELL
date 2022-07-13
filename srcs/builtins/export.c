@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/12 22:46:39 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 02:17:05 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ t_env	*new_env_entry(char *var, char *value)
 
 	new_entry = malloc(sizeof(t_env));
 	new_entry->variable = ft_strdup(var);
-	if (value && value != NULL)
+	if (value)
 		new_entry->value = ft_strdup(value);
-	else
-		new_entry->value = NULL;
 	return (new_entry);
 }
 
@@ -53,18 +51,14 @@ void	exec_export(char *var, char *value)
 		print_env_in_ascii_order(g_all.env);
 	else // cas où on export avec arguments 
 	{
-		//printf("\n 1 ----------------------------------\n");
-		//print_env_in_ascii_order(g_all.env);
 		if (!check_if_variable_exists(g_all.env, var, value))
 			ft_lstadd_back(&(g_all.env), ft_lstnew(new_env_entry(var, value)));
-		//printf("\n 2 ----------------------------------\n");
-		// print_env_in_ascii_order(g_all.env);
 	}
 }
 
 static void	set_var_and_value(char *str, char **var, char **value)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (ft_strlen(str) == 1 && !ft_strncmp(str, "=", 1))
@@ -85,8 +79,8 @@ static void	set_var_and_value(char *str, char **var, char **value)
 	}
 	if (i == ft_strlen(str))
 	{
-		printf("Str = %s\n", str);
 		(*var) = ft_strdup(str);
+		(*value) = NULL;
 	}
 }
 
@@ -105,7 +99,6 @@ void	ft_export(char **args)
 	{
 		set_var_and_value(args[i], &var, &value);
 		exec_export(var, value);
-		ft_check_sort()
 		i++;
 		if (value)
 		{

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 22:20:59 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 01:45:29 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ t_env	*duplicate_env_line(t_env *line)
 {
 	t_env	*duplicate;
 
-	duplicate = malloc(sizeof(t_env));
+	duplicate = ft_calloc(1, sizeof(t_env));
 	duplicate->variable = ft_strdup(line->variable);
 	if (line->value)
+	{
 		duplicate->value = ft_strdup(line->value);
+	}
 	return (duplicate);
 }
 
