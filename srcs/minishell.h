@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 01:18:03 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:30:09 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*retrieve_variable(char *line, int *i, int single_quoted);
 char	*retrieve_squoted_text(char *line, int *i);
 char	*retrieve_dquoted_text(char *line, int *i);
 char	*retrieve_text(char *line, int *i);
+char	*retrieve_filename(char *line, int *i);
 char	*retrieve_heredoc(char *line, int *i);
 char	*check_for_envvar(char *line);
 
@@ -154,7 +155,7 @@ void	expand_variable(char **value);
 void	ft_exec(t_exec *instructions, t_list *env);
 
 // UTILS
-void	delete_element_from_list(t_list **previous, t_list **to_delete);
+void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line);
 t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_env_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);
@@ -180,12 +181,12 @@ int		heredoc_quoted(char *line, int *i, int *into_quote);
 void	determine_tmp2_value(char *line, int *i, char **tmp2);
 char	*dquoted_utils(char *line, int *i, int *i_tmp, char **tmp);
 void	check_unclose_dquoted(char *line_tmp, int i_tmp, char **ret, int *i);
-int		squote_utils(char *line, int *i, char **ret);
+int		squote_utils(char *line, int *i, int i_tmp, char **ret);
 void	check_unclose_squoted(char *line, char **ret, int *i);
 void	check_sometoken(char *line, int token, char **content, int *i);
 int		check_doublequote(char *line, int *i);
 int		count_quote(char *line, int type);
-int		check_singlequote(char *line, int *i);
+int		check_singlequote(char *line, int *i, int *i_tmp);
 char	*get_next_word(char *str, int *index);
 
 // FREE
@@ -202,5 +203,6 @@ void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
 
 // VARIABLE GLOBALE
 extern t_all	g_all;
+int	ft_lstsiize(t_list *lst);
 
 #endif
