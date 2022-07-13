@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:55:10 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 14:24:56 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:24:09 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,27 @@ int	nothing_after_redirect(char *line)
 	return (0);
 }
 
+int	check_pipe_validity(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			i++;
+			if (!ft_isnotspecial(str[i]))
+				while (ft_isspace(str[i]))
+					i++;
+			if (str[i] == '|')
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	check_error(char *line, int error)
 {
 	if (error)
@@ -63,6 +84,11 @@ int	check_error(char *line, int error)
 	if (nothing_after_redirect(line))
 	{
 		send_error(PARSING, OPEN_REDIRECTION, line);
+		return (1);
+	}
+	if (check_pipe_validity(line))
+	{
+		send_error(PARSING, NEAR, line);
 		return (1);
 	}
 	return (0);

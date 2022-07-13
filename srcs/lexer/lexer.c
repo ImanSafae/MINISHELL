@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 16:59:57 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:10:05 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,6 @@ char	*check_for_envvar(char *line)
 		i++;
 	}
 	return (line);
-}
-
-char	*retrieve_filename(char *line, int *i)
-{
-	char	*ret;
-
-	ret = NULL;
-	(*i)++;
-	while (line[*i] && ft_isspace(line[*i]))
-		(*i)++;
-	if (line[*i])
-		ret = get_next_word(line, i);
-	return (ret);
 }
 
 int	interpret_token(char *line, int token, int *i, t_list **list)

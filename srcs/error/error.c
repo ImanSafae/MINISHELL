@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 18:04:34 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:56:04 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,6 @@ void	send_error(int function, int error, char *arg)
 		exit_errors(error, arg);
 	else if (function == PARSING)
 		parsing_errors(error, arg);
+	else if (function == CD)
+		cd_errors(error, arg);
 }

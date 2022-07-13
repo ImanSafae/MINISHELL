@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   retrieve_second.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/09 12:55:59 by anggonza         ###   ########.fr       */
+/*   Created: 2022/07/12 16:03:37 by anggonza          #+#    #+#             */
+/*   Updated: 2022/07/12 16:04:23 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	sigint(int sig)
+char	*retrieve_filename(char *line, int *i)
 {
-	(void)sig;
-	if (g_all.fd_to_close != -1)
-		close(g_all.fd_to_close);
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	g_all.exit_code = 130;
+	char	*ret;
+
+	ret = NULL;
+	(*i)++;
+	while (line[*i] && ft_isspace(line[*i]))
+		(*i)++;
+	if (line[*i])
+		ret = get_next_word(line, i);
+	return (ret);
 }
 
-void	sigquit(int sig)
+char	*retrieve_pipe(char *line, int *i)
 {
-	(void)sig;
-	ft_putchar_fd(4, 1);
-}
-
-void	detect_signals(void)
-{
-	signal(SIGINT, sigint);
-	signal(SIGQUIT, sigquit);
+	
 }

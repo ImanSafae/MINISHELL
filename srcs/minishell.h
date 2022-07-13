@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 13:30:09 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:39:12 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	expand_variable(char **value);
 void	ft_exec(t_exec *instructions, t_list *env);
 
 // UTILS
-void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line);
+void	delete_element_from_list(t_list **previous, t_list **to_delete);
 t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_env_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);

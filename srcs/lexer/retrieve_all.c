@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 16:55:45 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:00:14 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,17 @@ char	*retrieve_squoted_text(char *line, int *i)
 	char	*ret;
 	char	*tmp;
 	char	*tmp2;
+	int		i_tmp;
 
 	ret = ft_strdup("");
 	tmp = NULL;
 	tmp2 = NULL;
-	check_singlequote(line, i);
-	if (squote_utils(line, i, &ret))
+	check_singlequote(line, i, &i_tmp);
+	if (squote_utils(line, i, i_tmp, &ret))
 		return (line);
 	while (line[*i] && line[*i] != '\'')
 	{
-		if (check_singlequote(line, i))
+		if (check_singlequote(line, i, &i_tmp))
 			tmp2 = ft_strdup("");
 		else
 			tmp2 = ft_chardup(line[*i]);
