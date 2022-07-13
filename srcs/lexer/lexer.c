@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 22:04:23 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 17:03:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,6 @@ char	*check_for_envvar(char *line)
 		i++;
 	}
 	return (line);
-}
-
-char	*retrieve_filename(char *line, int *i)
-{
-	char	*ret;
-
-	ret = NULL;
-	(*i)++;
-	while (line[*i] && ft_isspace(line[*i]))
-		(*i)++;
-	if (line[*i])
-		ret = get_next_word(line, i);
-	return (ret);
 }
 
 int	interpret_token(char *line, int token, int *i, t_list **list)

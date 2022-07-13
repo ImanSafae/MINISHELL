@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/12 01:51:44 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 21:59:04 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	**get_pathtab(t_list *env)
 	char	**pathtab;
 
 	path = ft_getenv(env, "PATH");
+	if (path == NULL)
+		return (NULL);
 	pathtab = ft_split(path, ':');
 	return (pathtab);
 }
@@ -30,6 +32,8 @@ static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE
 	int		i;
 
 	pathtab = get_pathtab(env);
+	if (pathtab == NULL)
+		return (NULL);
 	cmd_suffix = ft_strjoin("/", cmd);
 	pathname = NULL;
 	i = 0;
@@ -185,7 +189,8 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		exit(EXIT_SUCCESS);
 	}// process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
 	close(pipefd[1]);
-	wait(NULL);
+	if (input)
+		close(input);
 	if (cmd_id != nb_of_pipes)
 		fork_and_exec(commands, nb_of_pipes,
 			cmd_id + 1, pipefd[0]);
@@ -209,4 +214,6 @@ void	ft_exec(t_exec *instructions, t_list *env)
 	}
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
+	while (waitpid(-1, NULL, NULL) > 0)
+		;
 }

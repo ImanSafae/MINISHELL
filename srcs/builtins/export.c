@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:05 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/13 02:17:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 17:25:50 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_env	*new_env_entry(char *var, char *value)
 	new_entry->variable = ft_strdup(var);
 	if (value)
 		new_entry->value = ft_strdup(value);
+	else
+		new_entry->value = NULL;
 	return (new_entry);
 }
 
@@ -50,7 +52,7 @@ void	exec_export(char *var, char *value)
 	if (!var)
 		print_env_in_ascii_order(g_all.env);
 	else // cas où on export avec arguments 
-	{
+	{ 
 		if (!check_if_variable_exists(g_all.env, var, value))
 			ft_lstadd_back(&(g_all.env), ft_lstnew(new_env_entry(var, value)));
 	}

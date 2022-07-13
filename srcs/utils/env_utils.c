@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 01:45:29 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 17:19:40 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ t_list	*duplicate_list(t_list *list)
 {
 	t_list	*dup;
 	t_list	*tmp;
+	t_env	*caster;
 
 	dup = NULL;
 	tmp = list;
+	caster = NULL;
 	while (tmp)
 	{
-		ft_lstadd_back(&dup, ft_lstnew(duplicate_env_line(tmp->content)));
+		caster = (t_env *)(tmp->content);
+		ft_lstadd_back(&dup, ft_lstnew(duplicate_env_line(caster)));
 		tmp = tmp->next;
 	}
 	return (dup);

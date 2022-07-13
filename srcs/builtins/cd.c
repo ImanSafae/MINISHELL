@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 01:24:31 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 14:15:29 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	change_env_value(char *variable, char *value)
 {
 	t_list	*tmp;
+	char	*val;
 
 	tmp = g_all.env;
+	val = ft_strdup(value);
 	while (tmp->next)
 	{
 		if (ft_strlen(variable) == ft_strlen(((t_env *)
@@ -26,7 +28,7 @@ void	change_env_value(char *variable, char *value)
 				ft_strlen(variable)))
 			{
 				free((((t_env *)(tmp->content))->value));
-				(((t_env *)(tmp->content))->value) = value;
+				(((t_env *)(tmp->content))->value) = val;
 			}
 		}
 		tmp = tmp->next;
@@ -74,7 +76,7 @@ void	change_pwd(char *path)
 	free(tmp);
 }
 
-static void	cd(char **arg)
+static void	cd(char *arg)
 {
 	char	*actual_path;
 	char	*next_path;
@@ -93,25 +95,32 @@ static void	cd(char **arg)
 	}
 	else
 	{
-		if (chdir(arg) == -1)
-			g_all.exit_code = 127;
-		else
-		{
-			change_oldpwd(actual_path);
-			change_pwd(getcwd(next_path, 0));
-			g_all.exit_code = 0;
-		}
+		next_path = getcwd(NULL, 0);
+		change_oldpwd(actual_path);
+		change_pwd(next_path);
+		g_all.exit_code = 0;
 	}
+	free(next_path);
+	free(actual_path);
 }
 
 void	ft_cd(char **args)
 {
+	if (!args)
+	{
+		cd("");
+		return ;
+	}
 	if (tab_length(args) > 1)
 	{
 		send_error(CD, TOO_MANY_ARGS, NULL);
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	if (args[0] && access(args[0], F_OK) == -1)
+	{
 		send_error(CD, WRONG_FILE, args[0]);
-	cd(&(args[0]));
+		g_all.exit_code = 127;
+		return ;
+	}
+	cd(args[0]);
 }

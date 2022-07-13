@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/13 02:59:48 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/13 20:58:57 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	remove_from_env(char *var)
 			else
 			{
 				ft_lstdelone(tmp->next, &empty_env_element);
+				tmp->next = NULL;
 				return ;
 			}
 		}
