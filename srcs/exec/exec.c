@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:08:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:16:01 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	replace_cmd_with_pathname(char **cmd)
 	{
 		send_error(PARSING, UNKNOWN_COMMAND, *cmd);
 		free(*cmd);
+		(*cmd) = NULL;
 		return (0);
 	}
 	free(*cmd);

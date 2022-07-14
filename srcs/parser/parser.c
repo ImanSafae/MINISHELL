@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:09:54 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:14:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 		return ;
 	while (i < (nb_of_cmds))
 	{
-		printf("ca arrive ici\n");
 		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
 			j++;
 		tmp_command = ft_strndup((*cmds)[i].command, 0, j - 1);
