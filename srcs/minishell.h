@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 17:03:53 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:02:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_exec
 # define BAD_ASSIGN 7
 # define ERROR_CHAR "error"
 # define OPEN_REDIRECTION 8
+# define UNEXPECTEDTOK 9
 // REDIRECTIONS
 # define INFILE 0
 # define OUTFILE 1
@@ -152,7 +153,9 @@ void	ft_exit(char **args);
 void	expand_variable(char **value);
 
 // EXECUTION
-void	ft_exec(t_exec *instructions, t_list *env);
+void	ft_exec(t_exec *instructions);
+void	touch_outfile(char	*outfile);
+int		heredoc(char *delim);
 
 // UTILS
 void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line);
@@ -203,6 +206,5 @@ void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
 
 // VARIABLE GLOBALE
 extern t_all	g_all;
-int	ft_lstsiize(t_list *lst);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:55:10 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 16:24:09 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:06:01 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_error(char *line, int error)
 	}
 	if (nothing_after_redirect(line))
 	{
-		send_error(PARSING, OPEN_REDIRECTION, line);
+		send_error(PARSING, UNEXPECTEDTOK, "newline");
 		return (1);
 	}
 	if (check_pipe_validity(line))

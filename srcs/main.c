@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/12 23:11:33 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 16:52:23 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	//detect_signals();
 	while (1)
 	{
-		str = readline("minishell obama is listening > ");
+		str = readline("minishell obama is waiting for instructions > ");
 		if (ft_strlen(str) == 0)
 			continue ;
 		if (!ft_strncmp(str, "exit", 4))

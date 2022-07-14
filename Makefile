@@ -4,7 +4,7 @@ RED			=	\033[0;31m
 CYAN		=	\033[0;36m
 COLOR_OFF	=	\033[0m\0
 YELLOW		=	\033[0;33m
-FLAGS		=	-Wall -Wextra -g
+FLAGS		=	-Wall -Wextra -g -fsanitize=address
 LFT			=	libft/libft.a
 INC			=	-I ./libft
 LIB			=	-L ./libft -lft
@@ -15,10 +15,10 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				env/shell_env.c \
 				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c utils/lexer_utils2.c utils/retrieve_utils.c utils/retrieve_utils2.c utils/lexer_utils3.c \
 				lexer/lexer.c lexer/lexer_list.c lexer/retrieve_all.c lexer/retrieve_second.c \
-				parser/parser.c parser/heredoc.c \
+				parser/parser.c  \
 				expand/expand.c \
-				exec/exec.c \
-				main.c test.c signal.c
+				exec/exec.c exec/heredoc.c\
+				main.c test.c # signal.c
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
@@ -44,10 +44,9 @@ $(LFT):
 
 $(OBJS): $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 			@mkdir -p $(@D)
-			@echo
-			@echo "$(RED)[**] Compiling $< [**]"
-			@echo "$(COLOR_OFF)"
-			$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $<
+			@echo "$(RED)[**] Compiling $< [**] $(COLOR_OFF)"
+#			@echo "$(COLOR_OFF)"
+			@$(CC) $(FLAGS) $(INC) $(HEADER) -o $@ -c $<
 
 clean:
 			@make -s $@ -C libft

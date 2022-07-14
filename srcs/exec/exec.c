@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/13 21:59:04 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:04:12 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static char	*get_pathname(char *cmd, t_list *env) // TROUVE LE BON PATH POUR UNE
 	return (pathname);
 }
 
-static int	replace_cmd_with_pathname(char **cmd, t_list *env)
+static int	replace_cmd_with_pathname(char **cmd)
 {
 	char	*cmd_pathname;
 
-	cmd_pathname = get_pathname(*cmd, env);
+	cmd_pathname = get_pathname(*cmd, g_all.env);
 	if (!cmd_pathname)
 	{
 		send_error(PARSING, UNKNOWN_COMMAND, *cmd);
@@ -96,7 +96,7 @@ static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
 		if (!check_if_builtin(list[i].command)
 			&& access(list[i].command, F_OK) == -1)
 		{
-			if (!replace_cmd_with_pathname(&(list[i].command), env))
+			if (!replace_cmd_with_pathname(&(list[i].command)))
 				return (0);
 		}
 		i++;
@@ -109,6 +109,8 @@ int	check_infile(t_cmd command)
 	int	infile;
 
 	infile = 0;
+	if (command.hd_delimiter)
+		infile = heredoc(command.hd_delimiter);
 	if (command.infile)
 	{
 		infile = open(command.infile, O_RDONLY, 0777);
@@ -194,26 +196,44 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 	if (cmd_id != nb_of_pipes)
 		fork_and_exec(commands, nb_of_pipes,
 			cmd_id + 1, pipefd[0]);
-	else if (cmd_id == nb_of_pipes)
+	else
 		close(pipefd[0]);
 }
 
-void	ft_exec(t_exec *instructions, t_list *env)
+void	ft_exec(t_exec *instructions)
 {
 	int	cmd_id;
 
 	cmd_id = 0;
-	if (!check_cmds_list(instructions->commands, env, instructions->pipes + 1))
+	if (!check_cmds_list(instructions->commands, g_all.env, instructions->pipes + 1))
 		return ; // cas de commande inconnue
-	// faire une condition pour ne pas fork quand il y a une seule commande
-	// idem pour les builtins
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
-	{
-		printf("excuting builtin\n");
 		exec_cmd(*instructions->commands);
-	}
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 	while (waitpid(-1, NULL, NULL) > 0)
 		;
+}
+
+void	touch_outfile(char	*outfile)
+{
+	t_cmd	*command;
+
+	command = malloc(sizeof(t_cmd));
+	command->append = 0;
+	command->nb_of_cmds = 1;
+	command->outfile = NULL;
+	command->infile = NULL;
+	command->hd_delimiter = NULL;
+	command->command = ft_strdup("touch");
+	command->args = malloc(sizeof(char *) * 2);
+	command->args[0] = outfile;
+	command->args[1] = NULL;
+	replace_cmd_with_pathname(&(command->command));
+	fork_and_exec(command, 0, 0, 0);
+	while (waitpid(-1, NULL, NULL) > 0)
+		;
+	free(command->args);
+	free(command->command);
+	free(command);
 }

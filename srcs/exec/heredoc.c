@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/04 17:54:40 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:03:09 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	heredoc(char *delim)
+int	heredoc(char *delim)
 {
 	char	*line;
 	int		tmp_file;
@@ -33,5 +33,6 @@ void	heredoc(char *delim)
 		write(tmp_file, "\n", 1);
 		free(line);
 	}
-	close(tmp_file);
+	return (tmp_file);
+	// close(tmp_file);
 }

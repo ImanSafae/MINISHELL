@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 13:56:04 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:43:59 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	parsing_errors(int error, char *arg) // REMPLACER LES PRINTF PAR DES
 		ft_putstr_fd("bad assignment\n", 2);
 	else if (error == UNKNOWN_COMMAND)
 		printf("%s: command not found\n", arg);
-	else if (error == OPEN_REDIRECTION)
-		printf("syntax error near unexpected token `newline'\n");
+	else if (error == UNEXPECTEDTOK)
+		printf("syntax error near unexpected token `%s'\n", arg);
 }
 
 static void	exit_errors(int error, char *arg)

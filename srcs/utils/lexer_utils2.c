@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/08 14:24:51 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:43:36 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	all_check_errors(char *line, int *error)
 		if (*line == '\'' || *line == '\"')
 			send_error(PARSING, OPEN_QUOTE, line);
 		else if (*line == '<' || *line == '>')
-			send_error(PARSING, OPEN_REDIRECTION, line);
+			send_error(PARSING, UNEXPECTEDTOK, "newline");
 		else
 			*error = 0;
 	}
 	if (ft_strlen(line) == 2)
 	{
 		if (!ft_strncmp(line, "<<", 2) || !ft_strncmp(line, ">>", 2))
-			send_error(PARSING, OPEN_REDIRECTION, line);
+			send_error(PARSING, UNEXPECTEDTOK, "newline");
 		else if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
 			send_error(PARSING, UNKNOWN_COMMAND, "");
 		else

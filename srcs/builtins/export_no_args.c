@@ -6,12 +6,11 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 19:13:14 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/13 17:09:38 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 16:32:21 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <string.h>
 
 static int	comes_first_in_ascii(char *one, char *two)
 {
