@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 14:15:29 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:30:18 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	change_oldpwd(char *path)
 		ft_lstadd_back(&(g_all.env), ft_lstnew(add_var_to_env(tmp)));
 	else
 		change_env_value("OLDPWD", path);
+	free(tmp);
 }
 
 void	change_pwd(char *path)
@@ -95,12 +96,13 @@ static void	cd(char *arg)
 	}
 	else
 	{
+		chdir(arg);
 		next_path = getcwd(NULL, 0);
 		change_oldpwd(actual_path);
 		change_pwd(next_path);
 		g_all.exit_code = 0;
+		free(next_path);
 	}
-	free(next_path);
 	free(actual_path);
 }
 
