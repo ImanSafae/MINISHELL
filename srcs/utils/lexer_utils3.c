@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:55:10 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 18:25:58 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:28:22 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	nothing_after_redirect(char *line)
 			return (1);
 		if ((int)ft_strlen(&line[i]) > 2)
 			if ((!ft_strncmp(&line[i], ">>", 2)
-					||!ft_strncmp(&line[i], "<<", 2)) && !line[i + 2])
+					|| !ft_strncmp(&line[i], "<<", 2)) && !line[i + 2])
 				return (1);
 		i++;
 	}

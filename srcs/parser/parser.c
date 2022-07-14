@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:08:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:34:22 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_cmd	*split_list_on_pipes(t_list **lexer_list, int nb_of_cmds)
 			if (!tmp)
 			{
 				send_error(PARSING, UNEXPECTEDTOK, "|");
-				return NULL;
+				return (NULL);
 			}
 			(command[i]).command = get_command(&tmp, &command[i]);
 			i++;
