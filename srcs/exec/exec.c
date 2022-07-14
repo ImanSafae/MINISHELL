@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:17:52 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 23:08:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,11 @@ void	ft_exec(t_exec *instructions)
 	int	cmd_id;
 
 	cmd_id = 0;
+	if (!(instructions->commands->command))
+	{
+		printf("Warning : trying to execute with no command !\n");
+		return ;
+	}
 	if (!check_cmds_list(instructions->commands, instructions->pipes + 1))
 		return ; // cas de commande inconnue
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))

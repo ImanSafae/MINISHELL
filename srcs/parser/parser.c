@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:50:49 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:09:54 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	parse_redirections(int token, t_cmd *command, char *file)
 		command->infile = ft_strdup(file);
 	if (token == TOKEN_OUTFILE)
 		command->outfile = ft_strdup(file);
+	if (token == TOKEN_HEREDOC)
+		command->hd_delimiter = ft_strdup(file);
 }
 
 void	add_text_to_string(char **str, char *to_append)
@@ -143,11 +145,13 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 	j = 0;
 	tmp_command = NULL;
 	tmp_args = NULL;
+	if (!(*cmds)[i].command)
+		return ;
 	while (i < (nb_of_cmds))
 	{
+		printf("ca arrive ici\n");
 		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
 			j++;
-		printf("ca arrive ici\n");
 		tmp_command = ft_strndup((*cmds)[i].command, 0, j - 1);
 		if (((*cmds)[i].command)[j])
 			tmp_args = ft_strndup((*cmds)[i].command, j + 1, ft_strlen((*cmds)[i].command));
@@ -185,6 +189,7 @@ void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRI
 	separate_cmd_from_args(&cmd, nb_of_pipes + 1);
 	// print_commands_tab(cmd, nb_of_pipes);
 	ft_exec(exec);
+	free_exec_structs(&exec);
 }
 
 static int	at_least_one_command(t_list **lexer_list)
@@ -197,7 +202,8 @@ static int	at_least_one_command(t_list **lexer_list)
 	while (tmp)
 	{
 		caster = (t_lexer *)(tmp->content);
-		if (caster->token != TOKEN_INFILE && caster->token != TOKEN_OUTFILE)
+		if (caster->token != TOKEN_INFILE && caster->token != TOKEN_OUTFILE
+			&& caster->token != TOKEN_HEREDOC)
 			return (1);
 		tmp = tmp->next;
 	}
@@ -222,6 +228,8 @@ void	ft_parser(t_list **lexer_list)
 				touch_outfile(caster->text);
 			if (caster->token == TOKEN_INFILE && access(caster->text, F_OK) == -1)
 				send_error(PARSING, WRONG_FILE, caster->text);
+			if (caster->token == TOKEN_HEREDOC)
+				heredoc(caster->text);
 			tmp = tmp->next;
 		}
 	}

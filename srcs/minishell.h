@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 18:02:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 22:48:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void	free_element(void *element);
 void	free_tab(char **tab);
 void	free_lexer(t_list **lexer);
 void	empty_env_element(void *element);
+void	free_exec_structs(t_exec **struc);
 
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
