@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:20:34 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:33:24 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("minishell obama is waiting for instructions > ");
 		if (ft_strlen(str) == 0)
 			continue ;
-		if (!ft_strncmp(str, "exit", 4))
-		{
-			free(str);
-			break ;
-		}
 		add_history(str);
 		ft_lexer(str);
 		free(str);
 	}
 	free_env(&env);
+	if (g_all.heredoc)
+		unlink("/tmp/heredoc.tmp");
 }
 
 	//system("leaks minishell");

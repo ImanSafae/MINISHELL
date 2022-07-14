@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:14:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:21:16 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,10 @@ void	ft_parser(t_list **lexer_list)
 			if (caster->token == TOKEN_INFILE && access(caster->text, F_OK) == -1)
 				send_error(PARSING, WRONG_FILE, caster->text);
 			if (caster->token == TOKEN_HEREDOC)
+			{
 				heredoc(caster->text);
+				close(g_all.fd_to_close);
+			}
 			tmp = tmp->next;
 		}
 	}

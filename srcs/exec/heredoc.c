@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 18:03:09 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:26:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	heredoc(char *delim)
 		write(tmp_file, "\n", 1);
 		free(line);
 	}
+	g_all.heredoc = 1;
 	return (tmp_file);
 	// close(tmp_file);
 }

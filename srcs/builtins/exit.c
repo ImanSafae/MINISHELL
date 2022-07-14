@@ -6,27 +6,27 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/05 20:58:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:32:28 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	exec_exit(char *code)
+static int	exec_exit(char **code)
 {
 	int	i;
 
 	i = 0;
-	if (!code)
-		return (g_all.exit_code);
-	while (code[i])
+	// if (!code)
+	// 	return (g_all.exit_code);
+	while (code && code[0][i])
 	{
-		if (!ft_isdigit(code[i]))
+		if (!ft_isdigit(code[0][i]))
 		{
-			if (ft_isspace(code[i]))
-				send_error(EXIT, TOO_MANY_ARGS, code);
+			if (ft_isspace(code[0][i]))
+				send_error(EXIT, TOO_MANY_ARGS, code[0]);
 			else
-				send_error(EXIT, NUM, code);
+				send_error(EXIT, NUM, code[0]);
 		}
 		i++;
 	}
@@ -37,10 +37,10 @@ static int	exec_exit(char *code)
 
 void	ft_exit(char **args)
 {
-	if (tab_length(args) > 1)
+	if (args && tab_length(args) > 1)
 	{
 		send_error(EXIT, TOO_MANY_ARGS, NULL);
 		exit(EXIT_FAILURE);
 	}
-	exec_exit(args[0]);
+	exec_exit(args);
 }

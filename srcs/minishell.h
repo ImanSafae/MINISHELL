@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 22:48:49 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:26:28 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_all
 	int		exit_code;
 	int		fd_to_close;
 	t_list	*env;
+	int		heredoc;
 }	t_all;
 
 typedef struct s_env
@@ -84,9 +85,6 @@ typedef struct s_exec
 # define TOKEN_HEREDOC 7
 # define TOKEN_APPEND 8
 # define TOKEN_TEXT 9
-// # define TOKEN_WILDCARD 10
-// # define TOKEN_FLAG 11
-// # define TOKEN_QUOTED_TEXT 12
 
 // ERRORS: FUNCTIONS
 # define PARSING 0
