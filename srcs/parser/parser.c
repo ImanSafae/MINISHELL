@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:08:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:50:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,19 +103,16 @@ void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
 	}
 }
 
-t_cmd	*split_list_on_pipes(t_list **lexer_list, int nb_of_cmds)
+void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
 {
-	t_cmd	*command;
 	t_list	*tmp;
 	t_lexer	*caster;
 	int		i;
 
-	command = malloc(sizeof(t_cmd) * (nb_of_cmds));
-	assign_t_cmd(&command, nb_of_cmds);
 	tmp = (*lexer_list);
 	caster = (t_lexer *)(tmp->content);
 	i = 1;
-	command[0].command = get_command(&tmp, &command[0]);
+	(*command)[0].command = get_command(&tmp, &((*command)[0]));
 	while (tmp && (i < nb_of_cmds))
 	{
 		caster = (t_lexer *)(tmp->content);
@@ -125,15 +122,14 @@ t_cmd	*split_list_on_pipes(t_list **lexer_list, int nb_of_cmds)
 			if (!tmp)
 			{
 				send_error(PARSING, UNEXPECTEDTOK, "|");
-				return NULL;
+				return ;
 			}
-			(command[i]).command = get_command(&tmp, &command[i]);
+			((*command)[i]).command = get_command(&tmp, &((*command)[i]));
 			i++;
 		}
 		else
 			tmp = tmp->next;
 	}
-	return (command);
 }
 
 void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
@@ -151,6 +147,7 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 	{
 		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
 			j++;
+		printf("ca arrive ici\n");
 		tmp_command = ft_strndup((*cmds)[i].command, 0, j - 1);
 		if (((*cmds)[i].command)[j])
 			tmp_args = ft_strndup((*cmds)[i].command, j + 1, ft_strlen((*cmds)[i].command));
@@ -173,15 +170,14 @@ void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRI
 
 	nb_of_pipes = count_pipes(*lexer_list);
 	exec = malloc(sizeof(t_exec));
-	// cmd = malloc(sizeof(t_cmd) * (nb_of_pipes + 1));
-	cmd = ft_calloc(nb_of_pipes + 1, sizeof(t_cmd));
+	cmd = malloc(sizeof(t_cmd) * (nb_of_pipes + 1));
 	assign_t_cmd(&cmd, nb_of_pipes + 1);
 	if (((t_lexer *)((*lexer_list)->content))->token == TOKEN_PIPE)
 	{
 		send_error(PARSING, UNEXPECTEDTOK, "|");
 		return ;
 	}
-	cmd = split_list_on_pipes(lexer_list, nb_of_pipes + 1);
+	split_list_on_pipes(lexer_list, nb_of_pipes + 1, &cmd);
 	if (!cmd)
 		return ;
 	exec->commands = cmd;
