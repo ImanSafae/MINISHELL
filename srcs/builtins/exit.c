@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 23:32:28 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 23:50:10 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	exec_exit(char **code)
 				send_error(EXIT, TOO_MANY_ARGS, code[0]);
 			else
 				send_error(EXIT, NUM, code[0]);
+			break ;
 		}
 		i++;
 	}

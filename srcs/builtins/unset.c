@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:18:56 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 23:43:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,6 @@ void	ft_unset(char **args)
 	int	i;
 
 	i = 0;
-	if (args == NULL)
-	{
-		printf("error\n");
-		send_error(UNSET, NOT_ENOUGH_ARGS, NULL);
-	}
 	while (args && args[i])
 	{
 		exec_unset(args[i]);
