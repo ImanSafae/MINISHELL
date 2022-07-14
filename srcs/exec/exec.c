@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:16:01 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 00:18:19 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	exec_cmd(t_cmd command)
 	if (check_if_builtin(command.command))
 	{
 		if (!ft_strncmp(command.command, "pwd", 3))
-			ft_pwd(command.args);
+			ft_pwd();
 		if (!ft_strncmp(command.command, "cd", 2))
 			ft_cd(command.args);
 		if (!ft_strncmp(command.command, "export", 6))

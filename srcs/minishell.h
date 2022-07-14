@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 23:26:28 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 00:18:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	ft_export(char **args);
 void	print_env_in_ascii_order(t_list *env);
 void	ft_env(char **args);
 t_env	*new_env_entry(char *var, char *value);
-void	ft_pwd(char **args);
+void	ft_pwd(void);
 void	ft_cd(char **args);
 void	ft_echo(char **args);
 void	ft_exit(char **args);

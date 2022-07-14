@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/15 00:01:04 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 00:17:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_all	g_all;
 
 static void	print_white_house(void)
 {
-	printf("                 _ _.-'`-._ _                  \n");
+	printf("\n\n\n\n\n                 _ _.-'`-._ _                  \n");
 	printf("                ;.'________'.;                \n");
 	printf("     _________n.[____________].n_________     \n");
 	printf("    |\"\"_\"\"_\"\"_\"\"||==||==||==||\"\"_\"\"_\"\"_\"\"]    \n");
@@ -26,7 +26,7 @@ static void	print_white_house(void)
 	printf("    |LI LI LI LI||LI||LI||LI||LI LI LI LI|    \n");
 	printf(" ,,;;,;;;,;;;,;;;,;;;,;;;,;;;,;;,;;;,;;;,;;,, \n");
 	printf(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n\n\n");
-	printf("Welcome. Minishell Obama has been waiting for you.\n\n");
+	printf("Welcome. Minishell Obama has been waiting for you.\n\n\n\n\n");
 }
 
 
