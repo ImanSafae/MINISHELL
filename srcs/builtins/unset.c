@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:44:54 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/13 20:58:57 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:18:56 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	found_variable(t_list *element, char *variable)
 	_element = ((t_env *)(element->content))->variable;
 	len = ft_strlen(variable);
 	if (!ft_strncmp(_element, variable, len)
-		&& ft_strlen(_element) == len)
+		&& (int)ft_strlen(_element) == len)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 18:04:12 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:17:52 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	check_if_builtin(char *cmd)
 	return (0);
 }
 
-static int	check_cmds_list(t_cmd *list, t_list *env, int nb_of_cmds)
+static int	check_cmds_list(t_cmd *list, int nb_of_cmds)
 {
 	int		i;
 
@@ -205,13 +205,13 @@ void	ft_exec(t_exec *instructions)
 	int	cmd_id;
 
 	cmd_id = 0;
-	if (!check_cmds_list(instructions->commands, g_all.env, instructions->pipes + 1))
+	if (!check_cmds_list(instructions->commands, instructions->pipes + 1))
 		return ; // cas de commande inconnue
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
 		exec_cmd(*instructions->commands);
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
-	while (waitpid(-1, NULL, NULL) > 0)
+	while (waitpid(-1, NULL, 0) > 0)
 		;
 }
 
@@ -231,7 +231,7 @@ void	touch_outfile(char	*outfile)
 	command->args[1] = NULL;
 	replace_cmd_with_pathname(&(command->command));
 	fork_and_exec(command, 0, 0, 0);
-	while (waitpid(-1, NULL, NULL) > 0)
+	while (waitpid(-1, NULL, 0) > 0)
 		;
 	free(command->args);
 	free(command->command);

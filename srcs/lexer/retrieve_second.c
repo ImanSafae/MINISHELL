@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:03:37 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 16:04:23 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:16:42 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,4 @@ char	*retrieve_filename(char *line, int *i)
 	if (line[*i])
 		ret = get_next_word(line, i);
 	return (ret);
-}
-
-char	*retrieve_pipe(char *line, int *i)
-{
-	
 }
