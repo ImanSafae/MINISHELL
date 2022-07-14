@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/13 17:19:40 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/14 18:06:51 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*ft_getenv(t_list *env, char *variable)
 	return (ret);
 }
 
-void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line)
+void	delete_element_from_list(t_list **previous, t_list **to_delete
+	, t_env **line)
 {
 	t_env	*caster;
 
