@@ -6,13 +6,29 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:33:24 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 00:01:04 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_all	g_all;
+
+static void	print_white_house(void)
+{
+	printf("                 _ _.-'`-._ _                  \n");
+	printf("                ;.'________'.;                \n");
+	printf("     _________n.[____________].n_________     \n");
+	printf("    |\"\"_\"\"_\"\"_\"\"||==||==||==||\"\"_\"\"_\"\"_\"\"]    \n");
+	printf("    |\"\"\"\"\"\"\"\"\"\"\"||..||..||..||\"\"\"\"\"\"\"\"\"\"\"|    \n");
+	printf("    |LI LI LI LI||LI||LI||LI||LI LI LI LI|    \n");
+	printf("    |.. .. .. ..||..||..||..||.. .. .. ..|    \n");
+	printf("    |LI LI LI LI||LI||LI||LI||LI LI LI LI|    \n");
+	printf(" ,,;;,;;;,;;;,;;;,;;;,;;;,;;;,;;,;;;,;;;,;;,, \n");
+	printf(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n\n\n");
+	printf("Welcome. Minishell Obama has been waiting for you.\n\n");
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	g_all.fd_to_close = -1;
 	env = create_env(envp);
 	g_all.env = env;
+	print_white_house();
 	//detect_signals();
 	while (1)
 	{
