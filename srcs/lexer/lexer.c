@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/15 17:06:14 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:08:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_lexer(char *line)
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	// uncapitalize_cmd(&lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }
+	// uncapitalize_cmd(&lexer_list);
