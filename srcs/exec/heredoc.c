@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 23:26:49 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 16:36:53 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	heredoc(char *delim)
 	while (1)
 	{
 		line = readline("heredoc > ");
+		if (!line)
+		{
+			printf("heredoc delimited by end-of-file (wanted '%s')\n", delim);
+			break ;
+		}
 		if (!(ft_strncmp(line, delim, ft_strlen(delim)))
 			&& (ft_strlen(delim) == ft_strlen(line)))
 		{
