@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:14:52 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/12 16:58:45 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:03:47 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,19 @@ int	check_doublequote(char *line, int *i)
 
 int	check_singlequote(char *line, int *i, int *i_tmp)
 {
+	int	size;
+
 	*i_tmp = *i;
-	if ((int)ft_strlen(&line[*i]) >= 2)
+	size = (int)ft_strlen(&line[*i]);
+	if (size >= 2)
 	{
 		if (line[*i] == '\'' && line[*i + 1] == '\'')
 		{
 			(*i) += 2;
-			return (1);
+			if (size > 2)
+				return (0);
+			if (size == 2)
+				return (1);
 		}
 	}
 	return (0);

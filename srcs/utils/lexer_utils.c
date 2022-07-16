@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:28:01 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 18:16:30 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:06:34 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*find_end(char *line, int i)
 {
 	char	*end;
 
+	if (!line)
+		return (NULL);
 	while (line[i] && !ft_isspace(line[i]))
 		i++;
 	end = ft_substr(line, i, ft_strlen(line) - i);

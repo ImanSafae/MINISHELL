@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 17:25:00 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:08:07 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ char	*check_for_envvar(char *line)
 	int		before_var;
 
 	i = 0;
-	end = NULL;
-	begin = NULL;
-	tmp = NULL;
 	while (line[i])
 	{
 		if (line[i] == '$')
@@ -111,6 +108,8 @@ void	ft_lexer(char *line)
 		all_check_errors(line, &error);
 	if (check_error(line, error))
 		return ;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
 	while (line[i])
 	{
 		token = identify_token(line[i], line[i + 1]);
@@ -119,7 +118,7 @@ void	ft_lexer(char *line)
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 	}
-	// uncapitalize_cmd(&lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }
+	// uncapitalize_cmd(&lexer_list);

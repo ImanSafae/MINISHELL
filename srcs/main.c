@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/15 00:17:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 16:28:06 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	print_white_house(void)
 	printf("Welcome. Minishell Obama has been waiting for you.\n\n\n\n\n");
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
@@ -41,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	env = create_env(envp);
 	g_all.env = env;
 	print_white_house();
-	//detect_signals();
+	detect_signals();
 	while (1)
 	{
 		str = readline("minishell obama is waiting for instructions > ");

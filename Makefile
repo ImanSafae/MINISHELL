@@ -18,7 +18,7 @@ SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd
 				parser/parser.c  \
 				expand/expand.c \
 				exec/exec.c exec/heredoc.c\
-				main.c test.c # signal.c
+				main.c test.c signal.c
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
