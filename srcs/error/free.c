@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/15 00:23:25 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/16 18:17:13 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ void	ft_free_list(t_list **liste)
 		free(temp);
 	}
 	liste = NULL;
+}
+
+void	empty_lexer_element(void *element)
+{
+	
+	free(((t_lexer *)(element))->text);
+	free((t_lexer *)(element));
 }
 
 void	free_lexer(t_list **lexer)
