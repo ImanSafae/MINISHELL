@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/16 18:18:20 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/16 22:45:17 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_lexer
 {
 	char	*text;
 	int		token;
+	int		space;
 }				t_lexer;
 
 typedef struct s_cmd
