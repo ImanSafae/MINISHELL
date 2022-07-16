@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:24:41 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 22:51:46 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/15 00:23:25 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	free_exec_structs(t_exec **struc)
 			free(((*struc)->commands)[i].infile);
 		if (((*struc)->commands)[i].outfile)
 			free(((*struc)->commands)[i].outfile);
-		free(&((*struc)->commands)[i]);
+		// free(&((*struc)->commands)[i]);
 		i++;
 	}
 	// free((*struc)->commands);
