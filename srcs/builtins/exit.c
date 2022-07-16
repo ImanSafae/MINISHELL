@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 23:50:10 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/16 16:33:17 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	exec_exit(char **code)
 	int	i;
 
 	i = 0;
-	// if (!code)
-	// 	return (g_all.exit_code);
+	if (!code)
+		exit(g_all.exit_code);
 	while (code && code[0][i])
 	{
 		if (!ft_isdigit(code[0][i]))
@@ -33,7 +33,7 @@ static int	exec_exit(char **code)
 	}
 	printf("exit\n");
 	// il faut aussi envoyer un signal pour terminer le process
-	exit(EXIT_SUCCESS); 
+	exit(ft_atoi(code[0]));
 }
 
 void	ft_exit(char **args)
