@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/15 16:28:06 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:26:33 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_lexer(str);
 		free(str);
 	}
+	clear_history();
 	free_env(&env);
 	if (g_all.heredoc)
 		unlink("/tmp/heredoc.tmp");
