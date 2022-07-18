@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/15 00:18:19 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:59:20 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ static int	check_cmds_list(t_cmd *list, int nb_of_cmds)
 	i = 0;
 	while (i < nb_of_cmds)
 	{
+		if (!list[i].command)
+			i++;
+		if (i >= nb_of_cmds)
+			break ;
 		if (!check_if_builtin(list[i].command)
 			&& access(list[i].command, F_OK) == -1)
 		{
@@ -125,7 +129,7 @@ int	check_infile(t_cmd command)
 	return (1);
 }
 
-void	exec_cmd(t_cmd command)
+void	exec_cmd(t_cmd command, int forked)
 {
 	if (check_if_builtin(command.command))
 	{
@@ -149,6 +153,8 @@ void	exec_cmd(t_cmd command)
 		tab_addfront(&(command.args), command.command);
 		execve(command.command, command.args, NULL);
 	}
+	if (forked == 1)
+		exit(EXIT_SUCCESS);
 }
 
 static int	check_outfile(t_cmd command)
@@ -171,6 +177,16 @@ static int	check_outfile(t_cmd command)
 	return (1);
 }
 
+void	check_presence_of_command(t_cmd command)
+{
+	if (command.command == NULL)
+	{
+		if (command.outfile)
+			touch_outfile(command.outfile);
+		exit(EXIT_SUCCESS);
+	}
+}
+
 void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 {
 	int		pipefd[2];
@@ -188,8 +204,8 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 			return ;
 		else if (cmd_id < nb_of_pipes)
 			dup2(pipefd[1], STDOUT_FILENO);
-		exec_cmd(commands[cmd_id]);
-		exit(EXIT_SUCCESS);
+		check_presence_of_command(commands[cmd_id]);
+		exec_cmd(commands[cmd_id], 1);
 	}// process parent dans lequel on va appeler en récursif tant qu'il y a des commandes à exécuter
 	close(pipefd[1]);
 	if (input)
@@ -206,15 +222,15 @@ void	ft_exec(t_exec *instructions)
 	int	cmd_id;
 
 	cmd_id = 0;
-	if (!(instructions->commands->command))
-	{
-		printf("Warning : trying to execute with no command !\n");
-		return ;
-	}
+	// if (!(instructions->commands->command))
+	// {
+	// 	printf("Warning : trying to execute with no command !\n");
+	// 	return ;
+	// }
 	if (!check_cmds_list(instructions->commands, instructions->pipes + 1))
 		return ; // cas de commande inconnue
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
-		exec_cmd(*instructions->commands);
+		exec_cmd(*instructions->commands, 0);
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 	while (waitpid(-1, NULL, 0) > 0)

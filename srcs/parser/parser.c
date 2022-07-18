@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/14 23:21:16 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:33:52 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ char	*get_command(t_list **pointer, t_cmd *cmd)
 	{
 		ret = ft_strdup(caster->text);
 		(*pointer) = (*pointer)->next;
-		if (*pointer)
-			caster = (t_lexer *)((*pointer)->content);
+		// if (*pointer)
+			// caster = (t_lexer *)((*pointer)->content);
 	}
-	while ((*pointer) && caster->token != TOKEN_PIPE)
+	while ((*pointer) && ((t_lexer *)((*pointer)->content))->token != TOKEN_PIPE)
 	{
+		caster = (t_lexer *)((*pointer)->content);
 		if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
 			|| caster ->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
 			add_text_to_string(&ret, caster->text);
@@ -85,8 +86,7 @@ char	*get_command(t_list **pointer, t_cmd *cmd)
 			|| caster->token == TOKEN_INFILE || caster->token == TOKEN_OUTFILE)
 			parse_redirections(caster->token, cmd, caster->text);
 		(*pointer) = (*pointer)->next;
-		if (*pointer)
-			caster = (t_lexer *)((*pointer)->content);
+		// if (*pointer)
 	}
 	return (ret);
 }
@@ -98,6 +98,8 @@ void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
 	i = 0;
 	while (i < nb_of_cmds)
 	{
+		(*cmd)[i].command = NULL;
+		(*cmd)[i].args = NULL;
 		(*cmd)[i].infile = NULL;
 		(*cmd)[i].outfile = NULL;
 		(*cmd)[i].hd_delimiter = NULL;
@@ -145,9 +147,9 @@ void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
 	j = 0;
 	tmp_command = NULL;
 	tmp_args = NULL;
-	if (!(*cmds)[i].command)
+	if (!((*cmds)[i].command))
 		return ;
-	while (i < (nb_of_cmds))
+	while (i < (nb_of_cmds) && ((*cmds)[i].command))
 	{
 		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
 			j++;
@@ -188,7 +190,7 @@ void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRI
 	separate_cmd_from_args(&cmd, nb_of_pipes + 1);
 	// print_commands_tab(cmd, nb_of_pipes);
 	ft_exec(exec);
-	free_exec_structs(&exec);
+	//free_exec_structs(&exec);
 }
 
 static int	at_least_one_command(t_list **lexer_list)

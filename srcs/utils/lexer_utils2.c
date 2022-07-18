@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 16:43:36 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:53:22 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	all_check_errors(char *line, int *error)
 	{
 		if (!ft_strncmp(line, "<<", 2) || !ft_strncmp(line, ">>", 2))
 			send_error(PARSING, UNEXPECTEDTOK, "newline");
-		else if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
-			send_error(PARSING, UNKNOWN_COMMAND, "");
+		// else if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
+		// 	send_error(PARSING, UNKNOWN_COMMAND, "");
 		else
 			*error = 0;
 	}
