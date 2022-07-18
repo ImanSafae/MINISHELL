@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/16 22:45:17 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 15:07:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_exec
 # define TOKEN_DOLLAR 3
 # define TOKEN_INFILE 4
 # define TOKEN_OUTFILE 5
-// # define TOKEN_SPACE 6
+# define TOKEN_SPACE 6
 # define TOKEN_HEREDOC 7
 # define TOKEN_APPEND 8
 # define TOKEN_TEXT 9

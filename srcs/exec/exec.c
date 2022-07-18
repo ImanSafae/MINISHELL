@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/18 14:59:20 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:59:34 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,10 @@ void	ft_exec(t_exec *instructions)
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
 		exec_cmd(*instructions->commands, 0);
 	else
+	{
+		printf("ca arrive ici ou pas ?\n");
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
+	}
 	while (waitpid(-1, NULL, 0) > 0)
 		;
 }

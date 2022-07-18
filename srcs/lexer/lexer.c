@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/16 18:27:32 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:52:06 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	identify_token(char c, char next)
 		return (TOKEN_APPEND);
 	else if (ft_isnotspecial(c) && !ft_isspace(c))
 		return (TOKEN_TEXT);
+	else if (ft_isspace(c))
+		return (TOKEN_SPACE);
 	return (0);
 }
 
@@ -110,16 +112,16 @@ void	ft_lexer(char *line)
 		return ;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
-	while (line[i])
+	while (line && (size_t)i < ft_strlen(line))
 	{
 		token = identify_token(line[i], line[i + 1]);
 		if (!interpret_token(line, token, &i, &lexer_list))
 			return ;
-		while (line[i] && ft_isspace(line[i]))
-			i++;
+		// while (line[i] && ft_isspace(line[i]))
+		// i++;
 	}
 	join_quotes_and_text(&lexer_list);
-	// print_lexer_list(lexer_list);
+	print_lexer_list(lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }
