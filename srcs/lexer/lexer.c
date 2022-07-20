@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/18 20:52:06 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/20 21:10:02 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ void	ft_lexer(char *line)
 		all_check_errors(line, &error);
 	if (check_error(line, error))
 		return ;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
+	// while (line[i] && ft_isspace(line[i]))
+	// 	i++;
 	while (line && (size_t)i < ft_strlen(line))
 	{
 		token = identify_token(line[i], line[i + 1]);
@@ -121,7 +121,7 @@ void	ft_lexer(char *line)
 		// i++;
 	}
 	join_quotes_and_text(&lexer_list);
-	print_lexer_list(lexer_list);
+	// print_lexer_list(lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }

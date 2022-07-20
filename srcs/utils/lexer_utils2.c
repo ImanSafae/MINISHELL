@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/18 15:24:12 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/20 21:07:09 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_sometoken(char *line, int token, char **content, int *i)
 		*content = retrieve_heredoc(line, i);
 	else if (token == TOKEN_SPACE)
 	{
-		*content = ft_chardup(' ');
+		*content = ft_strdup(" ");
 		(*i)++;
 	}
 }

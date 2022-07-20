@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/18 20:59:50 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/20 22:17:08 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 	int		i;
 	t_lexer	*caster;
 
+	printf("on rentre ici\n");
 	tab_size = count_args(*pointer);
 	args = malloc(sizeof(char *) * (tab_size + 1));
 	i = 0;
@@ -110,21 +111,26 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 	return (args);
 }
 
-char	*get_command(t_list **pointer, t_cmd *cmd)
+void	get_command(t_list **pointer, t_cmd *cmd)
 {
-	char	*ret;
+	// char	*ret;
 	t_lexer	*caster;
 	int		i;
 
 	caster = (t_lexer *)((*pointer)->content);
-	ret = NULL;
+	// ret = NULL;
 	i = 0;
+	while ((*pointer) && caster->token == TOKEN_SPACE)
+	{
+		(*pointer) = (*pointer)->next;
+		if (*pointer)
+			caster = (t_lexer *)((*pointer)->content);
+	}
 	if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
 		|| caster->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
 	{
 		// ret = ft_strdup(caster->text);
 		cmd->command = ft_strdup(caster->text);
-		printf("command = %s\n", cmd->command);
 		(*pointer) = (*pointer)->next;
 	}
 	// while ((*pointer) && ((t_lexer *)((*pointer)->content))->token != TOKEN_PIPE)
@@ -141,7 +147,7 @@ char	*get_command(t_list **pointer, t_cmd *cmd)
 	// 		parse_redirections(caster->token, cmd, caster->text);
 	// 	(*pointer) = (*pointer)->next;
 	// }
-	return (ret);
+	// return (ret);
 }
 
 void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
@@ -167,12 +173,13 @@ void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
 	int		i;
 
 	tmp = (*lexer_list);
+	nb_of_cmds = 2;
 	caster = (t_lexer *)(tmp->content);
 	i = 1;
-	(*command)[0].command = get_command(&tmp, &((*command)[0]));
-	if (tmp)
+	get_command(&tmp, &((*command)[0]));
+	if (tmp && ((t_lexer *)(tmp->content))->token != TOKEN_SPACE)
 		(*command)[0].args = get_args(&tmp, &((*command)[0]));
-	while (tmp && (i < nb_of_cmds))
+	while (tmp)
 	{
 		caster = (t_lexer *)(tmp->content);
 		if (caster->token == TOKEN_PIPE)
@@ -183,8 +190,8 @@ void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
 				send_error(PARSING, UNEXPECTEDTOK, "|");
 				return ;
 			}
-			((*command)[i]).command = get_command(&tmp, &((*command)[i]));
-			if (tmp)
+			get_command(&tmp, &((*command)[i]));
+			if (tmp && ((t_lexer *)(tmp->content))->token != TOKEN_SPACE)
 				(*command)[i].args = get_args(&tmp, &((*command)[i]));
 			i++;
 		}
@@ -193,36 +200,36 @@ void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
 	}
 }
 
-void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
-{
-	int		i;
-	int		j;
-	char	*tmp_command;
-	char	*tmp_args;
+// void	separate_cmd_from_args(t_cmd **cmds, int nb_of_cmds)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*tmp_command;
+// 	char	*tmp_args;
 
-	i = 0;
-	j = 0;
-	tmp_command = NULL;
-	tmp_args = NULL;
-	if (!((*cmds)[i].command))
-		return ;
-	while (i < (nb_of_cmds) && ((*cmds)[i].command))
-	{
-		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
-			j++;
-		tmp_command = ft_strndup((*cmds)[i].command, 0, j - 1);
-		if (((*cmds)[i].command)[j])
-			tmp_args = ft_strndup((*cmds)[i].command, j + 1, ft_strlen((*cmds)[i].command));
-		free((*cmds)[i].command);
-		(*cmds)[i].command = ft_strdup(tmp_command);
-		free(tmp_command);
-		(*cmds)[i].args = ft_split(tmp_args, ' ');
-		free(tmp_args);
-		tmp_args = NULL;
-		i++;
-		j = 0;
-	}
-}
+// 	i = 0;
+// 	j = 0;
+// 	tmp_command = NULL;
+// 	tmp_args = NULL;
+// 	if (!((*cmds)[i].command))
+// 		return ;
+// 	while (i < (nb_of_cmds) && ((*cmds)[i].command))
+// 	{
+// 		while (((*cmds)[i].command)[j] && !ft_isspace(((*cmds)[i].command)[j]))
+// 			j++;
+// 		tmp_command = ft_strndup((*cmds)[i].command, 0, j - 1);
+// 		if (((*cmds)[i].command)[j])
+// 			tmp_args = ft_strndup((*cmds)[i].command, j + 1, ft_strlen((*cmds)[i].command));
+// 		free((*cmds)[i].command);
+// 		(*cmds)[i].command = ft_strdup(tmp_command);
+// 		free(tmp_command);
+// 		(*cmds)[i].args = ft_split(tmp_args, ' ');
+// 		free(tmp_args);
+// 		tmp_args = NULL;
+// 		i++;
+// 		j = 0;
+// 	}
+// }
 
 void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRIGER LE LEXING DE APPEND POUR QU'IL RECUPERE L'OUTFILE AU LIEU DE JUSTE ">>"
 {
@@ -244,11 +251,11 @@ void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRI
 		return ;
 	exec->commands = cmd;
 	exec->pipes = nb_of_pipes;
-	printf("hey !!! command = %s\n", cmd[0].command);
+	// printf("hey !!! command = %s\n", cmd[0].command);
 	// separate_cmd_from_args(&cmd, nb_of_pipes + 1);
 	// print_commands_tab(cmd, nb_of_pipes);
 	ft_exec(exec);
-	//free_exec_structs(&exec);
+	free_exec_structs(&exec);
 }
 
 static int	at_least_one_command(t_list **lexer_list)
@@ -277,10 +284,13 @@ void	ft_parser(t_list **lexer_list)
 	tmp = (*lexer_list);
 	caster = NULL;
 	if (at_least_one_command(lexer_list))
+	{
 		main_parser(lexer_list);
+	}
 	else
 	{
 		caster = (t_lexer *)(tmp->content);
+		printf("on arrive ici\n");
 		while (tmp)
 		{
 			if (caster->token == TOKEN_OUTFILE && access(caster->text, F_OK) == -1)
