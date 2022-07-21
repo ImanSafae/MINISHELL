@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/21 18:39:03 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 19:21:48 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,6 @@ void	ft_parser(t_list **lexer_list)
 	else
 	{
 		caster = (t_lexer *)(tmp->content);
-		printf("on arrive ici\n");
 		while (tmp)
 		{
 			if (caster->token == TOKEN_OUTFILE && access(caster->text, F_OK) == -1)

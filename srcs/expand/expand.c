@@ -6,13 +6,13 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/16 22:43:41 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:56:37 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_variable(char **value)
+int	expand_variable(char **value)
 {
 	t_list	*tmp;
 
@@ -21,9 +21,9 @@ void	expand_variable(char **value)
 	{
 		free(*value);
 		*value = ft_itoa(g_all.exit_code);
-		return ;
+		return (1);
 	}
-	while (tmp->next)
+	while (tmp)
 	{
 		if (ft_strlen(*value) == ft_strlen(((t_env *)(tmp->content))->variable))
 		{
@@ -32,11 +32,12 @@ void	expand_variable(char **value)
 			{
 				free(*value);
 				*value = ft_strdup(((t_env *)(tmp->content))->value);
-				return ;
+				return (1);
 			}
 		}
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 static void	ft_structjoin(t_list **pointer)
@@ -60,8 +61,6 @@ void	join_quotes_and_text(t_list **lexer_list)
 {
 	t_list	*tmp;
 	t_lexer	*caster;
-	// t_list	*to_delete;
-	// char	*joined_text;
 
 	tmp = (*lexer_list);
 	caster = NULL;
@@ -72,17 +71,10 @@ void	join_quotes_and_text(t_list **lexer_list)
 		{
 			if ((caster->token == TOKEN_TEXT && ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
 				|| (caster->token == TOKEN_DQUOTE && ((t_lexer *)(tmp->next->content))->token == TOKEN_TEXT)
-				|| (caster->token == TOKEN_DQUOTE && ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE))
+				|| (caster->token == TOKEN_DQUOTE && ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
+				|| (caster->token == TOKEN_DOLLAR && ((t_lexer *)(tmp->next->content))->token == TOKEN_DOLLAR))
 			{
 				ft_structjoin(&tmp);
-				// joined_text = ft_strjoin(caster->text, ((t_lexer *)(tmp->next->content))->text);
-				// free(caster->text);
-				// caster->text = ft_strdup(joined_text);
-				// free(joined_text);
-				// to_delete = tmp->next;
-				// tmp->next = tmp->next->next;
-				// ft_lstdelone(to_delete, empty_lexer_element);
-				// tmp = tmp->next;
 			}
 		}
 		if (tmp)

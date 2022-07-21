@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 23:52:50 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:14:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,15 @@ static void	parsing_errors(int error, char *arg)
 	else if (error == BAD_ASSIGN)
 		ft_putstr_fd("bad assignment\n", 2);
 	else if (error == UNKNOWN_COMMAND)
+	{
 		printf("%s: command not found\n", arg);
+		g_all.exit_code = 1;
+	}
 	else if (error == UNEXPECTEDTOK)
+	{
 		printf("syntax error near unexpected token `%s'\n", arg);
+		g_all.exit_code = 258;
+	}
 }
 
 static void	print_error(int error, char *arg)

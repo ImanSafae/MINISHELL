@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/14 16:30:18 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/21 19:29:26 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	change_oldpwd(char *path)
 {
 	char	*tmp;
 
+	if (!path || access(path, F_OK) == -1)
+		return ;
 	tmp = ft_strjoin("OLDPWD=", path);
 	if (find_variable_in_env("OLDPWD") == NULL)
 		ft_lstadd_back(&(g_all.env), ft_lstnew(add_var_to_env(tmp)));
@@ -83,6 +85,8 @@ static void	cd(char *arg)
 	char	*next_path;
 
 	actual_path = getcwd(NULL, 0);
+	if (!actual_path)
+		return ;
 	if (!arg || ft_strlen(arg) == 0)
 	{
 		if (chdir(find_variable_in_env("HOME")) == -1)

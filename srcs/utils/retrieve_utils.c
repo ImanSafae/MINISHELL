@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   retrieve_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:11:20 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/07 18:47:06 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/21 20:52:03 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	determine_tmp2_value(char *line, int *i, char **tmp2)
 	i_tmp = *i;
 	if (line[*i] == '$')
 	{
-		*tmp2 = retrieve_variable(line, &i_tmp, 0);
+		retrieve_variable(tmp2, line, &i_tmp, 0);
 		get_index(line, i, TOKEN_DOLLAR);
 	}
 	else if (line[*i] == '\"')

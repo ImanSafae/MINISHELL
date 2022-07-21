@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 18:38:33 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:53:57 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*check_for_envvar(char *line)
 			before_var = i;
 			end = find_end(line, i + 1);
 			begin = ft_strndup(line, 0, i - 1);
-			line = retrieve_variable(line, &i, 0);
+			retrieve_variable(&line, line, &i, 0);
 			tmp = ft_strjoin(begin, line);
 			line = ft_strjoin(tmp, end);
 			free(tmp);
@@ -82,7 +82,10 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 		content = retrieve_squoted_text(line, i);
 	}
 	else if (token == TOKEN_DOLLAR)
-		content = retrieve_variable(line, i, single_quoted);
+	{
+		if (!retrieve_variable(&content, line, i, single_quoted))
+			return (0);
+	}
 	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
 		content = retrieve_filename(line, i);
 	else if (token == TOKEN_APPEND)

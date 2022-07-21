@@ -3,42 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   retrieve_all.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/15 17:06:56 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:10:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*retrieve_variable(char *line, int *i, int single_quoted)
+int	retrieve_variable(char **content, char *line, int *i, int single_quoted)
 {
-	char	*ret;
 	char	*tmp;
 	char	*tmp2;
 
 	(*i)++;
 	if ((int)ft_strlen(&line[*i - 1]) == 1)
-		return (ft_strdup("$"));
+	{
+		line = ft_strdup("$");
+		return (1);
+	}
 	tmp = NULL;
 	tmp2 = NULL;
-	ret = ft_chardup(line[*i]);
+	(*content) = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')
 		&& !ft_isspace(line[*i]))
 	{
-		tmp = ft_strdup(ret);
+		tmp = ft_strdup((*content));
 		tmp2 = ft_chardup(line[*i]);
-		free(ret);
-		ret = ft_strjoin(tmp, tmp2);
+		free((*content));
+		(*content) = ft_strjoin(tmp, tmp2);
 		free(tmp);
 		free(tmp2);
 		(*i)++;
 	}
 	if (!single_quoted)
-		expand_variable(&ret);
-	return (ret);
+		return(expand_variable(content));
+	return (1);
 }
 
 char	*retrieve_squoted_text(char *line, int *i)

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 18:15:58 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:55:42 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	all_check_errors(char *line, int *error);
 t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line);
 void	update_lexer_list(t_list **list, char *text, int token);
-char	*retrieve_variable(char *line, int *i, int single_quoted);
+int		retrieve_variable(char **content, char *line, int *i, int single_quoted);
 char	*retrieve_squoted_text(char *line, int *i);
 char	*retrieve_dquoted_text(char *line, int *i);
 char	*retrieve_text(char *line, int *i);
@@ -148,7 +148,7 @@ void	ft_echo(char **args);
 void	ft_exit(char **args);
 
 //EXPAND
-void	expand_variable(char **value);
+int		expand_variable(char **value);
 void	join_quotes_and_text(t_list **lexer_list);
 
 // EXECUTION
