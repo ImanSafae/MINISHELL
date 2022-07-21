@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/21 18:39:03 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 19:39:13 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	count_args(t_list *pointer)
 	t_lexer	*caster;
 	t_list	*tmp;
 	int		count;
-	
+
 	tmp = pointer;
 	count  = 0;
 	caster = (t_lexer *)(tmp->content);
@@ -113,10 +113,8 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 void	get_command(t_list **pointer, t_cmd *cmd)
 {
 	t_lexer	*caster;
-	int		i;
 
 	caster = (t_lexer *)((*pointer)->content);
-	i = 0;
 	while ((*pointer) && caster->token == TOKEN_SPACE)
 	{
 		(*pointer) = (*pointer)->next;
