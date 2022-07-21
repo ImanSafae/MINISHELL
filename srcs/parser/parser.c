@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/20 22:17:08 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:39:03 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 	int		i;
 	t_lexer	*caster;
 
-	printf("on rentre ici\n");
 	tab_size = count_args(*pointer);
 	args = malloc(sizeof(char *) * (tab_size + 1));
 	i = 0;
@@ -113,12 +112,10 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 
 void	get_command(t_list **pointer, t_cmd *cmd)
 {
-	// char	*ret;
 	t_lexer	*caster;
 	int		i;
 
 	caster = (t_lexer *)((*pointer)->content);
-	// ret = NULL;
 	i = 0;
 	while ((*pointer) && caster->token == TOKEN_SPACE)
 	{
@@ -129,25 +126,17 @@ void	get_command(t_list **pointer, t_cmd *cmd)
 	if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
 		|| caster->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
 	{
-		// ret = ft_strdup(caster->text);
 		cmd->command = ft_strdup(caster->text);
 		(*pointer) = (*pointer)->next;
 	}
-	// while ((*pointer) && ((t_lexer *)((*pointer)->content))->token != TOKEN_PIPE)
-	// {
-	// 	caster = (t_lexer *)((*pointer)->content);
-	// 	if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
-	// 		|| caster ->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
-	// 	{
-	// 		//cmd->args[i] = ft_strdup(caster->text);
-	// 		/add_text_to_string(&ret, caster->text);
-	// 	}
-	// 	else if (caster->token == TOKEN_APPEND || caster->token == TOKEN_HEREDOC
-	// 		|| caster->token == TOKEN_INFILE || caster->token == TOKEN_OUTFILE)
-	// 		parse_redirections(caster->token, cmd, caster->text);
-	// 	(*pointer) = (*pointer)->next;
-	// }
-	// return (ret);
+	if (*pointer)
+		caster = (t_lexer *)((*pointer)->content);
+	while ((*pointer) && caster->token == TOKEN_SPACE)
+	{
+		(*pointer) = (*pointer)->next;
+		if (*pointer)
+			caster = (t_lexer *)((*pointer)->content);
+	}
 }
 
 void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
@@ -166,14 +155,13 @@ void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
 	}
 }
 
-void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
+void	split_list_on_pipes(t_list **lexer_list, t_cmd **command)
 {
 	t_list	*tmp;
 	t_lexer	*caster;
 	int		i;
 
 	tmp = (*lexer_list);
-	nb_of_cmds = 2;
 	caster = (t_lexer *)(tmp->content);
 	i = 1;
 	get_command(&tmp, &((*command)[0]));
@@ -191,7 +179,7 @@ void	split_list_on_pipes(t_list **lexer_list, int nb_of_cmds, t_cmd **command)
 				return ;
 			}
 			get_command(&tmp, &((*command)[i]));
-			if (tmp && ((t_lexer *)(tmp->content))->token != TOKEN_SPACE)
+			if (tmp)
 				(*command)[i].args = get_args(&tmp, &((*command)[i]));
 			i++;
 		}
@@ -246,7 +234,7 @@ void	main_parser(t_list **lexer_list) // IL FAUT ENCORE GERER LE HEREDOC + CORRI
 		send_error(PARSING, UNEXPECTEDTOK, "|");
 		return ;
 	}
-	split_list_on_pipes(lexer_list, nb_of_pipes + 1, &cmd);
+	split_list_on_pipes(lexer_list, &cmd);
 	if (!cmd)
 		return ;
 	exec->commands = cmd;
@@ -300,6 +288,7 @@ void	ft_parser(t_list **lexer_list)
 			if (caster->token == TOKEN_HEREDOC)
 			{
 				heredoc(caster->text);
+				unlink("/tmp/heredoc.tmp");
 				close(g_all.fd_to_close);
 			}
 			tmp = tmp->next;

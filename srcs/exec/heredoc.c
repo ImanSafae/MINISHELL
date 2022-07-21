@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:16 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/15 16:36:53 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:15:38 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ int	heredoc(char *delim)
 		write(tmp_file, "\n", 1);
 		free(line);
 	}
-	g_all.heredoc = 1;
 	return (tmp_file);
-	// close(tmp_file);
 }

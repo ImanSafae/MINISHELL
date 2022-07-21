@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/20 21:17:43 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:14:56 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,11 @@ int	check_infile(t_cmd command)
 
 	infile = 0;
 	if (command.hd_delimiter)
+	{
 		infile = heredoc(command.hd_delimiter);
+		unlink("/tmp/heredoc.tmp");
+		close(g_all.fd_to_close);
+	}
 	if (command.infile)
 	{
 		infile = open(command.infile, O_RDONLY, 0777);

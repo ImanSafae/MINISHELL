@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/18 12:26:33 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:16:07 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell obama is waiting for instructions > ");
+		if (!str)
+		{
+			printf("exit\n");
+			break ;
+		}
 		if (ft_strlen(str) == 0)
 			continue ;
 		add_history(str);
@@ -52,8 +57,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	clear_history();
 	free_env(&env);
-	if (g_all.heredoc)
-		unlink("/tmp/heredoc.tmp");
 }
 
 	//system("leaks minishell");

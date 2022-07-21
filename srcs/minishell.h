@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/18 15:07:49 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:15:58 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_all
 	int		exit_code;
 	int		fd_to_close;
 	t_list	*env;
-	int		heredoc;
 }	t_all;
 
 typedef struct s_env
