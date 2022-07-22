@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 11:13:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/20 21:28:38 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:11:18 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s)
 	int		len_s;
 
 	if (!s)
-		return NULL;
+		return (NULL);
 	i = 0;
 	len_s = ft_strlen(s);
 	res = malloc((sizeof(char) * (len_s + 1)));
