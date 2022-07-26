@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 20:14:18 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:44:23 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,4 @@ void	send_error(int function, int error, char *arg)
 	}
 	print_faulted_function_name(function);
 	print_error(error, arg);
-	
 }

@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/09 12:55:59 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:38:48 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	sigint(int sig)
 void	sigquit(int sig)
 {
 	(void)sig;
-	ft_putchar_fd(4, 1);
+	close(0);
+	return ;
 }
 
 void	detect_signals(void)
