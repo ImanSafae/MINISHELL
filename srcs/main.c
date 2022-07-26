@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/21 18:16:07 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:02:37 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ int	main(int argc, char **argv, char **envp)
 	g_all.fd_to_close = -1;
 	env = create_env(envp);
 	g_all.env = env;
+	g_all.in_command = 0;
 	print_white_house();
-	detect_signals();
+	echo_control_seq(0);
 	while (1)
 	{
+		detect_signals();
 		str = readline("minishell obama is waiting for instructions > ");
+		g_all.prompt = 1;
 		if (!str)
 		{
 			printf("exit\n");
@@ -54,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(str);
 		ft_lexer(str);
 		free(str);
+		g_all.prompt = 0;
 	}
 	clear_history();
 	free_env(&env);

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 12:45:04 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 19:29:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:34:35 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,9 @@ static void	cd(char *arg)
 		return ;
 	if (!arg || ft_strlen(arg) == 0)
 	{
-		if (chdir(find_variable_in_env("HOME")) == -1)
-			g_all.exit_code = 127;
-		else
-		{
-			change_oldpwd(actual_path);
-			change_pwd(find_variable_in_env("HOME"));
-			g_all.exit_code = 0;
-		}
+		change_oldpwd(actual_path);
+		change_pwd(find_variable_in_env("HOME"));
+		g_all.exit_code = 0;
 	}
 	else
 	{
@@ -114,6 +109,12 @@ void	ft_cd(char **args)
 {
 	if (!args)
 	{
+		if (chdir(find_variable_in_env("HOME")) == -1)
+		{
+			send_error(CD, NO_HOME, NULL);
+			g_all.exit_code = 1;
+			return ;
+		}
 		cd("");
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/21 18:14:56 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:59:44 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 	pid_t	cpid;
 
 	pipe(pipefd);
+	signal(SIGQUIT, sigquit);
 	cpid = fork();
 	if (cpid == 0) // process fils dans lequel on va exécuter
 	{
@@ -226,19 +227,18 @@ void	ft_exec(t_exec *instructions)
 	int	cmd_id;
 
 	cmd_id = 0;
-	// if (!(instructions->commands->command))
-	// {
-	// 	printf("Warning : trying to execute with no command !\n");
-	// 	return ;
-	// }
 	if (!check_cmds_list(instructions->commands, instructions->pipes + 1))
-		return ; // cas de commande inconnue
+		return ;
+	echo_control_seq(1);
+	g_all.in_command = 1;
 	if (!instructions->pipes && check_if_builtin(instructions->commands->command))
 		exec_cmd(*instructions->commands, 0);
 	else
 		fork_and_exec((instructions->commands), instructions->pipes, cmd_id, 0);
 	while (waitpid(-1, NULL, 0) > 0)
 		;
+	echo_control_seq(0);
+	g_all.in_command = 0;
 }
 
 void	touch_outfile(char	*outfile)

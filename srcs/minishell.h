@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 20:55:42 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:00:05 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include <fcntl.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 # define BLUE   "\001\e[0;34m\002"
 # define WHITE  "\001\e[0;37m\002"
@@ -36,6 +38,8 @@ typedef struct s_all
 	int		exit_code;
 	int		fd_to_close;
 	t_list	*env;
+	int		prompt;
+	int		in_command;
 }	t_all;
 
 typedef struct s_env
@@ -106,6 +110,8 @@ typedef struct s_exec
 # define ERROR_CHAR "error"
 # define OPEN_REDIRECTION 8
 # define UNEXPECTEDTOK 9
+# define NO_HOME 10
+
 // REDIRECTIONS
 # define INFILE 0
 # define OUTFILE 1
@@ -200,10 +206,16 @@ void	empty_env_element(void *element);
 void	free_exec_structs(t_exec **struc);
 void	empty_lexer_element(void *element);
 
+// SIGNALS
+void	echo_control_seq(int c);
+void	detect_signals(void);
+
 // TESTS (à supprimer à la fin)
 //void	print_env(t_list *env);
 void	print_lexer_list(t_list *list);
 void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
+
+void	sigquit(int sig);
 
 // VARIABLE GLOBALE
 extern t_all	g_all;
