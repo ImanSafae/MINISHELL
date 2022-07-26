@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 15:01:28 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:38:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	sigquit(int sig)
 	(void)sig;
 	if (g_all.in_command == 1)
 	{
-		printf("Quit : \n");
+		printf("Quit \n");
 		g_all.exit_code = 131;
 		return ;
 	}

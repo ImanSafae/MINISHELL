@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 12:30:31 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 20:56:37 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:21:17 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	ft_structjoin(t_list **pointer)
 
 	caster = (t_lexer *)((*pointer)->content);
 	to_delete = (*pointer)->next;
-	joined_text = ft_strjoin(caster->text,((t_lexer *)(to_delete->content))->text);
+	joined_text = ft_strjoin(caster->text,
+			((t_lexer *)(to_delete->content))->text);
 	free(caster->text);
 	caster->text = ft_strdup(joined_text);
 	free(joined_text);
@@ -69,13 +70,16 @@ void	join_quotes_and_text(t_list **lexer_list)
 		caster = (t_lexer *)(tmp->content);
 		if (tmp && tmp->next)
 		{
-			if ((caster->token == TOKEN_TEXT && ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
-				|| (caster->token == TOKEN_DQUOTE && ((t_lexer *)(tmp->next->content))->token == TOKEN_TEXT)
-				|| (caster->token == TOKEN_DQUOTE && ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
-				|| (caster->token == TOKEN_DOLLAR && ((t_lexer *)(tmp->next->content))->token == TOKEN_DOLLAR))
-			{
+			if ((caster->token == TOKEN_TEXT
+					&& ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
+					|| (caster->token == TOKEN_DQUOTE
+					&& ((t_lexer *)(tmp->next->content))->token == TOKEN_TEXT)
+					|| (caster->token == TOKEN_DQUOTE
+					&& ((t_lexer *)(tmp->next->content))->token == TOKEN_DQUOTE)
+					|| (caster->token == TOKEN_DOLLAR
+					&& ((t_lexer *)(tmp->next->content))->token
+					== TOKEN_DOLLAR))
 				ft_structjoin(&tmp);
-			}
 		}
 		if (tmp)
 			tmp = tmp->next;

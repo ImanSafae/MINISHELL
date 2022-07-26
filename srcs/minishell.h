@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 15:00:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:36:33 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void	all_check_errors(char *line, int *error);
 t_list	*new_entry_with_token(int token, char *str);
 void	ft_lexer(char *line);
 void	update_lexer_list(t_list **list, char *text, int token);
-int		retrieve_variable(char **content, char *line, int *i, int single_quoted);
+int		retrieve_variable(char **content, char *line, int *i,
+			int single_quoted);
 char	*retrieve_squoted_text(char *line, int *i);
 char	*retrieve_dquoted_text(char *line, int *i);
 char	*retrieve_text(char *line, int *i);
@@ -141,6 +142,12 @@ char	*check_for_envvar(char *line);
 
 // PARSER
 void	ft_parser(t_list **lexer_list);
+int		count_pipes(t_list *list);
+void	parse_redirections(int token, t_cmd *command, char *file);
+void	add_text_to_string(char **str, char *to_append);
+int		count_args(t_list *pointer);
+char	**get_args(t_list **pointer, t_cmd *cmd);
+int		at_least_one_command(t_list **lexer_list);
 
 // BUILTINS
 void	ft_unset(char **args);
@@ -161,9 +168,17 @@ void	join_quotes_and_text(t_list **lexer_list);
 void	ft_exec(t_exec *instructions);
 void	touch_outfile(char	*outfile);
 int		heredoc(char *delim);
+char	**get_pathtab(t_list *env);
+char	*get_pathname(char *cmd, t_list *env);
+int		replace_cmd_with_pathname(char **cmd);
+int		check_if_builtin(char *cmd);
+int		check_cmds_list(t_cmd *list, int nb_of_cmds);
+int		check_infile(t_cmd command);
+int		check_outfile(t_cmd command);
 
 // UTILS
-void	delete_element_from_list(t_list **previous, t_list **to_delete, t_env **line);
+void	delete_element_from_list(t_list **previous,
+			t_list **to_delete, t_env **line);
 t_list	*duplicate_list(t_list *list);
 t_env	*duplicate_env_line(t_env *line);
 char	*ft_strndup(char *str, int begin, int end);
@@ -196,6 +211,7 @@ int		check_doublequote(char *line, int *i);
 int		count_quote(char *line, int type);
 int		check_singlequote(char *line, int *i, int *i_tmp);
 char	*get_next_word(char *str, int *index);
+char	*find_variable_in_env(char *str);
 
 // FREE
 void	free_env(t_list **list);

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 15:02:37 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:44:10 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,29 @@ static void	print_white_house(void)
 	printf("Welcome. Minishell Obama has been waiting for you.\n\n\n\n\n");
 }
 
+static void	set_global_var(t_list **env, int argc, char **argv)
+{
+	(void)argc;
+	(void)argv;
+	g_all.fd_to_close = -1;
+	g_all.env = (*env);
+	g_all.in_command = 0;
+	g_all.prompt = 1;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*env;
 	char	*str;
 
-	(void)argc;
-	(void)argv;
-	g_all.fd_to_close = -1;
 	env = create_env(envp);
-	g_all.env = env;
-	g_all.in_command = 0;
 	print_white_house();
 	echo_control_seq(0);
 	while (1)
 	{
 		detect_signals();
 		str = readline("minishell obama is waiting for instructions > ");
-		g_all.prompt = 1;
+		set_global_var(&env, argc, argv);
 		if (!str)
 		{
 			printf("exit\n");
@@ -62,12 +67,3 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 	free_env(&env);
 }
-
-	//system("leaks minishell");
-// COMMENTAIRE D'AU DESSUS
-// ft_export(&env, "VARTEST", "lol");
-	// ft_export(&env, NULL, NULL);
-	//ft_unset("PATH=", &env);
-	// ft_env(&env);
-
-

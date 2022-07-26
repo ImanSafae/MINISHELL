@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 21:10:07 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:15:12 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	retrieve_variable(char **content, char *line, int *i, int single_quoted)
 		(*i)++;
 	}
 	if (!single_quoted)
-		return(expand_variable(content));
+		return (expand_variable(content));
 	return (1);
 }
 
