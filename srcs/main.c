@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 22:47:23 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:48:22 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,3 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 	free_env(&env);
 }
-<<<<<<< HEAD
-
-	//system("leaks minishell");
-// COMMENTAIRE D'AU DESSUS
-// ft_export(&env, "VARTEST", "lol");
-	// ft_export(&env, NULL, NULL);
-	//ft_unset("PATH=", &env);
-	// ft_env(&env);
-=======
->>>>>>> master
