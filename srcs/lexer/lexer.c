@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:42:59 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/21 20:53:57 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:02:36 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,6 @@ int	interpret_token(char *line, int token, int *i, t_list **list)
 		if (!retrieve_variable(&content, line, i, single_quoted))
 			return (0);
 	}
-	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
-		content = retrieve_filename(line, i);
-	else if (token == TOKEN_APPEND)
-	{
-		while (line[*i] && line[*i] == '>')
-			(*i)++;
-		content = retrieve_filename(line, i);
-	}
 	if (!check_error_or_update(content, list, token))
 		return (0);
 	return (1);
@@ -113,19 +105,13 @@ void	ft_lexer(char *line)
 		all_check_errors(line, &error);
 	if (check_error(line, error))
 		return ;
-	// while (line[i] && ft_isspace(line[i]))
-	// 	i++;
 	while (line && (size_t)i < ft_strlen(line))
 	{
 		token = identify_token(line[i], line[i + 1]);
 		if (!interpret_token(line, token, &i, &lexer_list))
 			return ;
-		// while (line[i] && ft_isspace(line[i]))
-		// i++;
 	}
 	join_quotes_and_text(&lexer_list);
-	// print_lexer_list(lexer_list);
 	ft_parser(&lexer_list);
 	free_lexer(&lexer_list);
 }
-	// uncapitalize_cmd(&lexer_list);

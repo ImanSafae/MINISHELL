@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:34:57 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 12:44:23 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:47:12 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static void	parsing_errors(int error, char *arg)
 	if (error == OPEN_QUOTE)
 		ft_putstr_fd("Error : unclosed quote\n", 2);
 	else if (error == WRONG_FILE)
+	{
 		printf("no such file or directory: %s\n", arg);
+		g_all.exit_code = 1;
+	}
 	else if (error == NEAR)
 		printf("parse error near '%s'\n", arg);
 	else if (error == BAD_ASSIGN)
@@ -25,7 +28,7 @@ static void	parsing_errors(int error, char *arg)
 	else if (error == UNKNOWN_COMMAND)
 	{
 		printf("%s: command not found\n", arg);
-		g_all.exit_code = 1;
+		g_all.exit_code = 127;
 	}
 	else if (error == UNEXPECTEDTOK)
 	{
@@ -41,7 +44,12 @@ static void	print_error(int error, char *arg)
 	else if (error == NUM)
 		printf("%s : numeric argument required\n", arg);
 	else if (error == WRONG_FILE)
+	{
 		printf("no such file or directory: %s\n", arg);
+		g_all.exit_code = 1;
+	}
+	else if (error == NO_HOME)
+		ft_putstr_fd("HOME not set\n", 2);
 }
 
 static void	print_faulted_function_name(int function)
@@ -49,7 +57,7 @@ static void	print_faulted_function_name(int function)
 	if (function == EXIT)
 		ft_putstr_fd("exit :", 2);
 	else if (function == CD)
-		ft_putstr_fd("cd :", 2);
+		ft_putstr_fd("cd : ", 2);
 	else if (function == ENV)
 		ft_putstr_fd("env :", 2);
 }

@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:32 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/20 22:12:05 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:03:08 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	exec_exit(char **code)
 	}
 	while (code && code[0] && code[0][i])
 	{
-		printf("ca arrive ici\n");
 		if (!ft_isdigit(code[0][i]))
 		{
 			if (ft_isspace(code[0][i]))
@@ -36,16 +35,11 @@ static int	exec_exit(char **code)
 		i++;
 	}
 	printf("exit\n");
-	// il faut aussi envoyer un signal pour terminer le process
-	exit(ft_atoi(code[0]));
+	exit(ft_atoi(code[0]) % 256);
 }
 
 void	ft_exit(char **args)
 {
-	if (args)
-	{
-		printf("il y a des arguments: %s\n", args[0]);
-	}
 	if (args && tab_length(args) > 1)
 	{
 		send_error(EXIT, TOO_MANY_ARGS, NULL);

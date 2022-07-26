@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 15:26:22 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/11 17:59:10 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 15:48:46 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,39 @@ int	check_error_cd(char **args)
 	return (0);
 }
 
-void	ft_echo(char **args)
+static void	define_newtrail(int *newtrail, char **args)
 {
-	int	newtrail;
 	int	i;
 	int	j;
 
-	newtrail = 1;
 	i = 0;
 	j = 1;
+	while (args[0][j] && !ft_strncmp(args[0], "-n", 2))
+	{
+		if (args[0][j] != 'n')
+		{
+			*newtrail = 1;
+			break ;
+		}
+		j++;
+		if (j == (int)ft_strlen(args[0]))
+		{
+			i++;
+			*newtrail = 0;
+		}
+	}
+}
+
+void	ft_echo(char **args)
+{
+	int	newtrail;
+
+	newtrail = 1;
 	if (check_error_cd(args))
 		return ;
 	else
 	{
-		while (args[0][j] && !ft_strncmp(args[0], "-n", 2))
-		{
-			if (args[0][j] != 'n')
-			{
-				newtrail = 1;
-				break ;
-			}
-			j++;
-			if (j == (int)ft_strlen(args[0]))
-			{
-				i++;
-				newtrail = 0;
-			}
-		}
+		define_newtrail(&newtrail, args);
 		echo(args, newtrail);
 	}
 }

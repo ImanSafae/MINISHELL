@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:09:00 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/20 21:07:09 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:02:32 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ void	check_sometoken(char *line, int token, char **content, int *i)
 		*content = ft_strdup(" ");
 		(*i)++;
 	}
+	else if (token == TOKEN_INFILE || token == TOKEN_OUTFILE)
+		*content = retrieve_filename(line, i);
+	else if (token == TOKEN_APPEND)
+	{
+		while (line[*i] && line[*i] == '>')
+			(*i)++;
+		*content = retrieve_filename(line, i);
+	}
 }
 
 int	check_error_or_update(char *content, t_list **list, int token)
@@ -72,8 +80,6 @@ void	all_check_errors(char *line, int *error)
 	{
 		if (!ft_strncmp(line, "<<", 2) || !ft_strncmp(line, ">>", 2))
 			send_error(PARSING, UNEXPECTEDTOK, "newline");
-		// else if (!ft_strncmp(line, "\"\"", 2) || !ft_strncmp(line, "\'\'", 2))
-		// 	send_error(PARSING, UNKNOWN_COMMAND, "");
 		else
 			*error = 0;
 	}
