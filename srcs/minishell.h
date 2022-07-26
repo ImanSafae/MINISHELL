@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 15:36:33 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 22:54:27 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,43 @@ typedef struct s_all
 	t_list	*env;
 	int		prompt;
 	int		in_command;
-}	t_all;
+}		t_all;
 
 typedef struct s_env
 {
 	char	*variable;
 	char	*value;
-}				t_env;
+}		t_env;
 
 typedef struct s_lexer
 {
 	char	*text;
 	int		token;
 	int		space;
-}				t_lexer;
+}		t_lexer;
 
 typedef struct s_cmd
 {
-	char			*command;
-	char			**args;
-	char			*infile;
-	char			*outfile;
-	char			*hd_delimiter;
-	int				append;
-	int				nb_of_cmds;
-}				t_cmd;
+	char	*command;
+	char	**args;
+	char	*infile;
+	char	*outfile;
+	char	*hd_delimiter;
+	int		append;
+	int		nb_of_cmds;
+}		t_cmd;
 
 typedef struct s_exec
 {
 	int		pipes;
 	t_cmd	*commands;
-}				t_exec;
+}		t_exec;
 
 // typedef struct s_token
 // {
-// 	char	c;
-// 	int		type;
-// }				t_token;
+//      char    c;
+//      int             type;
+// }                            t_token;
 
 // TOKENS
 # define TOKEN_DQUOTE 0
@@ -166,7 +166,7 @@ void	join_quotes_and_text(t_list **lexer_list);
 
 // EXECUTION
 void	ft_exec(t_exec *instructions);
-void	touch_outfile(char	*outfile);
+void	touch_outfile(char *outfile);
 int		heredoc(char *delim);
 char	**get_pathtab(t_list *env);
 char	*get_pathname(char *cmd, t_list *env);
@@ -227,7 +227,7 @@ void	echo_control_seq(int c);
 void	detect_signals(void);
 
 // TESTS (à supprimer à la fin)
-//void	print_env(t_list *env);
+//void  print_env(t_list *env);
 void	print_lexer_list(t_list *list);
 void	print_commands_tab(t_cmd *commands, int nb_of_pipes);
 

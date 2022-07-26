@@ -11,14 +11,14 @@ LIB			=	-L ./libft -lft
 SRCS_DIR	=	./srcs
 OBJS_DIR	=	objs
 SRCS			= builtins/env.c builtins/export_no_args.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/cd.c builtins/echo.c builtins/exit.c \
-				error/error.c error/free.c \
+				error/error.c error/free.c error/free2.c \
 				env/shell_env.c \
-				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c utils/lexer_utils2.c utils/retrieve_utils.c utils/retrieve_utils2.c utils/lexer_utils3.c \
+				utils/exec_utils.c utils/env_utils.c utils/lexer_utils.c utils/lexer_utils2.c utils/retrieve_utils.c utils/retrieve_utils2.c utils/lexer_utils3.c utils/cd_utils.c\
 				lexer/lexer.c lexer/lexer_list.c lexer/retrieve_all.c lexer/retrieve_second.c \
-				parser/parser.c  \
+				parser/parser.c parser/parser2.c parser/parser3.c\
 				expand/expand.c \
-				exec/exec.c exec/heredoc.c\
-				main.c test.c signal.c
+				exec/exec.c exec/exec2.c exec/exec3.c exec/heredoc.c\
+				main.c signal.c
 
 OBJS		=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
