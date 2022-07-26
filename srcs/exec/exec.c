@@ -14,6 +14,8 @@
 
 void	exec_cmd(t_cmd command, int forked)
 {
+	if (check_outfile(command))
+		to_close = 1;
 	if (check_if_builtin(command.command))
 	{
 		if (!ft_strncmp(command.command, "pwd", 3))

@@ -26,6 +26,7 @@ int	check_infile(t_cmd command)
 	if (command.infile)
 	{
 		infile = open(command.infile, O_RDONLY, 0777);
+		printf("Opening file descriptor %d\n", infile);
 		if (infile == -1)
 		{
 			send_error(PARSING, WRONG_FILE, command.infile);
@@ -43,9 +44,10 @@ int	check_outfile(t_cmd command)
 	if (command.outfile)
 	{
 		if (command.append == 1)
-			outfile = open(command.outfile, O_APPEND | O_CREAT, 0777);
+			outfile = open(command.outfile, O_APPEND | O_CREAT | O_WRONLY, 0777);
 		else
 			outfile = open(command.outfile, O_WRONLY | O_CREAT, 0777);
+		printf("Opening file descriptor %d\n", outfile);
 		if (outfile == -1)
 		{
 			send_error(PARSING, WRONG_FILE, command.outfile);
