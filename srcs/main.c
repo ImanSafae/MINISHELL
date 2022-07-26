@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/21 18:16:07 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/26 10:21:43 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*env;
 	char	*str;
 
-	(void)argc;
-	(void)argv;
+	(void)argc, (void)argv;
 	g_all.fd_to_close = -1;
 	env = create_env(envp);
 	g_all.env = env;
@@ -65,5 +64,3 @@ int	main(int argc, char **argv, char **envp)
 	// ft_export(&env, NULL, NULL);
 	//ft_unset("PATH=", &env);
 	// ft_env(&env);
-
-

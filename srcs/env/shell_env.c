@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:03 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/15 16:51:23 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/26 10:21:28 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ t_list	*create_env(char **envp)
 	int		i;
 
 	i = 1;
-	env = ft_lstnew(add_var_to_env(envp[0]));
-	while (i < envlen(envp))
+	if (!*envp)
+		env = ft_lstnew(add_var_to_env("PWD=/home/ange"));
+	else
 	{
-		ft_lstadd_back(&env, ft_lstnew(add_var_to_env(envp[i])));
-		i++;
+		env = ft_lstnew(add_var_to_env(envp[0]));
+		while (i < envlen(envp))
+		{
+			ft_lstadd_back(&env, ft_lstnew(add_var_to_env(envp[i])));
+			i++;
+		}
 	}
 	return (env);
 }
