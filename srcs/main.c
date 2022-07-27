@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 22:48:22 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:22:17 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	main(int argc, char **argv, char **envp)
 
 	env = create_env(envp);
 	print_white_house();
-	echo_control_seq(0);
 	while (1)
 	{
 		detect_signals();
@@ -54,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		set_global_var(&env, argc, argv);
 		if (!str)
 		{
-			printf("exit\n");
+			printf("test exit\n");
 			break ;
 		}
 		if (ft_strlen(str) == 0)
