@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/27 14:22:17 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 14:31:26 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		set_global_var(&env, argc, argv);
 		if (!str)
 		{
-			printf("test exit\n");
+			printf("exit\n");
 			break ;
 		}
 		if (ft_strlen(str) == 0)
