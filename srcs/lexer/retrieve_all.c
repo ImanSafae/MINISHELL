@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   retrieve_all.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:29:06 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 15:15:12 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 11:07:10 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	retrieve_variable(char **content, char *line, int *i, int single_quoted)
 		line = ft_strdup("$");
 		return (1);
 	}
-	tmp = NULL;
-	tmp2 = NULL;
 	(*content) = ft_chardup(line[*i]);
 	(*i)++;
 	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:40:24 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 15:36:16 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 11:10:14 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	assign_t_cmd(t_cmd **cmd, int nb_of_cmds)
 	}
 }
 
-void	split_list_on_pipes(t_list **lexer_list, t_cmd **command)
+void	split_list_on_pipes(t_list **lexer_list, t_cmd **c)
 {
 	t_list	*tmp;
 	t_lexer	*caster;
@@ -64,27 +64,14 @@ void	split_list_on_pipes(t_list **lexer_list, t_cmd **command)
 	tmp = (*lexer_list);
 	caster = (t_lexer *)(tmp->content);
 	i = 1;
-	get_command(&tmp, &((*command)[0]));
+	get_command(&tmp, &((*c)[0]));
 	if (tmp && ((t_lexer *)(tmp->content))->token != TOKEN_SPACE)
-		(*command)[0].args = get_args(&tmp, &((*command)[0]));
+		(*c)[0].args = get_args(&tmp, &((*c)[0]));
 	while (tmp)
 	{
 		caster = (t_lexer *)(tmp->content);
-		if (caster->token == TOKEN_PIPE)
-		{
-			tmp = tmp->next;
-			if (!tmp)
-			{
-				send_error(PARSING, UNEXPECTEDTOK, "|");
-				return ;
-			}
-			get_command(&tmp, &((*command)[i]));
-			if (tmp)
-				(*command)[i].args = get_args(&tmp, &((*command)[i]));
-			i++;
-		}
-		else
-			tmp = tmp->next;
+		if (!incr_split_list_pipes(&caster, &tmp, c, &i))
+			return ;
 	}
 }
 
@@ -129,9 +116,7 @@ void	ft_parser(t_list **lexer_list)
 			if (caster->token == TOKEN_OUTFILE
 				&& access(caster->text, F_OK) == -1)
 				touch_outfile(caster->text);
-			if (caster->token == TOKEN_INFILE
-				&& access(caster->text, F_OK) == -1)
-				send_error(PARSING, WRONG_FILE, caster->text);
+			check_error_outfile(caster);
 			if (caster->token == TOKEN_HEREDOC)
 			{
 				heredoc(caster->text);

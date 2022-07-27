@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:17:42 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 16:22:40 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 10:51:33 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,12 @@
 
 void	exec_cmd(t_cmd command, int forked)
 {
-	if (check_outfile(command))
-		to_close = 1;
+	int	oldfd;
+
+	oldfd = dup(STDOUT_FILENO);
+	check_outfile(command);
 	if (check_if_builtin(command.command))
-	{
-		if (!ft_strncmp(command.command, "pwd", 3))
-			ft_pwd();
-		if (!ft_strncmp(command.command, "cd", 2))
-			ft_cd(command.args);
-		if (!ft_strncmp(command.command, "export", 6))
-			ft_export(command.args);
-		if (!ft_strncmp(command.command, "env", 3))
-			ft_env(command.args);
-		if (!ft_strncmp(command.command, "unset", 5))
-			ft_unset(command.args);
-		if (!ft_strncmp(command.command, "echo", 4))
-			ft_echo(command.args);
-		if (!ft_strncmp(command.command, "exit", 4))
-			ft_exit(command.args);
-	}
+		exec_builtins_utils(command);
 	else
 	{
 		tab_addfront(&(command.args), command.command);
@@ -40,6 +27,7 @@ void	exec_cmd(t_cmd command, int forked)
 	}
 	if (forked == 1)
 		exit(EXIT_SUCCESS);
+	dup2(oldfd, STDOUT_FILENO);
 }
 
 void	check_presence_of_command(t_cmd command)
@@ -74,13 +62,9 @@ void	fork_and_exec(t_cmd *commands, int nb_of_pipes, int cmd_id, int input)
 		exec_cmd(commands[cmd_id], 1);
 	}
 	close(pipefd[1]);
-	if (input)
-		close(input);
-	if (cmd_id != nb_of_pipes)
+	if (check_recur_and_input(pipefd, nb_of_pipes, cmd_id, input))
 		fork_and_exec(commands, nb_of_pipes,
 			cmd_id + 1, pipefd[0]);
-	else
-		close(pipefd[0]);
 }
 
 void	ft_exec(t_exec *instructions)

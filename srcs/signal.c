@@ -6,22 +6,22 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:21:03 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 22:50:12 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/27 10:45:34 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    echo_control_seq(int c)
+void	echo_control_seq(int c)
 {
 	struct termios	conf;
 
-	ioctl(ttyslot(), TIOCGETD, &conf);
+	ioctl(ttyslot(), TIOCGETA, &conf);
 	if (c == 1)
 		conf.c_lflag |= ECHOCTL;
 	else if (c == 0)
 		conf.c_lflag &= ~(ECHOCTL);
-	ioctl(ttyslot(), TIOCSETD, &conf);
+	ioctl(ttyslot(), TIOCSETA, &conf);
 }
 
 void	sigint(int sig)

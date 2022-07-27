@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:33:29 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/26 16:03:42 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 10:54:10 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,20 @@ int	count_args(t_list *pointer)
 	return (count);
 }
 
-char	**get_args(t_list **pointer, t_cmd *cmd)
+char	**get_args(t_list **poin, t_cmd *cmd)
 {
 	int		tab_size;
 	char	**args;
 	int		i;
 	t_lexer	*caster;
 
-	tab_size = count_args(*pointer);
+	tab_size = count_args(*poin);
 	args = malloc(sizeof(char *) * (tab_size + 1));
 	i = 0;
 	caster = NULL;
-	while ((*pointer)
-		&& ((t_lexer *)((*pointer)->content))->token != TOKEN_PIPE)
+	while ((*poin) && ((t_lexer *)((*poin)->content))->token != TOKEN_PIPE)
 	{
-		caster = (t_lexer *)((*pointer)->content);
+		caster = (t_lexer *)((*poin)->content);
 		if (caster->token == TOKEN_TEXT || caster->token == TOKEN_DOLLAR
 			|| caster ->token == TOKEN_DQUOTE || caster->token == TOKEN_SQUOTE)
 		{
@@ -105,7 +104,7 @@ char	**get_args(t_list **pointer, t_cmd *cmd)
 		else if (caster->token == TOKEN_APPEND || caster->token == TOKEN_HEREDOC
 			|| caster->token == TOKEN_INFILE || caster->token == TOKEN_OUTFILE)
 			parse_redirections(caster->token, cmd, caster->text);
-		(*pointer) = (*pointer)->next;
+		(*poin) = (*poin)->next;
 	}
 	args[tab_size] = 0;
 	return (args);

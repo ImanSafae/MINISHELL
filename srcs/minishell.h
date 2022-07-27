@@ -6,7 +6,7 @@
 /*   By: anggonza <anggonza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:51 by anggonza          #+#    #+#             */
-/*   Updated: 2022/07/26 22:54:27 by anggonza         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:10:30 by anggonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,12 @@ int		count_pipes(t_list *list);
 void	parse_redirections(int token, t_cmd *command, char *file);
 void	add_text_to_string(char **str, char *to_append);
 int		count_args(t_list *pointer);
-char	**get_args(t_list **pointer, t_cmd *cmd);
+char	**get_args(t_list **poin, t_cmd *cmd);
 int		at_least_one_command(t_list **lexer_list);
-
+int		incr_split_list_pipes(t_lexer **caster, t_list **tmp,
+			t_cmd **c, int *i);
+void	get_command(t_list **pointer, t_cmd *cmd);
+void	check_error_outfile(t_lexer *c);
 // BUILTINS
 void	ft_unset(char **args);
 void	ft_export(char **args);
@@ -175,6 +178,9 @@ int		check_if_builtin(char *cmd);
 int		check_cmds_list(t_cmd *list, int nb_of_cmds);
 int		check_infile(t_cmd command);
 int		check_outfile(t_cmd command);
+void	exec_builtins_utils(t_cmd command);
+int		check_recur_and_input(int pipefd[2], int nb_of_pipes,
+			int cmd_id, int input);
 
 // UTILS
 void	delete_element_from_list(t_list **previous,
