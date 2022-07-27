@@ -6,7 +6,7 @@
 /*   By: itaouil <itaouil@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 19:45:12 by itaouil           #+#    #+#             */
-/*   Updated: 2022/07/27 14:31:26 by itaouil          ###   ########.fr       */
+/*   Updated: 2022/07/27 14:45:49 by itaouil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	set_global_var(t_list **env, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	g_all.fd_to_close = -1;
 	g_all.env = (*env);
 	g_all.in_command = 0;
 	g_all.prompt = 1;
@@ -46,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 
 	env = create_env(envp);
 	print_white_house();
+	g_all.fd_to_close = -1;
 	while (1)
 	{
 		detect_signals();
